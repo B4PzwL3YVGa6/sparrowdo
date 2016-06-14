@@ -4,7 +4,7 @@
   "description" : "Simple configuration engine based on sparrow plugin system",
   "authors" : [ "Alexey Melezhik"],
   "depends"     : [
-                    "Terminal::ANSIColor",
+                    "Terminal::ANSIColor"
                   ],
   "source-type" : "git",
   "support" : {
@@ -13,6 +13,6 @@
     },
    "provides" : {
         "Sparrowdo" : "lib/Sparrowdo.pm6"
-  }
+  },
   "source-url"  : "https://github.com/melezhik/sparrowdo.git"
 }
