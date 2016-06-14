@@ -34,7 +34,7 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
     EOF
 
 
-    $ sparrowdo --host 192.169.0.1
+    $ sparrowdo --host=192.169.0.1
 
 # AUTHOR
 
