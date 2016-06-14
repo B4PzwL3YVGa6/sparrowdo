@@ -10,9 +10,9 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
 
       use v6;
 
-      use Sparrado;
+      use Sparrowdo;
 
-      say Sparrado.new(
+      say Sparrowdo.new(
         task => 'disk check',
         plugin => 'df-check',
         parameters => {
@@ -20,7 +20,7 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
         }
       ).run;
 
-      say Sparrado.new(
+      say Sparrowdo.new(
         task => 'install app',
         plugin => 'perl-app',
         parameters => {
