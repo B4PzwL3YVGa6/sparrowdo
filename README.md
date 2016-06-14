@@ -6,7 +6,7 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
 # USAGE
 
 
-    $ cat << EOF > sparrowfile.pl6
+    $ cat << EOF > sparrowfile
 
       use v6;
 
