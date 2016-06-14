@@ -3,4 +3,5 @@ use Terminal::ANSIColor;
 sub MAIN (Str :$host!)
 {
   say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
+  run 'perl6', 'sparrowfile';
 }
