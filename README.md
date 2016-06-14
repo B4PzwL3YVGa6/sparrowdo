@@ -12,8 +12,6 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
     
     use Sparrowdo;
     
-    my %a = ( OK => 1);
-    
     task_run  %(
       task => 'check disk available space',
       plugin => 'df-check',
