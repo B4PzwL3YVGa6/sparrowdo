@@ -42,7 +42,7 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
 
 # Home page
 
-[https://github.com/melezhik/sparrow](https://github.com/melezhik/sparrowdo)
+[https://github.com/melezhik/sparrowdo](https://github.com/melezhik/sparrowdo)
 
 # Copyright
 
