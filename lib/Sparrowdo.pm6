@@ -4,8 +4,9 @@ class Sparrowdo {
   has $task;
   has $plugin;
   has $parameters;
-}
 
-method run(){
-  say 'I am ok'
+  method run {
+    say 'I am ok'
+  }
+
 }
