@@ -2,21 +2,19 @@ use v6;
 
 use Sparrowdo;
 
-say Sparrowdo.new(
-  task => 'disk check',
+task_run  %(
+  task => 'check disk available space',
   plugin => 'df-check',
-  parameters => {
-    'threshold' => 70
-  }
-).run;
+  parameters => %( threshold => 80 )
+);
 
-say Sparrowdo.new(
+task_run  %(
   task => 'install app',
   plugin => 'perl-app',
-  parameters => {
+  parameters => %( 
     'app_source_url' => 'https://github.com/melezhik/web-app.git',
     'git_branch' => 'dev',
     'http_port' => 3030
-  }
-).run;
+  )
+);
 

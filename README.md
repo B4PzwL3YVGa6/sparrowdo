@@ -8,28 +8,28 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
 
     $ cat << EOF > sparrowfile
 
-      use v6;
-
-      use Sparrowdo;
-
-      say Sparrowdo.new(
-        task => 'disk check',
-        plugin => 'df-check',
-        parameters => {
-          'threshold' => 70
-        }
-      ).run;
-
-      say Sparrowdo.new(
-        task => 'install app',
-        plugin => 'perl-app',
-        parameters => {
-          'app_source_url' => 'https://github.com/melezhik/web-app.git',
-          'git_branch' => 'dev',
-          'http_port' => 3030
-        }
-      ).run;
-
+    use v6;
+    
+    use Sparrowdo;
+    
+    my %a = ( OK => 1);
+    
+    task_run  %(
+      task => 'check disk available space',
+      plugin => 'df-check',
+      parameters => %( threshold => 80 )
+    );
+    
+    task_run  %(
+      task => 'install app',
+      plugin => 'perl-app',
+      parameters => %( 
+        'app_source_url' => 'https://github.com/melezhik/web-app.git',
+        'git_branch' => 'dev',
+        'http_port' => 3030
+      )
+    );
+    
     EOF
 
 

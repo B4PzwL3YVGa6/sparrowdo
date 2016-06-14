@@ -1,12 +1,11 @@
 use v6;
 
-class Sparrowdo {
-  has $task;
-  has $plugin;
-  has $parameters;
+unit module Sparrowdo;
 
-  method run {
-    say 'I am ok'
-  }
+sub task_run(%args) is export { 
+
+  say 'running task <' ~ %args<task> ~ '> plg <' ~ %args<plugin> ~ '> ';
+  say 'parameters: ' ~ %args<parameters>
 
 }
+ 
