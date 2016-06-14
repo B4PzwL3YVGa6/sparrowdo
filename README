@@ -2,6 +2,9 @@
 
 Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin system.
 
+# build status
+
+[![Build Status](https://travis-ci.org/melezhik/sparrowdo.svg)](https://travis-ci.org/melezhik/sparrowdo)
 
 # USAGE
 
