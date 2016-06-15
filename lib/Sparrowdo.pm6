@@ -3,6 +3,7 @@ use v6;
 unit module Sparrowdo;
 
 use Terminal::ANSIColor;
+
 use JSON::Tiny;
 
 sub task_run(%args) is export { 
@@ -13,15 +14,17 @@ sub task_run(%args) is export {
 
   say %args<parameters>;
 
-  shell 'sudo sparrow index update';
+  my $host = $Sparrowdo::Host;
 
-  shell 'sudo sparrow plg install ' ~ %args<plugin>;
+  ssh_shell 'sparrow index update', $host;
 
-  shell 'sudo sparrow project create sparrowdo';
+  ssh_shell 'sparrow plg install ' ~ %args<plugin>, $host;
+
+  ssh_shell 'sparrow project create sparrowdo', $host;
 
   my $sparrow_task = %args<task>.subst(/\s+/,'_', :g);
 
-  shell 'sudo sparrow task add sparrowdo ' ~ $sparrow_task ~ ' ' ~ %args<plugin> ;
+  ssh_shell  'sparrow task add sparrowdo ' ~ $sparrow_task ~ ' ' ~ %args<plugin>, $host;
 
   my $filename = '/tmp/' ~ $sparrow_task ~ '.json';
   
@@ -30,10 +33,25 @@ sub task_run(%args) is export {
   $fh.say(to-json %args<parameters>);
 
   $fh.close;
-    
-  shell 'sudo sparrow task run sparrowdo ' ~ $sparrow_task ~ ' --json ' ~ $filename
+
+  scp $filename, $host;
+
+  ssh_shell 'sparrow task run sparrowdo ' ~ $sparrow_task ~ ' --json ' ~ $filename, $host;
 
 
 }
  
+
+sub ssh_shell ($cmd, $host) {
+
+  my $ssh_cmd = 'ssh -q -tt ' ~ $host ~ ' sudo ' ~ $cmd;
+
+  shell $ssh_cmd;
+}
+
+sub scp ($file, $host) {
+  
+  shell 'scp ' ~ $file ~ ' ' ~ $host ~ ':/tmp/';
+
+}
 

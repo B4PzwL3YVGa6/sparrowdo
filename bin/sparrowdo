@@ -3,5 +3,6 @@ use Terminal::ANSIColor;
 sub MAIN (Str :$host!)
 {
   say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
+  our $Sparrowdo::Host = $host; # dirty hack, sorry for not handling perl6 so well ));
   EVALFILE "sparrowfile";
 }
