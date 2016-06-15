@@ -1,12 +1,12 @@
-# sparrowdo
+# Sparrowdo
 
 Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin system.
 
-# build status
+# Build status
 
 [![Build Status](https://travis-ci.org/melezhik/sparrowdo.svg)](https://travis-ci.org/melezhik/sparrowdo)
 
-# USAGE
+# Usage
 
 
     $ cat << EOF > sparrowfile
@@ -35,6 +35,56 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
 
 
     $ sparrowdo --host=192.169.0.1
+
+# Schema
+
+      +-----------------+
+      |                 |    ssh
+      |                 |------------> < host-1 > 192.168.0.1
+      | <master host>   |    ssh
+      | {sparrowdo}     |------------------> < host-2 > 192.168.0.2
+      |                 |    ssh 
+      |                 |-----------------------> < host-N > 127.0.0.1
+      |                 |
+      +-----------------+
+
+
+      +-------------+
+      |             |
+      | <host>      |
+      |             |
+      | {sparrow}   | 
+      | {curl}      |
+      |             |
+      +-------------+
+
+## Master host
+
+Master host is the dedicated server where you push sparrow tasks execution on remote hosts.
+
+Sparrowdo client should be installed at master host:
+
+    $ panda install Sparrowdo
+
+Sparrowdo acts over ssh installing sparrow [plugins](https://metacpan.org/pod/Sparrow#Plugins-API), applying configurations and running them as sparrow [tasks](https://metacpan.org/pod/Sparrow#Tasks-API).
+
+A list of available sparrow plugins could be found here - [https://sparrowhub.org](https://sparrowhub.org).
+Only [public](https://metacpan.org/pod/Sparrow#Public-plugins) sparrow plugins are supported for the current version of sparrowdo.
+
+
+## Remote hosts
+
+Remote hosts are configured by running sparrow client on them and executing sparrow tasks.
+
+A Sparrow CPAN module should be installed on remote hosts:
+
+    $ cpanm Sparrow
+
+A minimal none perl dependencies also should be satisfied - `curl`, so sparrow could manage it's index files and
+upload plugins. Eventually I will replace it by proper Perl module to reduce none Perl dependencies, but for now
+it's not a big deal:
+
+    $ yum install curl
 
 # AUTHOR
 
