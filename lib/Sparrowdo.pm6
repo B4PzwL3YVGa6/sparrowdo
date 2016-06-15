@@ -3,6 +3,7 @@ use v6;
 unit module Sparrowdo;
 
 use Terminal::ANSIColor;
+use JSON::Tiny;
 
 sub task_run(%args) is export { 
 
@@ -12,13 +13,27 @@ sub task_run(%args) is export {
 
   say %args<parameters>;
 
-  shell 'sparrow plg install ' ~ %args<plugin>;
+  shell 'sudo sparrow index update';
 
-  shell 'sparrow plg run ' ~ %args<plugin>;
+  shell 'sudo sparrow plg install ' ~ %args<plugin>;
+
+  shell 'sudo sparrow project create sparrowdo';
+
+  my $sparrow_task = %args<task>.subst(/\s+/,'_', :g);
+
+  shell 'sudo sparrow task add sparrowdo ' ~ $sparrow_task ~ ' ' ~ %args<plugin> ;
+
+  my $filename = '/tmp/' ~ $sparrow_task ~ '.json';
+  
+  my $fh = open $filename, :w;
+
+  $fh.say(to-json %args<parameters>);
+
+  $fh.close;
+    
+  shell 'sudo sparrow task run sparrowdo ' ~ $sparrow_task ~ ' --json ' ~ $filename
 
 
 }
  
-# my %a = ("one" => 1, "two" => 2); say %a.keys.sort.map: {my $k = $_; "--params " ~ $k ~ "=" ~ %a<<$k>>} '
-(--params one=1 --params two=2)
 

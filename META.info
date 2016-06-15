@@ -4,7 +4,8 @@
   "description" : "Simple configuration engine based on sparrow plugin system",
   "authors" : [ "Alexey Melezhik"],
   "depends"     : [
-                    "Terminal::ANSIColor"
+                    "Terminal::ANSIColor",
+                    "JSON::Tiny"
                   ],
   "source-type" : "git",
   "support" : {
