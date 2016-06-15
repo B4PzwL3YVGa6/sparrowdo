@@ -68,7 +68,7 @@ Sparrowdo client should be installed at master host:
 
 Sparrowdo acts over ssh installing sparrow [plugins](https://metacpan.org/pod/Sparrow#Plugins-API), applying configurations and running them as sparrow [tasks](https://metacpan.org/pod/Sparrow#Tasks-API).
 
-A list of available sparrow plugins could be found here - [https://sparrowhub.org](https://sparrowhub.org).
+A list of available sparrow plugins could be found here - [https://sparrowhub.org/search](https://sparrowhub.org/search).
 Only [public](https://metacpan.org/pod/Sparrow#Public-plugins) sparrow plugins are supported for the current version of sparrowdo.
 
 
@@ -85,6 +85,17 @@ upload plugins. Eventually I will replace it by proper Perl module to reduce non
 it's not a big deal:
 
     $ yum install curl
+
+# SSH setup
+
+An assumption made that user you run `sparrowdo` under on master host has:
+
+* ssh passwordless access to remote hosts
+* sudo rights on remote host
+
+Eventually I will make user/ssh related stuff configurable so one could run sparrowdo with various ssh configurations and
+users.
+
 
 # AUTHOR
 
