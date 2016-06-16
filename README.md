@@ -35,9 +35,10 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
 
     $ sparrowdo --host=192.168.0.1
 
-# Some screenshots ... :smile:  ...
+# Screencast! ... :smile:  ...
 
-[![Sparrowdo screenshot](https://raw.githubusercontent.com/melezhik/sparrowdo/master/sparrowdo.png)](https://raw.githubusercontent.com/melezhik/sparrowdo/master/sparrowdo.png)
+[![asciicast](https://asciinema.org/a/49078.png)](https://asciinema.org/a/49078)
+
 
 # Schema
 
