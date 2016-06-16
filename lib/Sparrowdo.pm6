@@ -45,7 +45,13 @@ sub task_run(%args) is export {
 sub ssh_shell ( $cmd, $host ) {
 
 
-  my $ssh_cmd = 'ssh -q -tt ' ~ $host ~ ' sudo ' ~ $cmd;
+  my @bash_commands = ();
+
+  @bash_commands.push:  'export http_proxy=' ~ $Sparrowdo::HttpProxy if $Sparrowdo::HttpProxy;
+  @bash_commands.push:  'export https_proxy=' ~ $Sparrowdo::HttpsProxy if $Sparrowdo::HttpsProxy;
+  @bash_commands.push:  $cmd;
+
+  my $ssh_cmd = 'ssh -q -tt ' ~ $host ~ " sudo bash -c '" ~ ( join ' ; ', @bash_commands ) ~ "'";
 
   say colored($ssh_cmd, 'green') if $Sparrowdo::Verbose;
 

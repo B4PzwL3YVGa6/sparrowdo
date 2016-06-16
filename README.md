@@ -96,6 +96,21 @@ An assumption made that user you run `sparrowdo` under on master host has:
 Eventually I will make user/ssh related stuff configurable so one could run sparrowdo with various ssh configurations and
 users.
 
+# Sparrowdo client options
+
+## --http\_proxy
+
+Sets http proxy
+
+## --https\_proxy
+
+Sets https proxy
+
+
+## --verbose
+
+Sets verbose mode ( low level information will be printed at console )
+
 
 # AUTHOR
 
