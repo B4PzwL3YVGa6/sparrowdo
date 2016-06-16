@@ -34,7 +34,7 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
     EOF
 
 
-    $ sparrowdo --host=192.169.0.1
+    $ sparrowdo --host=192.168.0.1
 
 # Schema
 
@@ -76,7 +76,7 @@ Only [public](https://metacpan.org/pod/Sparrow#Public-plugins) sparrow plugins a
 
 Remote hosts are configured by running sparrow client on them and executing sparrow tasks.
 
-A Sparrow CPAN module should be installed on remote hosts:
+A Sparrow CPAN module, version >= 0.1.8 should be installed on remote hosts:
 
     $ cpanm Sparrow
 
@@ -90,8 +90,8 @@ it's not a big deal:
 
 An assumption made that user you run `sparrowdo` under on master host has:
 
-* ssh pass wordless access to remote hosts
-* sudo rights on remote host
+* ssh passwordless access to remote hosts
+* sudo (passwordless?) rights on remote host
 
 Eventually I will make user/ssh related stuff configurable so one could run sparrowdo with various ssh configurations and
 users.
@@ -100,7 +100,7 @@ users.
 
 ## --help
 
-Print brief usage info.
+Prints brief usage info.
 
 ## --http\_proxy
 

@@ -90,8 +90,8 @@ it's not a big deal:
 
 An assumption made that user you run `sparrowdo` under on master host has:
 
-* ssh pass wordless access to remote hosts
-* sudo rights on remote host
+* ssh passwordless access to remote hosts
+* sudo (passwordless?) rights on remote host
 
 Eventually I will make user/ssh related stuff configurable so one could run sparrowdo with various ssh configurations and
 users.
@@ -100,7 +100,7 @@ users.
 
 ## --help
 
-Print brief usage info.
+Prints brief usage info.
 
 ## --http\_proxy
 
