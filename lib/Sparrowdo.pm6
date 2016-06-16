@@ -42,9 +42,12 @@ sub task_run(%args) is export {
 }
  
 
-sub ssh_shell ($cmd, $host) {
+sub ssh_shell ( $cmd, $host ) {
+
 
   my $ssh_cmd = 'ssh -q -tt ' ~ $host ~ ' sudo ' ~ $cmd;
+
+  say colored($ssh_cmd, 'green') if $Sparrowdo::Verbose;
 
   shell $ssh_cmd;
 }

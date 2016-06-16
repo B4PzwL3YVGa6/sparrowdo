@@ -1,8 +1,15 @@
 use Terminal::ANSIColor;
 
-sub MAIN (Str :$host!)
+sub MAIN (Str :$host!, Str :$http_proxy, Str :$https_proxy , Bool :$verbose = False  )
 {
   say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
-  our $Sparrowdo::Host = $host; # dirty hack, sorry for not handling perl6 so well ));
+
+  # dirty hacks to pass command line parameter into sparrofile context
+  # sorry for not knowing perl6 idioms ... ));
+  our $Sparrowdo::Host = $host; 
+  our $Sparrowdo::HttpProxy = $http_proxy; 
+  our $Sparrowdo::HttpsProxy = $https_proxy; 
+  our $Sparrowdo::Verbose = $verbose; 
+
   EVALFILE "sparrowfile";
 }
