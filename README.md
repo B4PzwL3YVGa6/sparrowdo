@@ -34,7 +34,7 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
     EOF
 
 
-    $ sparrowdo --host=192.169.0.1
+    $ sparrowdo --host=192.168.0.1
 
 # Schema
 
@@ -76,11 +76,11 @@ Only [public](https://metacpan.org/pod/Sparrow#Public-plugins) sparrow plugins a
 
 Remote hosts are configured by running sparrow client on them and executing sparrow tasks.
 
-A Sparrow CPAN module should be installed on remote hosts:
+A Sparrow CPAN module, version >= 0.1.8 should be installed on remote hosts:
 
     $ cpanm Sparrow
 
-A minimal none perl dependencies also should be satisfied - `curl`, so sparrow could manage it's index files and
+A minimal none Perl dependencies also should be satisfied - `curl`, so sparrow could manage it's index files and
 upload plugins. Eventually I will replace it by proper Perl module to reduce none Perl dependencies, but for now
 it's not a big deal:
 
@@ -90,26 +90,30 @@ it's not a big deal:
 
 An assumption made that user you run `sparrowdo` under on master host has:
 
-* ssh passwordless access to remote hosts
+* ssh pass wordless access to remote hosts
 * sudo rights on remote host
 
 Eventually I will make user/ssh related stuff configurable so one could run sparrowdo with various ssh configurations and
 users.
 
-# Sparrowdo client options
+# Sparrowdo client command line parameters
+
+## --help
+
+Print brief usage info.
 
 ## --http\_proxy
 
-Sets http proxy
+Sets http\_proxy environment variable on remote host.
 
 ## --https\_proxy
 
-Sets https proxy
+Sets https\_proxy environment variable on remote host.
 
 
 ## --verbose
 
-Sets verbose mode ( low level information will be printed at console )
+Sets verbose mode ( low level information will be printed at console ).
 
 ## --skip\_index\_update
 
@@ -133,11 +137,11 @@ This program is free software; you can redistribute it and/or modify it under th
 
 # See also
 
-* [Sparrow](https://metacpan.org/pod/Sparrow) - Multipurposes scenarios manager.
+* [Sparrow](https://metacpan.org/pod/Sparrow) - Multipurpose scenarios manager.
 
 * [SparrowHub](https://sparrowhub.org) - Central repository of sparrow plugins.
 
-* [Outthentic](https://metacpan.org/pod/Outthentic) - Multipurposes scenarios devkit.
+* [Outthentic](https://metacpan.org/pod/Outthentic) - Multipurpose scenarios devkit.
 
 # Thanks
 
