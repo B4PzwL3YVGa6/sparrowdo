@@ -6,28 +6,20 @@ sub MAIN (
   Str :$https_proxy, 
   Bool :$verbose = False, 
   Bool :$skip_index_update = False,
-  Bool :$help = False  
 )
 {
 
-  if ($help) {
-
-    say 'usage: sparrowdo --host={host} options';
-    say "options: --help|--http_proxy|https_proxy|--verbose|--skip_index_update";
-
-  } else {
-
-    say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
+  say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
   
-    # dirty hacks to pass command line parameter into sparrofile context
-    # sorry for not knowing perl6 idioms ... ));
+  # dirty hacks to pass command line parameter into sparrofile context
+  # sorry for not knowing perl6 idioms ... ));
   
-    our $Sparrowdo::Host = $host; 
-    our $Sparrowdo::HttpProxy = $http_proxy; 
-    our $Sparrowdo::HttpsProxy = $https_proxy; 
-    our $Sparrowdo::Verbose = $verbose; 
-    our $Sparrowdo::SkipIndexUpdate = $skip_index_update; 
+  our $Sparrowdo::Host = $host; 
+  our $Sparrowdo::HttpProxy = $http_proxy; 
+  our $Sparrowdo::HttpsProxy = $https_proxy; 
+  our $Sparrowdo::Verbose = $verbose; 
+  our $Sparrowdo::SkipIndexUpdate = $skip_index_update; 
   
-    EVALFILE "sparrowfile";
-  }
+  EVALFILE "sparrowfile";
+  
 }
