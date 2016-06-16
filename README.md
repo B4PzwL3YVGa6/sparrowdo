@@ -111,6 +111,11 @@ Sets https proxy
 
 Sets verbose mode ( low level information will be printed at console )
 
+## --skip\_index\_update
+
+Do not call `sparrow index update` on remote host ( this command might be omitted if you want to speed up your deploys  as
+this command could be time consuming ). See also [sparrow index update](https://metacpan.org/pod/Sparrow#Index-API) command reference.
+
 
 # AUTHOR
 
