@@ -18,6 +18,8 @@ sub task_run(%args) is export {
 
   ssh_shell 'sparrow index update', $host unless $Sparrowdo::SkipIndexUpdate;
 
+  ssh_shell 'sparrow project remove sparrowdo', $host;
+
   ssh_shell 'sparrow plg install ' ~ %args<plugin>, $host;
 
   ssh_shell 'sparrow project create sparrowdo', $host;
