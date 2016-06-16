@@ -10,12 +10,12 @@ sub MAIN (
 )
 {
 
-  if ($help){
+  if ($help) {
 
-    say "usage: sparrowdo --host={host} options";
-    say "options: --help|--http_proxy|https_proxy|--verbose|--skip_index_update"
+    say 'usage: sparrowdo --host={host} options';
+    say "options: --help|--http_proxy|https_proxy|--verbose|--skip_index_update";
 
-  }else{
+  } else {
 
     say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
   
