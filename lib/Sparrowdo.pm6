@@ -51,9 +51,9 @@ sub ssh_shell ( $cmd, $host ) {
   @bash_commands.push:  'export https_proxy=' ~ $Sparrowdo::HttpsProxy if $Sparrowdo::HttpsProxy;
   @bash_commands.push:  $cmd;
 
-  my $ssh_cmd = 'ssh -q -tt ' ~ $host ~ " sudo bash -c '" ~ ( join ' ; ', @bash_commands ) ~ "'";
+  my $ssh_cmd = 'ssh -q -tt ' ~ $host ~ " ' sudo bash -c \"" ~ ( join ' ; ', @bash_commands ) ~ "\"'";
 
-  say colored($ssh_cmd, 'green') if $Sparrowdo::Verbose;
+  say colored($ssh_cmd, 'bold green') if $Sparrowdo::Verbose;
 
   shell $ssh_cmd;
 }
