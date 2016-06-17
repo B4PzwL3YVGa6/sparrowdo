@@ -90,9 +90,9 @@ it's not a big deal:
 
     $ yum install curl
 
-# SSH setup
+# SSH/User setup
 
-An assumption made that user you run `sparrowdo` under on master host has:
+An assumption made that ssh user you run `sparrowdo` with ( see --ssh_user command line parameter also ):
 
 * ssh passwordless access to remote hosts
 * sudo (passwordless?) rights on remote host
@@ -114,6 +114,13 @@ Sets http\_proxy environment variable on remote host.
 
 Sets https\_proxy environment variable on remote host.
 
+## --ssh\_user
+
+Sets user for ssh connection to remote host.
+
+## --ssh\_port
+
+Sets shh port for ssh connection to remote host. Default value is `22`.
 
 ## --verbose
 
