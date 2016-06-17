@@ -6,6 +6,9 @@ use Terminal::ANSIColor;
 
 use JSON::Tiny;
 
+my $cleanup_state =  False;
+my $index_update =  False;
+
 sub task_run(%args) is export { 
 
   say colored('running task <' ~ %args<task> ~ '> plg <' ~ %args<plugin> ~ '> ', 'bold green on_blue');
@@ -14,9 +17,16 @@ sub task_run(%args) is export {
 
   say %args<parameters>;
 
-  ssh_shell 'sparrow index update' unless $Sparrowdo::SkipIndexUpdate;
+  if $index_update == False and ! $Sparrowdo::SkipIndexUpdate  {
+    ssh_shell 'sparrow index update';
+    $index_update = True;
+  }
 
-  ssh_shell 'sparrow project remove sparrowdo';
+
+  if $cleanup_state == False  {
+    ssh_shell 'sparrow project remove sparrowdo';
+    $cleanup_state = True;
+  }
 
   ssh_shell 'sparrow plg install ' ~ %args<plugin>;
 
