@@ -33,8 +33,12 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
     
     EOF
 
-
     $ sparrowdo --host=192.168.0.1
+
+# Screencast! ... :smile:  ...
+
+[![asciicast](https://asciinema.org/a/49078.png)](https://asciinema.org/a/49078)
+
 
 # Schema
 
@@ -76,7 +80,7 @@ Only [public](https://metacpan.org/pod/Sparrow#Public-plugins) sparrow plugins a
 
 Remote hosts are configured by running sparrow client on them and executing sparrow tasks.
 
-A Sparrow CPAN module, version >= 0.1.8 should be installed on remote hosts:
+A Sparrow CPAN module, version >= 0.1.9 should be installed on remote hosts:
 
     $ cpanm Sparrow
 
@@ -86,15 +90,49 @@ it's not a big deal:
 
     $ yum install curl
 
-# SSH setup
+# SSH/User setup
 
-An assumption made that user you run `sparrowdo` under on master host has:
+An assumption made that ssh user you run `sparrowdo` with ( see --ssh_user command line parameter also ):
 
 * ssh passwordless access to remote hosts
 * sudo (passwordless?) rights on remote host
 
 Eventually I will make user/ssh related stuff configurable so one could run sparrowdo with various ssh configurations and
 users.
+
+# Advanced usage
+
+## Running tasks with private plugins
+
+You should use `set_spl(%hash)` function to set up priviate plugin index file:
+
+
+    $ cat sparrowfile
+
+    use v6;
+    
+    use Sparrowdo;
+    
+    use v6;
+    
+    use Sparrowdo;
+    
+    set_spl %(
+        package-generic-dev => 'https://github.com/melezhik/package-generic.git'
+        df-check-dev => 'https://github.com/melezhik/df-check.git'
+    );
+    
+    task_run  %(
+      task => 'install my packages',
+      plugin => 'package-generic-dev',
+      parameters => %( list => 'cpanminus git-core' )
+    );
+
+    task_run  %(
+      task => 'check my disk',
+      plugin => 'df-check-dev'
+    );
+    
 
 # Sparrowdo client command line parameters
 
@@ -110,6 +148,13 @@ Sets http\_proxy environment variable on remote host.
 
 Sets https\_proxy environment variable on remote host.
 
+## --ssh\_user
+
+Sets user for ssh connection to remote host.
+
+## --ssh\_port
+
+Sets shh port for ssh connection to remote host. Default value is `22`.
 
 ## --verbose
 

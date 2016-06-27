@@ -9,6 +9,26 @@ use JSON::Tiny;
 my $cleanup_state =  False;
 my $index_update =  False;
 
+sub set_spl(%args) is export { 
+
+  say colored('setup sparrow private plugin list', 'bold green on_blue');
+
+  my $filename = '/tmp/sparrow.list';
+
+  my $fh = open $filename, :w;
+
+  for %args.kv -> $plg, $source {
+    $fh.say($plg ~ ' ' ~ $source);
+    say colored($plg ~ ' from ' ~ $source , 'bold black on_yellow') 
+    if $Sparrowdo::Verbose;
+  }
+
+  scp $filename, '~';
+
+  $fh.close;
+
+}
+
 sub task_run(%args) is export { 
 
   say colored('running task <' ~ %args<task> ~ '> plg <' ~ %args<plugin> ~ '> ', 'bold green on_blue');
@@ -43,7 +63,7 @@ sub task_run(%args) is export {
 
   $fh.close;
 
-  scp $filename;
+  scp $filename, '/tmp/';
 
   ssh_shell 'sparrow task run sparrowdo ' ~ $sparrow_task ~ ' --json ' ~ $filename;
 
@@ -72,7 +92,7 @@ sub ssh_shell ( $cmd ) {
 
 }
 
-sub scp ( $file ) {
+sub scp ( $file, $dest ) {
 
   my $ssh_host_term = $Sparrowdo::Host;
 
@@ -81,8 +101,12 @@ sub scp ( $file ) {
   my $scp_params = '-P' ~ $Sparrowdo::SshPort;
 
   $scp_params ~= ' -q'  unless $Sparrowdo::Verbose;
-  
-  shell 'scp '~ $scp_params ~ ' ' ~ $file ~ ' ' ~ $ssh_host_term ~ ':/tmp/';
+
+  my $scp_command = 'scp '~ $scp_params ~ ' ' ~ $file ~ ' ' ~ $ssh_host_term ~ ':' ~ $dest;
+
+  say colored($scp_command, 'bold green') if $Sparrowdo::Verbose;
+
+  shell $scp_command;
 
 }
 

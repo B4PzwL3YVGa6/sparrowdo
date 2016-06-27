@@ -100,6 +100,40 @@ An assumption made that ssh user you run `sparrowdo` with ( see --ssh_user comma
 Eventually I will make user/ssh related stuff configurable so one could run sparrowdo with various ssh configurations and
 users.
 
+# Advanced usage
+
+## Running tasks with private plugins
+
+You should use `set_spl(%hash)` function to set up priviate plugin index file:
+
+
+    $ cat sparrowfile
+
+    use v6;
+    
+    use Sparrowdo;
+    
+    use v6;
+    
+    use Sparrowdo;
+    
+    set_spl %(
+        package-generic-dev => 'https://github.com/melezhik/package-generic.git'
+        df-check-dev => 'https://github.com/melezhik/df-check.git'
+    );
+    
+    task_run  %(
+      task => 'install my packages',
+      plugin => 'package-generic-dev',
+      parameters => %( list => 'cpanminus git-core' )
+    );
+
+    task_run  %(
+      task => 'check my disk',
+      plugin => 'df-check-dev'
+    );
+    
+
 # Sparrowdo client command line parameters
 
 ## --help
