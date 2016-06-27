@@ -78,6 +78,7 @@ sub ssh_shell ( $cmd ) {
 
   @bash_commands.push:  'export http_proxy=' ~ $Sparrowdo::HttpProxy if $Sparrowdo::HttpProxy;
   @bash_commands.push:  'export https_proxy=' ~ $Sparrowdo::HttpsProxy if $Sparrowdo::HttpsProxy;
+  @bash_commands.push:  'export PATH=/usr/local/bin:$PATH';
   @bash_commands.push:  $cmd;
 
   my $ssh_host_term = $Sparrowdo::Host;
