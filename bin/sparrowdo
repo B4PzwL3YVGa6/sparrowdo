@@ -13,7 +13,7 @@ sub MAIN (
 
   say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
   
-  # dirty hacks to pass command line parameter into sparrofile context
+  # dirty hacks to pass command line parameter into sparrowfile context
   # sorry for not knowing perl6 idioms ... ));
   
   our $Sparrowdo::Host = $host; 
