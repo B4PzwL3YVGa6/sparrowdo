@@ -13,28 +13,27 @@ sub task_run(%args) is export {
 
   say colored('running task <' ~ %args<task> ~ '> plg <' ~ %args<plugin> ~ '> ', 'bold green on_blue');
 
-  say 'parameters:';
-
-  say %args<parameters>;
+  say 'parameters: ' , %args<parameters>;
 
   if $index_update == False and ! $Sparrowdo::SkipIndexUpdate  {
-    ssh_shell 'sparrow index update';
+    ssh_shell $Sparrowdo::Verbose ?? 'sparrow index update' !! 'sparrow index update 1>/dev/null';
     $index_update = True;
   }
 
 
   if $cleanup_state == False  {
-    ssh_shell 'sparrow project remove sparrowdo';
+    ssh_shell $Sparrowdo::Verbose ?? 'sparrow project remove sparrowdo' !! 'sparrow project remove sparrowdo 1>/dev/null';
     $cleanup_state = True;
   }
 
-  ssh_shell 'sparrow plg install ' ~ %args<plugin>;
+  ssh_shell $Sparrowdo::Verbose ?? 'sparrow plg install ' ~ %args<plugin> !! 'sparrow plg install ' ~ %args<plugin> ~ ' 1>/dev/null';
 
-  ssh_shell 'sparrow project create sparrowdo';
+  ssh_shell $Sparrowdo::Verbose ?? 'sparrow project create sparrowdo' !! 'sparrow project create sparrowdo 1>/dev/null';
 
   my $sparrow_task = %args<task>.subst(/\s+/,'_', :g);
 
-  ssh_shell  'sparrow task add sparrowdo ' ~ $sparrow_task ~ ' ' ~ %args<plugin>;
+  ssh_shell  $Sparrowdo::Verbose ?? 'sparrow task add sparrowdo ' ~ $sparrow_task ~ ' ' ~ %args<plugin> !! 
+  'sparrow task add sparrowdo ' ~ $sparrow_task ~ ' ' ~ %args<plugin> ~ ' 1>/dev/null';
 
   my $filename = '/tmp/' ~ $sparrow_task ~ '.json';
   
@@ -70,6 +69,7 @@ sub ssh_shell ( $cmd ) {
   say colored($ssh_cmd, 'bold green') if $Sparrowdo::Verbose;
 
   shell $ssh_cmd;
+
 }
 
 sub scp ( $file ) {
@@ -77,8 +77,12 @@ sub scp ( $file ) {
   my $ssh_host_term = $Sparrowdo::Host;
 
   $ssh_host_term = $Sparrowdo::SshUser ~ '@' ~ $ssh_host_term if $Sparrowdo::SshUser;
+
+  my $scp_params = '-P' ~ $Sparrowdo::SshPort;
+
+  $scp_params ~= ' -q'  unless $Sparrowdo::Verbose;
   
-  shell 'scp -P ' ~ $Sparrowdo::SshPort ~ ' ' ~ $file ~ ' ' ~ $ssh_host_term ~ ':/tmp/';
+  shell 'scp '~ $scp_params ~ ' ' ~ $file ~ ' ' ~ $ssh_host_term ~ ':/tmp/';
 
 }
 
