@@ -45,6 +45,7 @@ sub task_run(%args) is export {
 
   if $cleanup_state == False  {
     ssh_shell $Sparrowdo::Verbose ?? 'sparrow project remove sparrowdo' !! 'sparrow project remove sparrowdo 1>/dev/null';
+    ssh_shell $Sparrowdo::Verbose ?? 'rm -rf /opt/sparrow/tmp' !! 'rm -rf /opt/sparrow/tmp 1>/dev/null';
     $cleanup_state = True;
   }
 
