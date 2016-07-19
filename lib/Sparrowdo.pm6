@@ -9,6 +9,15 @@ use JSON::Tiny;
 my $cleanup_state =  False;
 my $index_update =  False;
 
+sub bootstrap is export {
+
+  say colored('running Sparrow bootstrap on ' ~ $Sparrowdo::Host, 'green on_red');
+  ssh_shell 'if ! which cpanm 2>/dev/null; then curl -kL http://cpanmin.us/ -o /bin/cpanm; chmod a+x /bin/cpanm; fi';
+  ssh_shell 'if ! which sparrow 2>/dev/null; then cpanm -q Sparrow; fi';
+
+}
+
+
 sub set_spl(%args) is export { 
 
   say colored('setup sparrow private plugin list', 'bold green on_blue');

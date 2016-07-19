@@ -8,10 +8,10 @@ sub MAIN (
   Int  :$ssh_port = 22, 
   Bool :$verbose = False, 
   Bool :$skip_index_update = False,
+  Bool :$bootstrap = False, 
 )
 {
 
-  say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
   
   # dirty hacks to pass command line parameter into sparrowfile context
   # sorry for not knowing perl6 idioms ... ));
@@ -23,6 +23,14 @@ sub MAIN (
   our $Sparrowdo::SshUser = $ssh_user; 
   our $Sparrowdo::Verbose = $verbose; 
   our $Sparrowdo::SkipIndexUpdate = $skip_index_update; 
+
+  if $bootstrap {
+    use v6;
+    use Sparrowdo;
+    bootstrap();
+  } 
+
+  say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
   
   EVALFILE "sparrowfile";
   

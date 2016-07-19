@@ -166,6 +166,14 @@ Do not call `sparrow index update` on remote host ( this command might be omitte
 this command could be time consuming ). See also [sparrow index update](https://metacpan.org/pod/Sparrow#Index-API) command reference.
 
 
+# Bootstrapping 
+
+One may use `bootstrap` mode to install Sparrow on target host first:
+
+    $ sparrowdo --host=192.168.0.0.1 --bootstrap
+
+Currently only CentOS platform is supported for bootstrap operation. 
+
 # AUTHOR
 
 [Aleksei Melezhik](mailto:melezhik@gmail.com)
