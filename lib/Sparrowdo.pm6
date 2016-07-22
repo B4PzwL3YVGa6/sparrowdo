@@ -102,7 +102,7 @@ sub ssh_shell ( $cmd ) {
   $ssh_cmd ~= ' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -q -tt';
   $ssh_cmd ~= ' -p ' ~ $Sparrowdo::SshPort ~ ' ' ~ $ssh_host_term;
   
-  $ssh_cmd ~= " \" sudo bash -c '" ~ ( join ' ; ', @bash_commands ) ~ "'\"";
+  $ssh_cmd ~= " \"sudo bash -c '" ~ ( join ' ; ', @bash_commands ) ~ "'\"";
 
   say colored($ssh_cmd, 'bold green') if $Sparrowdo::Verbose;
 
