@@ -98,8 +98,12 @@ sub ssh_shell ( $cmd ) {
 
   $ssh_host_term = $Sparrowdo::SshUser ~ '@' ~ $ssh_host_term if $Sparrowdo::SshUser;
 
-  my $ssh_cmd = 'ssh -q -tt -p ' ~ $Sparrowdo::SshPort ~ ' ' ~ $ssh_host_term ~ " ' sudo bash -c \"" ~ ( join ' ; ', @bash_commands ) ~ "\"'";
+  my $ssh_cmd  =  'ssh -o ConnectionAttempts=3  -o ConnectTimeout=10'; 
+  $ssh_cmd ~= ' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -q -tt';
+  $ssh_cmd ~= ' -p ' ~ $Sparrowdo::SshPort ~ ' ' ~ $ssh_host_term;
   
+  $ssh_cmd ~= " \" sudo bash -c '" ~ ( join ' ; ', @bash_commands ) ~ "'\"";
+
   say colored($ssh_cmd, 'bold green') if $Sparrowdo::Verbose;
 
   shell $ssh_cmd;
@@ -116,7 +120,7 @@ sub scp ( $file, $dest ) {
 
   $scp_params ~= ' -q'  unless $Sparrowdo::Verbose;
 
-  my $scp_command = 'scp '~ $scp_params ~ ' ' ~ $file ~ ' ' ~ $ssh_host_term ~ ':' ~ $dest;
+  my $scp_command = 'scp -o ConnectionAttempts=3 -o ConnectTimeout=10 '~ $scp_params ~ ' ' ~ $file ~ ' ' ~ $ssh_host_term ~ ':' ~ $dest;
 
   say colored($scp_command, 'bold green') if $Sparrowdo::Verbose;
 
