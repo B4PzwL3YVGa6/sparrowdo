@@ -99,7 +99,11 @@ sub ssh_shell ( $cmd ) {
   $ssh_host_term = $Sparrowdo::SshUser ~ '@' ~ $ssh_host_term if $Sparrowdo::SshUser;
 
   my $ssh_cmd  =  'ssh -o ConnectionAttempts=1  -o ConnectTimeout=5'; 
-  $ssh_cmd ~= ' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -q -tt';
+
+  $ssh_cmd ~= ' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -tt';
+
+  $ssh_cmd ~= ' -q' unless $Sparrowdo::Verbose;
+
   $ssh_cmd ~= ' -p ' ~ $Sparrowdo::SshPort ~ ' ' ~ $ssh_host_term;
   
   $ssh_cmd ~= " \"sudo bash -c '" ~ ( join ' ; ', @bash_commands ) ~ "'\"";
