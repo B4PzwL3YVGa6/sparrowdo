@@ -118,7 +118,7 @@ You should use `set_spl(%hash)` function to set up priviate plugin index file:
     use Sparrowdo;
     
     set_spl %(
-        package-generic-dev => 'https://github.com/melezhik/package-generic.git'
+        package-generic-dev => 'https://github.com/melezhik/package-generic.git',
         df-check-dev => 'https://github.com/melezhik/df-check.git'
     );
     
@@ -159,11 +159,6 @@ Sets shh port for ssh connection to remote host. Default value is `22`.
 ## --verbose
 
 Sets verbose mode ( low level information will be printed at console ).
-
-## --skip\_index\_update
-
-Do not call `sparrow index update` on remote host ( this command might be omitted if you want to speed up your deploys  as
-this command could be time consuming ). See also [sparrow index update](https://metacpan.org/pod/Sparrow#Index-API) command reference.
 
 
 # Bootstrapping 

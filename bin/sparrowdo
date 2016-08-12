@@ -27,11 +27,7 @@ sub MAIN (
   our @Sparrowdo::SPL = Array.new;
 
 
-  if $bootstrap {
-    use v6;
-    use Sparrowdo;
-    bootstrap();
-  } 
+  bootstrap() if $bootstrap;
 
   say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
 
@@ -54,9 +50,14 @@ sub MAIN (
 
     say colored('set up sparrow private plugin list OK', 'bold green on_blue');
 
+    ssh_shell 'sparrow index update';
+
+    say colored('update sparrow index OK', 'bold green on_blue');
+
+
   }
 
-
+  ssh_shell 'sparrow box run /tmp/sparrowdo-box.json';
 
 }
 
