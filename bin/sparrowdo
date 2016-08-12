@@ -38,15 +38,25 @@ sub MAIN (
 
   scp '/tmp/sparrowdo-box.json', '/tmp/';
 
-  say colored('set up task box file - /tmp/sparrowdo-box.json - OK', 'bold green on_yellow');
+  say colored('set up task box file - /tmp/sparrowdo-box.json - OK', 'bold green on_blue');
 
 
   if @Sparrowdo::SPL {
 
+
+    if $Sparrowdo::Verbose {
+
+      say colored( 'puplating SPL file', 'bold yellow on_cyan' );
+
+      for @Sparrowdo::SPL.kv -> $index, $item { 
+        say colored($index ~ '. ' ~ $item , 'bold yellow on_cyan');
+      }
+    }
+
     spurt '/tmp/sparrow.list', @Sparrowdo::SPL.join: "\n";
     scp '/tmp/sparrow.list', '/tmp/';
     ssh_shell 'mkdir -p /opt/sparrow && mv  /tmp/sparrow.list /opt/sparrow';
-    say colored('set up sparrow private plugin list - /opt/sparrow/sparrow.list - OK', 'bold green on_blue');
+    say colored('copied SPL file as /opt/sparrow/sparrow.list - OK', 'bold green on_blue');
 
   }
 
