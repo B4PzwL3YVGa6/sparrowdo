@@ -44,9 +44,9 @@ sub MAIN (
   if @Sparrowdo::SPL {
 
     spurt '/tmp/sparrow.list', @Sparrowdo::SPL.join: "\n";
-    scp '/tmp/sparrowdo-box.json', '/tmp/sparrow.list';
+    scp '/tmp/sparrow.list', '/tmp/';
     ssh_shell 'mkdir -p /opt/sparrow && mv  /tmp/sparrow.list /opt/sparrow';
-    say colored('set up sparrow private plugin list OK', 'bold green on_blue');
+    say colored('set up sparrow private plugin list - /opt/sparrow/sparrow.list - OK', 'bold green on_blue');
 
   }
 
