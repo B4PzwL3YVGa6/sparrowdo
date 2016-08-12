@@ -31,7 +31,6 @@ sub MAIN (
 
   say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
 
-
   EVALFILE "sparrowfile";
 
   spurt '/tmp/sparrowdo-box.json', (to-json @Sparrowdo::Tasks);
@@ -49,7 +48,7 @@ sub MAIN (
       say colored( 'puplating SPL file', 'bold yellow on_cyan' );
 
       for @Sparrowdo::SPL.kv -> $index, $item { 
-        say colored($index ~ '. ' ~ $item , 'bold yellow on_cyan');
+        say colored(($index+1) ~ '. ' ~ $item , 'bold yellow on_cyan');
       }
     }
 
