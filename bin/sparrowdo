@@ -43,20 +43,14 @@ sub MAIN (
 
   if @Sparrowdo::SPL {
 
-  
     spurt '/tmp/sparrow.list', @Sparrowdo::SPL.join: "\n";
-
+    scp '/tmp/sparrowdo-box.json', '/tmp/sparrow.list';
     ssh_shell 'mkdir -p /opt/sparrow && mv  /tmp/sparrow.list /opt/sparrow';
-
     say colored('set up sparrow private plugin list OK', 'bold green on_blue');
-
-    ssh_shell 'sparrow index update';
-
-    say colored('update sparrow index OK', 'bold green on_blue');
-
 
   }
 
+  ssh_shell 'sparrow index update';
   ssh_shell 'sparrow box run /tmp/sparrowdo-box.json';
 
 }
@@ -116,7 +110,7 @@ sub bootstrap {
 
   say colored('running Sparrow bootstrap on ' ~ $Sparrowdo::Host, 'green on_red');
   ssh_shell 'if ! which cpanm 2>/dev/null; then curl -kL http://cpanmin.us/ -o /bin/cpanm; chmod a+x /bin/cpanm; fi';
-  ssh_shell 'if ! which sparrow 2>/dev/null; then yum -y install perl-ExtUtils-MakeMaker perl-Hash-Merge; cpanm -q Sparrow';
+  ssh_shell 'if ! which sparrow 2>/dev/null; then yum -y install perl-ExtUtils-MakeMaker perl-Hash-Merge; cpanm -q Sparrow; fi';
   ssh_shell 'cpanm -q Sparrow || cpanm -q Sparrow'; # forcefully upgrade sparrow
 
 }
