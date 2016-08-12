@@ -9,7 +9,7 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
 # Usage
 
 
-    $ cat << EOF > sparrowfile
+    $ cat sparrowfile
 
     use v6;
     
@@ -113,10 +113,6 @@ You should use `set_spl(%hash)` function to set up priviate plugin index file:
     
     use Sparrowdo;
     
-    use v6;
-    
-    use Sparrowdo;
-    
     set_spl %(
         package-generic-dev => 'https://github.com/melezhik/package-generic.git',
         df-check-dev => 'https://github.com/melezhik/df-check.git'
@@ -168,6 +164,71 @@ One may use `bootstrap` mode to install Sparrow on target host first:
     $ sparrowdo --host=192.168.0.0.1 --bootstrap
 
 Currently only CentOS platform is supported for bootstrap operation. 
+
+# Sparrowdo modules
+
+Sparrowdo modules are collection of sparrow tasks. They are very similar to sparrow task boxes,
+with some differences though:
+
+* They are Perl6 modules.
+
+* They deal with sparrowdo tasks ( relying on sparrowdo API ) rather then with sparrow tasks. 
+
+An example of sparrowdo module:
+
+    use v6;
+    
+    unit module Sparrowdo::Nginx;
+    
+    use Sparrowdo;
+
+    sub tasks (%args) {
+
+      task_run  %(
+        task => 'install nginx',
+        plugin => 'package-generic',
+        parameters => %( list => 'nginx' )
+      );
+
+      task_run  %(
+        task => 'enable nginx',
+        plugin => 'service',
+        parameters => %( service => 'nginx', action => 'enable' )
+      );
+
+      task_run  %(
+        task => 'start nginx',
+        plugin => 'service',
+        parameters => %( service => 'nginx', action => 'start' )
+      );
+  
+
+    }
+        
+
+Later on, in your sparrowfile you may have this:
+
+
+    $ cat sparrowfile
+
+    use v6;
+
+    use Sparrowdo;
+
+    module_run 'Nginx';
+
+You may pass parameters to sparrowdo module:
+
+    module_run 'Nginx', port => 80;
+
+In module definition one access parameters as:
+
+    sub tasks (%args) {
+
+        say %args<port>;
+
+    }
+
 
 # AUTHOR
 
