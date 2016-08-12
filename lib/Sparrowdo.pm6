@@ -25,9 +25,9 @@ sub task_run(%args) is export {
 }
  
 
-sub box_run(%args) is export {
+sub module_run($name, %args = %()) is export {
 
-  my $name = 'Sparrowdo::' ~ %args<box>; 
-  require ::($name);
+  my $mod_name = 'Sparrowdo::' ~ $name; 
+  require ::($mod_name);
 
 }
