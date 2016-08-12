@@ -1,4 +1,5 @@
 use Terminal::ANSIColor;
+use JSON::Tiny;
 
 sub MAIN (
   Str  :$host!, 
@@ -7,7 +8,6 @@ sub MAIN (
   Str  :$ssh_user, 
   Int  :$ssh_port = 22, 
   Bool :$verbose = False, 
-  Bool :$skip_index_update = False,
   Bool :$bootstrap = False, 
 )
 {
@@ -22,7 +22,10 @@ sub MAIN (
   our $Sparrowdo::SshPort = $ssh_port; 
   our $Sparrowdo::SshUser = $ssh_user; 
   our $Sparrowdo::Verbose = $verbose; 
-  our $Sparrowdo::SkipIndexUpdate = $skip_index_update; 
+
+  our @Sparrowdo::Tasks = Array.new;
+  our @Sparrowdo::SPL = Array.new;
+
 
   if $bootstrap {
     use v6;
@@ -31,7 +34,88 @@ sub MAIN (
   } 
 
   say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
-  
+
+
   EVALFILE "sparrowfile";
+
+  spurt '/tmp/sparrowdo-box.json', (to-json @Sparrowdo::Tasks);
+
+  scp '/tmp/sparrowdo-box.json', '/tmp/';
+
+  say colored('set up task box file - /tmp/sparrowdo-box.json - OK', 'bold green on_yellow');
+
+
+  if @Sparrowdo::SPL {
+
   
+    spurt '/tmp/sparrow.list', @Sparrowdo::SPL.join: "\n";
+
+    ssh_shell 'mkdir -p /opt/sparrow && mv  /tmp/sparrow.list /opt/sparrow';
+
+    say colored('set up sparrow private plugin list OK', 'bold green on_blue');
+
+  }
+
+
+
+}
+
+sub ssh_shell ( $cmd ) {
+
+
+  my @bash_commands = ( 'export LC_ALL=en_US.UTF-8' );
+
+  @bash_commands.push:  'export http_proxy=' ~ $Sparrowdo::HttpProxy if $Sparrowdo::HttpProxy;
+  @bash_commands.push:  'export https_proxy=' ~ $Sparrowdo::HttpsProxy if $Sparrowdo::HttpsProxy;
+  @bash_commands.push:  'export PATH=/sbin/:/usr/local/bin:/usr/sbin/:$PATH';
+  @bash_commands.push:  'export SPARROW_ROOT=/opt/sparrow';
+  @bash_commands.push:  $cmd;
+
+  my $ssh_host_term = $Sparrowdo::Host;
+
+  $ssh_host_term = $Sparrowdo::SshUser ~ '@' ~ $ssh_host_term if $Sparrowdo::SshUser;
+
+  my $ssh_cmd  =  'ssh -o ConnectionAttempts=1  -o ConnectTimeout=5';
+
+  $ssh_cmd ~= ' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -tt';
+
+  $ssh_cmd ~= ' -q' unless $Sparrowdo::Verbose;
+
+  $ssh_cmd ~= ' -p ' ~ $Sparrowdo::SshPort ~ ' ' ~ $ssh_host_term;
+
+  $ssh_cmd ~= " \"sudo bash -c '" ~ ( join ' ; ', @bash_commands ) ~ "'\"";
+
+  $ssh_cmd ~= ' 2>/dev/null' unless $Sparrowdo::Verbose;
+
+  say colored($ssh_cmd, 'bold green') if $Sparrowdo::Verbose;
+
+  shell $ssh_cmd;
+
+}
+
+sub scp ( $file, $dest ) {
+
+  my $ssh_host_term = $Sparrowdo::Host;
+
+  $ssh_host_term = $Sparrowdo::SshUser ~ '@' ~ $ssh_host_term if $Sparrowdo::SshUser;
+
+  my $scp_params = '-P' ~ $Sparrowdo::SshPort;
+
+  $scp_params ~= ' -q'  unless $Sparrowdo::Verbose;
+
+  my $scp_command = 'scp -o ConnectionAttempts=1 -o ConnectTimeout=5 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no '~ $scp_params ~ ' ' ~ $file ~ ' ' ~ $ssh_host_term ~ ':' ~ $dest;
+
+  say colored($scp_command, 'bold green') if $Sparrowdo::Verbose;
+
+  shell $scp_command;
+
+}
+
+sub bootstrap {
+
+  say colored('running Sparrow bootstrap on ' ~ $Sparrowdo::Host, 'green on_red');
+  ssh_shell 'if ! which cpanm 2>/dev/null; then curl -kL http://cpanmin.us/ -o /bin/cpanm; chmod a+x /bin/cpanm; fi';
+  ssh_shell 'if ! which sparrow 2>/dev/null; then yum -y install perl-ExtUtils-MakeMaker perl-Hash-Merge; cpanm -q Sparrow';
+  ssh_shell 'cpanm -q Sparrow || cpanm -q Sparrow'; # forcefully upgrade sparrow
+
 }
