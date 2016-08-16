@@ -20,12 +20,17 @@ sub task_run(%args) is export {
 
   @Sparrowdo::Tasks.push: %task_data;
 
-  say colored('compiled task <' ~ %args<task> ~ '> plg <' ~ %args<plugin> ~ '> OK', 'bold green on_blue');
+  say colored('push task <' ~ %args<task> ~ '> plg <' ~ %args<plugin> ~ '> OK', 'bold green on_blue');
 
 }
  
 
 sub module_run($name, %args = %()) is export {
+
+  say colored('module run <' ~ $name ~ '> args <' ~ %args ~ '>', 'bold cyan on_blue');
+
   require ::('Sparrowdo::' ~ $name); 
   ::('Sparrowdo::' ~ $name ~ '::&tasks')(%args);
+
+
 }
