@@ -1,6 +1,5 @@
 use Terminal::ANSIColor;
 use JSON::Tiny;
-use Sparrowdo;
 
 sub MAIN (
   Str  :$host!, 
@@ -36,11 +35,11 @@ sub MAIN (
 
   say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
 
-  if $module_run {
-    module_run $module_run;
-  } else {
+  #if $module_run {
+  #  module_run $module_run;
+  #} else {
     EVALFILE "sparrowfile";
-  }
+  #}
 
   spurt '/tmp/sparrowdo-box.json', (to-json @Sparrowdo::Tasks);
 
@@ -124,7 +123,6 @@ sub scp ( $file, $dest ) {
 
   my $scp_command = 'scp -o ConnectionAttempts=1 -o ConnectTimeout=5 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no '~ $scp_params ~ ' ' ~ $file ~ ' ' ~ $ssh_host_term ~ ':' ~ $dest;
 
-  say $scp_command;
   say colored($scp_command, 'bold green') if $Sparrowdo::Verbose;
 
   shell $scp_command;
