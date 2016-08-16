@@ -37,7 +37,7 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
 
 # Screencast! ... :smile:  ...
 
-[![asciicast](https://asciinema.org/a/82920)](https://asciinema.org/a/82920)
+[![asciicast](https://asciinema.org/a/82920.png)](https://asciinema.org/a/82920)
 
 
 # Schema
