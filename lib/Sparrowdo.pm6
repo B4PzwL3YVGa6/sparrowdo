@@ -26,8 +26,6 @@ sub task_run(%args) is export {
  
 
 sub module_run($name, %args = %()) is export {
-
-  my $mod_name = 'Sparrowdo::' ~ $name; 
-  require ::($mod_name);
-
+  require ::('Sparrowdo::' ~ $name); 
+  ::('Sparrowdo::' ~ $name ~ '::&tasks')(%args);
 }
