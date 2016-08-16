@@ -1,5 +1,6 @@
 use Terminal::ANSIColor;
 use JSON::Tiny;
+use Sparrowdo;
 
 sub MAIN (
   Str  :$host!, 
@@ -18,14 +19,16 @@ sub MAIN (
   
   # dirty hacks to pass command line parameter into sparrowfile context
   # sorry for not knowing perl6 idioms ... ));
-  
-  our $Sparrowdo::Host = $host; 
-  our $Sparrowdo::HttpProxy = $http_proxy; 
-  our $Sparrowdo::HttpsProxy = $https_proxy; 
-  our $Sparrowdo::SshPort = $ssh_port; 
-  our $Sparrowdo::SshUser = $ssh_user; 
-  our $Sparrowdo::SshPrivateKey = $ssh_private_key; 
-  our $Sparrowdo::Verbose = $verbose; 
+
+  set_input_params %(  
+    Host => $host, 
+    HttpProxy => $http_proxy, 
+    HttpsProxy => $https_proxy, 
+    SshPort => $ssh_port, 
+    SshUser => $ssh_user, 
+    SshPrivateKey => $ssh_private_key, 
+    Verbose => $verbose,
+  );
 
   our @Sparrowdo::Tasks = Array.new;
   our @Sparrowdo::SPL = Array.new;
@@ -35,11 +38,11 @@ sub MAIN (
 
   say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
 
-  #if $module_run {
-  #  module_run $module_run;
-  #} else {
+  if $module_run {
+    module_run $module_run;
+  } else {
     EVALFILE "sparrowfile";
-  #}
+  }
 
   spurt '/tmp/sparrowdo-box.json', (to-json @Sparrowdo::Tasks);
 
@@ -51,7 +54,7 @@ sub MAIN (
   if @Sparrowdo::SPL {
 
 
-    if $Sparrowdo::Verbose {
+    if input_params('Verbose') {
 
       say colored( 'puplating SPL file', 'bold yellow on_cyan' );
 
@@ -78,32 +81,32 @@ sub ssh_shell ( $cmd ) {
   my @bash_commands = ( 'export LC_ALL=en_US.UTF-8' );
 
 
-  @bash_commands.push:  'export http_proxy=' ~ $Sparrowdo::HttpProxy if $Sparrowdo::HttpProxy;
-  @bash_commands.push:  'export https_proxy=' ~ $Sparrowdo::HttpsProxy if $Sparrowdo::HttpsProxy;
+  @bash_commands.push:  'export http_proxy=' ~ input_params('HttpProxy') if input_params('HttpProxy');
+  @bash_commands.push:  'export https_proxy=' ~ input_params('HttpsProxy') if input_params('HttpsProxy');
   @bash_commands.push:  'export GIT_PROTOCOL=https';
   @bash_commands.push:  'export PATH=/sbin/:/usr/local/bin:/usr/sbin/:$PATH';
   @bash_commands.push:  'export SPARROW_ROOT=/opt/sparrow';
   @bash_commands.push:  $cmd;
 
-  my $ssh_host_term = $Sparrowdo::Host;
+  my $ssh_host_term = input_params('Host');
 
-  $ssh_host_term = $Sparrowdo::SshUser ~ '@' ~ $ssh_host_term if $Sparrowdo::SshUser;
+  $ssh_host_term = input_params('SshUser') ~ '@' ~ $ssh_host_term if input_params('SshUser');
 
   my $ssh_cmd  =  'ssh -o ConnectionAttempts=1  -o ConnectTimeout=5';
 
   $ssh_cmd ~= ' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -tt';
 
-  $ssh_cmd ~= ' -q' unless $Sparrowdo::Verbose;
+  $ssh_cmd ~= ' -q' unless input_params('Verbose');
 
-  $ssh_cmd ~= ' -p ' ~ $Sparrowdo::SshPort ~ ' ' ~ $ssh_host_term;
+  $ssh_cmd ~= ' -p ' ~ input_params('SshPort') ~ ' ' ~ $ssh_host_term;
 
-  $ssh_cmd ~= ' -i ' ~ $Sparrowdo::SshPrivateKey if $Sparrowdo::SshPrivateKey;
+  $ssh_cmd ~= ' -i ' ~ input_params('SshPrivateKey') if input_params('SshPrivateKey');
 
   $ssh_cmd ~= " \"sudo bash -c '" ~ ( join ' ; ', @bash_commands ) ~ "'\"";
 
-  $ssh_cmd ~= ' 2>/dev/null' unless $Sparrowdo::Verbose;
+  $ssh_cmd ~= ' 2>/dev/null' unless input_params('Verbose');
 
-  say colored($ssh_cmd, 'bold green') if $Sparrowdo::Verbose;
+  say colored($ssh_cmd, 'bold green') if input_params('Verbose');
 
   shell $ssh_cmd;
 
@@ -111,19 +114,19 @@ sub ssh_shell ( $cmd ) {
 
 sub scp ( $file, $dest ) {
 
-  my $ssh_host_term = $Sparrowdo::Host;
+  my $ssh_host_term = input_params('Host');
 
-  $ssh_host_term = $Sparrowdo::SshUser ~ '@' ~ $ssh_host_term if $Sparrowdo::SshUser;
+  $ssh_host_term = input_params('SshUser') ~ '@' ~ $ssh_host_term if input_params('SshUser');
 
-  my $scp_params = ' -P ' ~ $Sparrowdo::SshPort;
+  my $scp_params = ' -P ' ~ input_params('SshPort');
 
-  $scp_params ~= ' -i' ~ $Sparrowdo::SshPrivateKey if $Sparrowdo::SshPrivateKey;
+  $scp_params ~= ' -i' ~ input_params('SshPrivateKey') if input_params('SshPrivateKey');
 
-  $scp_params ~= ' -q'  unless $Sparrowdo::Verbose;
+  $scp_params ~= ' -q'  unless input_params('Verbose');
 
   my $scp_command = 'scp -o ConnectionAttempts=1 -o ConnectTimeout=5 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no '~ $scp_params ~ ' ' ~ $file ~ ' ' ~ $ssh_host_term ~ ':' ~ $dest;
 
-  say colored($scp_command, 'bold green') if $Sparrowdo::Verbose;
+  say colored($scp_command, 'bold green') if input_params('Verbose');
 
   shell $scp_command;
 
@@ -131,7 +134,7 @@ sub scp ( $file, $dest ) {
 
 sub bootstrap {
 
-  say colored('running Sparrow bootstrap on ' ~ $Sparrowdo::Host, 'green on_red');
+  say colored('running Sparrow bootstrap on ' ~ input_params('Host'), 'green on_red');
   ssh_shell 'if ! which cpanm 2>/dev/null; then curl -kL http://cpanmin.us/ -o /bin/cpanm; chmod a+x /bin/cpanm; fi';
   ssh_shell 'if ! which sparrow 2>/dev/null; then yum -y install perl-ExtUtils-MakeMaker perl-Hash-Merge; cpanm -q Sparrow; fi';
   ssh_shell 'cpanm -q Sparrow || cpanm -q Sparrow'; # forcefully upgrade sparrow

@@ -4,6 +4,22 @@ unit module Sparrowdo;
 
 use Terminal::ANSIColor;
 
+my %input_params = Hash.new;
+
+sub set_input_params (%args) is export  {
+
+  for %args.kv -> $name, $value {
+    %input_params.push($name => $value);
+  }
+
+}
+
+sub input_params ($name) is export  {
+
+  %input_params{$name};
+
+}
+
 sub set_spl(%args) is export { 
   for %args.kv -> $plg, $source {
     @Sparrowdo::SPL.push: ($plg ~ ' ' ~ $source);
@@ -34,3 +50,4 @@ sub module_run($name, %args = %()) is export {
 
 
 }
+
