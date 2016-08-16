@@ -62,7 +62,7 @@ sub MAIN (
   }
 
   ssh_shell 'sparrow index update';
-  ssh_shell 'sparrow box run /tmp/sparrowdo-box.json';
+  ssh_shell 'sparrow box run /tmp/sparrowdo-box.json --mode quiet';
 
 }
 
