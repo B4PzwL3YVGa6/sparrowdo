@@ -148,6 +148,12 @@ Sets https\_proxy environment variable on remote host.
 
 Sets user for ssh connection to remote host.
 
+## --ssh\_private\_key
+
+Selects a file from which the identity (private key) for public key authentication is read. 
+
+Is equal to `ssh -i` parameter.
+
 ## --ssh\_port
 
 Sets shh port for ssh connection to remote host. Default value is `22`.

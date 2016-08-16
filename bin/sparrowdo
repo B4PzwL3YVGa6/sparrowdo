@@ -6,6 +6,7 @@ sub MAIN (
   Str  :$http_proxy, 
   Str  :$https_proxy, 
   Str  :$ssh_user, 
+  Str  :$ssh_private_key, 
   Int  :$ssh_port = 22, 
   Bool :$verbose = False, 
   Bool :$bootstrap = False, 
@@ -21,6 +22,7 @@ sub MAIN (
   our $Sparrowdo::HttpsProxy = $https_proxy; 
   our $Sparrowdo::SshPort = $ssh_port; 
   our $Sparrowdo::SshUser = $ssh_user; 
+  our $Sparrowdo::SshPrivateKey = $ssh_private_key; 
   our $Sparrowdo::Verbose = $verbose; 
 
   our @Sparrowdo::Tasks = Array.new;
@@ -89,6 +91,8 @@ sub ssh_shell ( $cmd ) {
 
   $ssh_cmd ~= ' -p ' ~ $Sparrowdo::SshPort ~ ' ' ~ $ssh_host_term;
 
+  $ssh_cmd ~= ' -i ' ~ $Sparrowdo::SshPrivateKey if $Sparrowdo::SshPrivateKey;
+
   $ssh_cmd ~= " \"sudo bash -c '" ~ ( join ' ; ', @bash_commands ) ~ "'\"";
 
   $ssh_cmd ~= ' 2>/dev/null' unless $Sparrowdo::Verbose;
@@ -105,7 +109,9 @@ sub scp ( $file, $dest ) {
 
   $ssh_host_term = $Sparrowdo::SshUser ~ '@' ~ $ssh_host_term if $Sparrowdo::SshUser;
 
-  my $scp_params = '-P' ~ $Sparrowdo::SshPort;
+  my $scp_params = ' -P ' ~ $Sparrowdo::SshPort;
+
+  $scp_params ~= ' -i' ~ $Sparrowdo::SshPrivateKey if $Sparrowdo::SshPrivateKey;
 
   $scp_params ~= ' -q'  unless $Sparrowdo::Verbose;
 
