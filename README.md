@@ -11,10 +11,6 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
 
     $ cat sparrowfile
 
-    use v6;
-    
-    use Sparrowdo;
-    
     task_run  %(
       task => 'check disk available space',
       plugin => 'df-check',
@@ -109,10 +105,6 @@ You should use `set_spl(%hash)` function to set up priviate plugin index file:
 
     $ cat sparrowfile
 
-    use v6;
-    
-    use Sparrowdo;
-    
     set_spl %(
         package-generic-dev => 'https://github.com/melezhik/package-generic.git',
         df-check-dev => 'https://github.com/melezhik/df-check.git'
@@ -217,10 +209,6 @@ Later on, in your sparrowfile you may have this:
 
     $ cat sparrowfile
 
-    use v6;
-
-    use Sparrowdo;
-
     module_run 'Nginx';
 
 You may pass parameters to sparrowdo module:
@@ -229,12 +217,19 @@ You may pass parameters to sparrowdo module:
 
 In module definition one access parameters as:
 
-    sub tasks (%args) {
+    our sub tasks (%args) {
 
         say %args<port>;
 
     }
 
+
+A module naming convention is:
+
+    Sparrowdo::Foo::Bar ---> module_run Foo::Bar
+
+module\_run($module_name) function load  module Sparrowdo::$module_name at runtime and call 
+function `tasks` defined at module global context.
 
 # AUTHOR
 
