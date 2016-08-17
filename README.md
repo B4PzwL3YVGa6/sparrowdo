@@ -228,7 +228,7 @@ A module naming convention is:
 
     Sparrowdo::Foo::Bar ---> module_run Foo::Bar
 
-module\_run($module_name) function load  module Sparrowdo::$module_name at runtime and call 
+`module\_run($module_name)` function loads  module Sparrowdo::$module_name at runtime and calls 
 function `tasks` defined at module global context.
 
 # AUTHOR
