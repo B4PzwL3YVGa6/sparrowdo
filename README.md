@@ -150,6 +150,14 @@ Is equal to `ssh -i` parameter.
 
 Sets shh port for ssh connection to remote host. Default value is `22`.
 
+## --module\_run
+
+Runs a sparrowdo module instead of executing tasks from sparrowfile. For example:
+
+
+    $ sparrowdo --host=127.0.0.1 --module_run=Nginx
+
+
 ## --verbose
 
 Sets verbose mode ( low level information will be printed at console ).
