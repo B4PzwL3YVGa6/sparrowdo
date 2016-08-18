@@ -38,6 +38,15 @@ sub MAIN (
 
   say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
 
+  ssh_shell "perl -MOutthentic  -e 'print os' > /tmp/os.txt";
+
+  scp '/tmp/os.txt', '/tmp/', 1; # copy back /tmp/os.txt 
+
+  our $Sparrowdo::OS = slurp "/tmp/os.txt";
+
+  say colored('target OS is - '~ $Sparrowdo::OS, 'cyan green on_yellow');
+
+
   if $module_run {
     module_run $module_run;
   } else {
@@ -112,7 +121,7 @@ sub ssh_shell ( $cmd ) {
 
 }
 
-sub scp ( $file, $dest ) {
+sub scp ( $file, $dest, $reverse = 0 ) {
 
   my $ssh_host_term = input_params('Host');
 
@@ -124,7 +133,13 @@ sub scp ( $file, $dest ) {
 
   $scp_params ~= ' -q'  unless input_params('Verbose');
 
-  my $scp_command = 'scp -o ConnectionAttempts=1 -o ConnectTimeout=5 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no '~ $scp_params ~ ' ' ~ $file ~ ' ' ~ $ssh_host_term ~ ':' ~ $dest;
+  my $scp_command = 'scp -o ConnectionAttempts=1 -o ConnectTimeout=5 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ' ~ $scp_params;
+
+  if $reverse {
+    $scp_command ~= ' ' ~ $ssh_host_term ~ ':' ~ $file ~ ' ' ~ $dest ;
+  } else {
+    $scp_command ~= ' ' ~ $file ~ ' ' ~ $ssh_host_term ~ ':' ~ $dest;
+  }
 
   say colored($scp_command, 'bold green') if input_params('Verbose');
 
