@@ -3,6 +3,7 @@ use JSON::Tiny;
 use Sparrowdo;
 
 sub MAIN (
+
   Str  :$host!, 
   Str  :$http_proxy, 
   Str  :$https_proxy, 
@@ -11,7 +12,7 @@ sub MAIN (
   Int  :$ssh_port = 22, 
   Bool :$verbose = False, 
   Bool :$bootstrap = False, 
-  Str  :$module_run, 
+  Str  :$module_run
 
 )
 {
@@ -32,7 +33,6 @@ sub MAIN (
 
   our @Sparrowdo::Tasks = Array.new;
   our @Sparrowdo::SPL = Array.new;
-
 
   bootstrap() if $bootstrap;
 
