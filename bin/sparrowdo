@@ -38,7 +38,7 @@ sub MAIN (
 
   say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
 
-  ssh_shell "perl -MOutthentic  -e 'print os' > /tmp/os.txt";
+  ssh_shell "echo print os | perl -MOutthentic  > /tmp/os.txt";
 
   scp '/tmp/os.txt', '/tmp/', 1; # copy back /tmp/os.txt 
 
