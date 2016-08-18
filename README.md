@@ -239,6 +239,42 @@ A module naming convention is:
 `module\_run($module_name)` function loads  module Sparrowdo::$module_name at runtime and calls 
 function `tasks` defined at module global context.
 
+
+## Helper functions
+
+Module developers could rely on some helper function, when creating their modules.
+
+* `target\_os()`
+
+This function returns the name OS distribution on target server.
+
+For example:
+
+    
+    our sub tasks (%args) {
+    
+      if target_os() ~~ m/centos/ {
+    
+        task_run  %(
+          task => 'install epel-release',
+          plugin => 'package-generic',
+          parameters => %( list => 'epel-release' )
+        );
+    
+      }
+    
+      # the rest of the code is the same for all the OS distributions 
+
+    }
+
+A list of OS supported by `target\_os()` function:
+
+    centos5
+    centos6
+    centos7
+    ubuntu
+    debian
+  
 # AUTHOR
 
 [Aleksei Melezhik](mailto:melezhik@gmail.com)
