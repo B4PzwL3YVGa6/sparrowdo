@@ -5,6 +5,15 @@ unit module Sparrowdo;
 use Terminal::ANSIColor;
 
 my %input_params = Hash.new;
+my $target_os;
+
+sub set_target_os ($os) is export  {
+  $target_os = $os
+}
+
+sub target_os () is export  {
+  return $target_os;
+}
 
 sub set_input_params (%args) is export  {
 

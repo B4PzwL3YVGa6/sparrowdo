@@ -42,9 +42,9 @@ sub MAIN (
 
   scp '/tmp/os.txt', '/tmp/', 1; # copy back /tmp/os.txt 
 
-  our $Sparrowdo::OS = slurp "/tmp/os.txt";
+  set_target_os slurp "/tmp/os.txt";
 
-  say colored('target OS is - '~ $Sparrowdo::OS, 'cyan green on_yellow');
+  say colored('target OS is - '~ target_os, 'cyan green on_yellow');
 
 
   if $module_run {
