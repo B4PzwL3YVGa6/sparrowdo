@@ -29,11 +29,6 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
     
     $ sparrowdo --host=192.168.0.1
 
-# Screencast! ... :smile:  ...
-
-[![asciicast](https://asciinema.org/a/82920.png)](https://asciinema.org/a/82920)
-
-
 # Schema
 
       +-----------------+
