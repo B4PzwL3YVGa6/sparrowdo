@@ -44,7 +44,7 @@ sub MAIN (
 
   set_target_os slurp "/tmp/target_os";
 
-  say colored('target OS is - '~ target_os, 'cyan green on_yellow');
+  say colored('target OS is - '~ target_os, 'black on_white');
 
 
   if $module_run {
