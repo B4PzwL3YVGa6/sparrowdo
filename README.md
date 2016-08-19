@@ -27,8 +27,6 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
       )
     );
     
-    EOF
-
     $ sparrowdo --host=192.168.0.1
 
 # Screencast! ... :smile:  ...
@@ -250,7 +248,6 @@ This function returns OS name for the target server.
 
 For example:
 
-    
     if target_os() ~~ m/centos/ {
     
       task_run  %(
@@ -269,7 +266,36 @@ A list of OS names provided by `target_os()` function:
     centos7
     ubuntu
     debian
-  
+
+* `input_params($param)`
+
+Input\_params function returns command line parameter one provides running sparrowdo client. 
+
+For example:
+
+
+    task_run  %(
+      task => 'install great CPAN module',
+      plugin => 'cpan-package',
+      parameters => %( 
+        list => 'Moose',
+        http_proxy => input_params('HttpProxy'), 
+        https_proxy => input_params('HttpsProxy'), 
+      )
+    );
+
+This is the list of arguments valid for input\_params function:
+
+    Host 
+    HttpProxy 
+    HttpsProxy 
+    SshPort 
+    SshUser 
+    SshPrivateKey 
+    Verbose
+
+See also [sparrowdo client command line parameters](#sparrowdo-client-command-line-parameters) section.
+    
 # AUTHOR
 
 [Aleksei Melezhik](mailto:melezhik@gmail.com)
