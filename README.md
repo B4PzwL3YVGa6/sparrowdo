@@ -244,30 +244,25 @@ function `tasks` defined at module global context.
 
 Module developers could rely on some helper function, when creating their modules.
 
-* `target\_os()`
+* `target\os()`
 
-This function returns the name OS distribution on target server.
+This function returns OS name for the target server.
 
 For example:
 
     
-    our sub tasks (%args) {
-    
-      if target_os() ~~ m/centos/ {
-    
-        task_run  %(
-          task => 'install epel-release',
-          plugin => 'package-generic',
-          parameters => %( list => 'epel-release' )
-        );
-    
-      }
-    
-      # the rest of the code is the same for all the OS distributions 
+  if target_os() ~~ m/centos/ {
+  
+    task_run  %(
+      task => 'install epel-release',
+      plugin => 'package-generic',
+      parameters => %( list => 'epel-release' )
+    );
+  
+  }
+  
 
-    }
-
-A list of OS supported by `target\_os()` function:
+A list of OS names provided by `target_os()` function:
 
     centos5
     centos6
