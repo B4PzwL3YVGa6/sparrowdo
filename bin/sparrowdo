@@ -31,9 +31,6 @@ sub MAIN (
     Verbose => $verbose,
   );
 
-  our @Sparrowdo::Tasks = Array.new;
-  our @Sparrowdo::SPL = Array.new;
-
   bootstrap() if $bootstrap;
 
   say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
@@ -53,26 +50,21 @@ sub MAIN (
     EVALFILE "sparrowfile";
   }
 
-  spurt '/tmp/sparrowdo-box.json', (to-json @Sparrowdo::Tasks);
+  spurt '/tmp/sparrowdo-box.json', (to-json get_tasks());
 
   scp '/tmp/sparrowdo-box.json', '/tmp/';
 
   say colored('set up task box file - /tmp/sparrowdo-box.json - OK', 'bold green on_blue');
 
 
-  if @Sparrowdo::SPL {
+  if get_spl() {
 
 
     if input_params('Verbose') {
-
       say colored( 'puplating SPL file', 'bold yellow on_cyan' );
-
-      for @Sparrowdo::SPL.kv -> $index, $item { 
-        say colored(($index+1) ~ '. ' ~ $item , 'bold yellow on_cyan');
-      }
     }
 
-    spurt '/tmp/sparrow.list', @Sparrowdo::SPL.join: "\n";
+    spurt '/tmp/sparrow.list', get_spl().join: "\n";
     scp '/tmp/sparrow.list', '/tmp/';
     ssh_shell 'mkdir -p /opt/sparrow && mv  /tmp/sparrow.list /opt/sparrow';
     say colored('copied SPL file as /opt/sparrow/sparrow.list - OK', 'bold green on_blue');
