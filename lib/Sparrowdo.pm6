@@ -76,7 +76,7 @@ sub task_run(%args) is export {
 
 sub module_run($name, %args = %()) is export {
 
-  say colored('module run <' ~ $name ~ '>', 'bold cyan on_blue');
+  say colored('enter module <' ~ $name ~ '> ... ', 'bold cyan on_blue');
 
   require ::('Sparrowdo::' ~ $name); 
   ::('Sparrowdo::' ~ $name ~ '::&tasks')(%args);
