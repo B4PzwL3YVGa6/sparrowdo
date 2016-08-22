@@ -143,7 +143,7 @@ sub bootstrap {
 
   say colored('running Sparrow bootstrap on ' ~ input_params('Host'), 'green on_red');
   ssh_shell 'if ! which cpanm 2>/dev/null; then curl -kL http://cpanmin.us/ -o /bin/cpanm; chmod a+x /bin/cpanm; fi';
-  ssh_shell 'if ! which sparrow 2>/dev/null; then yum -y install gcc perl-Digest-MD5 perl-Test-Harness perl-Data-Dumper perl-ExtUtils-MakeMaker perl-Hash-Merge; cpanm -q --mirror http://cpan.cpantesters.org Outthentic Sparrow || cpanm -q --mirror http://cpan.cpantesters.org Outthentic Sparrow; fi';
-  ssh_shell 'cpanm -q --mirror http://cpan.cpantesters.org Outthentic Sparrow || cpanm -q --mirror http://cpan.cpantesters.org  Outthentic Sparrow '; # forcefully upgrade Sparrow
+  ssh_shell 'if ! which sparrow 2>/dev/null; then yum -y install gcc perl-Digest-MD5 perl-Test-Harness perl-Data-Dumper perl-ExtUtils-MakeMaker perl-Hash-Merge; cpanm -q Outthentic Sparrow || cpanm -q Outthentic Sparrow; fi';
+  ssh_shell 'cpanm -q Outthentic Sparrow || cpanm -q Outthentic Sparrow '; # forcefully upgrade Sparrow
 
 }
