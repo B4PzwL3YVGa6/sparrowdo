@@ -69,7 +69,7 @@ Only [public](https://metacpan.org/pod/Sparrow#Public-plugins) sparrow plugins a
 
 Remote hosts are configured by running sparrow client on them and executing sparrow tasks.
 
-A Sparrow CPAN module, version >= 0.1.20 should be installed on remote hosts:
+A Sparrow CPAN module, version >= 0.1.21 should be installed on remote hosts:
 
     $ cpanm Sparrow
 
