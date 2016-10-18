@@ -148,6 +148,13 @@ Sets shh port for ssh connection to remote host. Default value is `22`.
 If set to true - do not initiate ssh command under `sudo`, just as is. Default value is false - use `sudo`.
 Optional parameter.
 
+## --no\_index\_update
+
+If set to true - do not run `sparrow index update` command at the begining`. This could be useful if you
+are not going to update sparrow plugins to save time.
+
+Optional parameter.
+
 ## --module\_run
 
 Runs a sparrowdo module instead of executing tasks from sparrowfile. For example:
@@ -293,6 +300,8 @@ This is the list of arguments valid for input\_params function:
     SshUser 
     SshPrivateKey 
     Verbose
+    NoSudo
+    NoIndexUpdate
 
 See also [sparrowdo client command line parameters](#sparrowdo-client-command-line-parameters) section.
     
