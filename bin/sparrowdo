@@ -12,8 +12,8 @@ sub MAIN (
   Int  :$ssh_port = 22, 
   Bool :$verbose = False, 
   Bool :$bootstrap = False, 
-  Str  :$module_run
-
+  Str  :$module_run, 
+  Bool :$no_sudo = False
 )
 {
 
@@ -29,6 +29,7 @@ sub MAIN (
     SshUser => $ssh_user, 
     SshPrivateKey => $ssh_private_key, 
     Verbose => $verbose,
+    NoSudo => $no_sudo
   );
 
   bootstrap() if $bootstrap;
@@ -103,7 +104,9 @@ sub ssh_shell ( $cmd ) {
 
   $ssh_cmd ~= ' -i ' ~ input_params('SshPrivateKey') if input_params('SshPrivateKey');
 
-  $ssh_cmd ~= " \"sudo bash -c '" ~ ( join ' ; ', @bash_commands ) ~ "'\"";
+  $ssh_cmd ~= ( input_params('NoSudo') ) ?? " \"bash -c '" !! " \"sudo bash -c '"; 
+
+  $ssh_cmd ~=  ~ ( join ' ; ', @bash_commands ) ~ "'\"";
 
   $ssh_cmd ~= ' 2>/dev/null' unless input_params('Verbose');
 

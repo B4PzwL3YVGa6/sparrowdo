@@ -143,6 +143,11 @@ Is equal to `ssh -i` parameter.
 
 Sets shh port for ssh connection to remote host. Default value is `22`.
 
+## --no\_sudo
+
+If set to true - do not initiate ssh command under `sudo`, just as is. Default value is false - use `sudo`.
+Optional parameter.
+
 ## --module\_run
 
 Runs a sparrowdo module instead of executing tasks from sparrowfile. For example:
