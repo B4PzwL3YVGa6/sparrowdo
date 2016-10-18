@@ -151,7 +151,7 @@ Optional parameter.
 ## --no\_index\_update
 
 If set to true - do not run `sparrow index update` command at the begining`. This could be useful if you
-are not going to update sparrow plugins to save time.
+are not going to update sparrow index to save time.
 
 Optional parameter.
 
