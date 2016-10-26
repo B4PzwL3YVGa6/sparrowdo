@@ -1,4 +1,5 @@
 {
+  "perl"        : "6.*",
   "name"        : "Sparrowdo",
   "version"     : "*",
   "description" : "Simple configuration engine based on sparrow plugin system",
