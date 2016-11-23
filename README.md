@@ -125,7 +125,7 @@ Prints brief usage info.
 
 Alternative location of sparrowfile. If `--sparrowfile` is not set a file named `sparrowfile` at CWD is looked.
 
-    $ sparrowdo --sparrowfile /path/to/my/sparrowfile
+    $ sparrowdo --sparrowfile=~/sparrowfiles/sparrowfile.pl6
 
 ## --http\_proxy
 
@@ -247,7 +247,7 @@ A module naming convention is:
 
     Sparrowdo::Foo::Bar ---> module_run Foo::Bar
 
-`module\_run($module_name)` function loads  module Sparrowdo::$module_name at runtime and calls 
+`module_run($module_name)` function loads  module Sparrowdo::$module_name at runtime and calls 
 function `tasks` defined at module global context.
 
 
