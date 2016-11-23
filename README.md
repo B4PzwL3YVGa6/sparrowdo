@@ -121,6 +121,12 @@ You should use `set_spl(%hash)` function to set up priviate plugin index file:
 
 Prints brief usage info.
 
+## --sparrowfile
+
+Alternative location of sparrowfile. If `--sparrowfile` is not set a file named `sparrowfile` at CWD is looked.
+
+    $ sparrowdo --sparrowfile /path/to/my/sparrowfile
+
 ## --http\_proxy
 
 Sets http\_proxy environment variable on remote host.

@@ -5,6 +5,7 @@ use Sparrowdo;
 sub MAIN (
 
   Str  :$host!, 
+  Str  :$sparrowfile, 
   Str  :$http_proxy, 
   Str  :$https_proxy, 
   Str  :$ssh_user, 
@@ -24,6 +25,7 @@ sub MAIN (
 
   set_input_params %(  
     Host => $host, 
+    Sparrowfile => $sparrowfile, 
     HttpProxy => $http_proxy, 
     HttpsProxy => $https_proxy, 
     SshPort => $ssh_port, 
@@ -46,11 +48,10 @@ sub MAIN (
 
   say colored('target OS is - '~ target_os, 'black on_white');
 
-
   if $module_run {
     module_run $module_run;
   } else {
-    EVALFILE "sparrowfile";
+    EVALFILE $sparrowfile||'sparrowfile';
   }
 
   spurt '/tmp/sparrowdo-box.json', (to-json get_tasks());
