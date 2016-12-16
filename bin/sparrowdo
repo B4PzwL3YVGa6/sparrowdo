@@ -77,7 +77,7 @@ sub MAIN (
 
   ssh_shell 'sparrow index update' unless input_params('NoIndexUpdate');
 
-  ssh_shell 'sparrow box run /tmp/sparrowdo-box.json --mode quiet';
+  ssh_shell 'sparrow box run /tmp/sparrowdo-box.json --mode quiet --purge-cache';
 
 }
 
