@@ -310,6 +310,24 @@ This is the list of arguments valid for input\_params function:
     NoIndexUpdate
 
 See also [sparrowdo client command line parameters](#sparrowdo-client-command-line-parameters) section.
+
+# Scenarios configuration
+
+There is no "magic" way to load configuration into sparrowdo scenarios. You are free to
+choose any Perl6 modules to deal with configuration data. But if `config.pl6` file exists
+at the current working directory it will be loaded via `EVALFILE` at the _beginning_ of
+scenario. For example:
+
+
+    $ cat config.pl6
+
+    set_input_params %( install_base => '/opt/foo/bar');
+
+Later on in scenario:
+
+    $ cat sparrowfile
+
+    my $install_base = input_params('install_base');
     
 # AUTHOR
 

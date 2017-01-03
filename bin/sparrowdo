@@ -48,6 +48,11 @@ sub MAIN (
 
   say colored('target OS is - '~ target_os, 'black on_white');
 
+  if 'config.pl6'.IO.e {
+    say colored('load configuration from config.pl6 ...', 'blue on_green');
+    EVALFILE 'config.pl6'; 
+  }
+
   if $module_run {
     module_run $module_run;
   } else {
