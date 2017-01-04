@@ -1,1 +1,2 @@
 user-create 'create foo user', %( name => 'foo' );
+user-delete 'delete foo user', %( name => 'foo' );
