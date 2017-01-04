@@ -11,11 +11,11 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
 
 There are 3 essential things in Sparrowdo:
 
-* Core DSL
+* [Core DSL](#core-dsl)
 
-* Plugin DSL
+* [Plugins DSL](#plugins-dsl)
 
-* Modules
+* [Modules](#sparrowdo-modules)
 
 
 ## Core DSL
