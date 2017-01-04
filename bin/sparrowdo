@@ -50,7 +50,7 @@ sub MAIN (
 
   if 'config.pl6'.IO.e {
     say colored('load configuration from config.pl6 ...', 'blue on_green');
-    EVALFILE 'config.pl6'; 
+    config_set(EVALFILE 'config.pl6'); 
   }
 
   if $module_run {

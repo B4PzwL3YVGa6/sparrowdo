@@ -8,6 +8,7 @@ my %input_params = Hash.new;
 my $target_os;
 my @tasks = Array.new;
 my @spl = Array.new;
+my %config = Hash.new;
 
 sub push_task (%data){
 
@@ -84,3 +85,10 @@ sub module_run($name, %args = %()) is export {
 
 }
 
+sub config() is export { 
+  %config 
+}
+
+sub config_set( %data = %()) is export { 
+  %config = %data
+}

@@ -398,10 +398,10 @@ scenario. For example:
 
     $ cat config.pl6
 
-    %(
+    {
       user         => 'foo',
       install-base => '/opt/foo/bar'
-    );
+    };
 
 Later on in scenario you may access config data via `config` function:
 
