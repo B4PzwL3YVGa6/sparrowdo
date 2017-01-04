@@ -9,27 +9,104 @@ Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin sy
 # Usage
 
 
+There are 3 essential things in Sparrowdo:
+
+* Core DSL
+
+* Plugin DSL
+
+* Modules
+
+
+## Core DSL
+
+Core DSL is probably easiest way to start using Sparrowdo right away. It offers some
+high level functions to accomplish most common configuration tasks, like
+create directories or users, populate files from templates or start services.
+
+    $ cat sparrowfile
+
+    user-create 'create foo user', name => 'foo';
+    service-start 'start nginx web server', service => 'nginx';
+    file-create 'create this file', %( 
+        target => '/opt/file.txt', 
+        owner => 'root', 
+        mode => '0644', 
+        content => 'hello world'
+    );
+
+Under the hood core dsl ends up in calling so called sparrow plugins with parameters.
+
+If you want direct access to sparrow plugins API you may use a plugin DSL:
+
+
+# Plugins DSL
+  
+Examples above could be rewritten with low level API: 
+
     $ cat sparrowfile
 
     task_run  %(
-      task => 'check disk available space',
-      plugin => 'df-check',
-      parameters => %( threshold => 80 )
-    );
-    
-    task_run  %(
-      task => 'install app',
-      plugin => 'perl-app',
-      parameters => %( 
-        'app_source_url' => 'https://github.com/melezhik/web-app.git',
-        'git_branch' => 'dev',
-        'http_port' => 3030
+      task        => 'create foo user',
+      plugin      => 'user',
+      parameters  => %( 
+        action => 'create' , 
+        name => 'foo'   
       )
     );
     
+    task_run  %(
+      task => 'start nginx web server',
+      plugin => 'service',
+      parameters => %( 
+        action      => 'start',
+        service     => 'nginx'
+      )
+    );
+
+    task_run  %(
+      task => 'start nginx web server',
+      plugin => 'service',
+      parameters => %( 
+        action      => 'start',
+        service     => 'nginx'
+      )
+    );
+
+
+    task_run  %(
+      task => 'create this file',
+      plugin => 'file',
+      parameters => %( 
+        action      => 'create',
+        target      => '/opt/file.txt',
+        owner       => 'root',
+        mode        => '0644'
+        content     => 'hello world'
+      )
+    );
+
+# Core DSL VS Plugins DSL
+    
+Core DSL is kinda high level adapter bringing some "syntax sugar" to make your code terse.
+As well as adding Perl6 type/function checking as core-dsl functions are plain Perl6 function.
+
+From other hand core-dsl is limited. **Not every sparrow plugin** has a related core-dsl method.
+
+So it's up to you use core dsl or low level sparrow plugin API. Once I found some sparrow plugin
+very common and highly useful I add a proper core-dsl method for it. In case you need more
+core-dsl wrappers for new plugins - let me know!
+
+
+# Running sparrowdo scenario
+
+Now having ready sparrowfile you can run your scenario against some remote hosts:
+
     $ sparrowdo --host=192.168.0.1
 
 # Schema
+
+Here is textual schema of what is going on.
 
       +-----------------+
       |                 |    ssh
@@ -156,7 +233,7 @@ Optional parameter.
 
 ## --no\_index\_update
 
-If set to true - do not run `sparrow index update` command at the begining`. This could be useful if you
+If set to true - do not run `sparrow index update` command at the beginning`. This could be useful if you
 are not going to update sparrow index to save time.
 
 Optional parameter.
@@ -321,13 +398,17 @@ scenario. For example:
 
     $ cat config.pl6
 
-    set_input_params %( install_base => '/opt/foo/bar');
+    %(
+      user         => 'foo',
+      install-base => '/opt/foo/bar'
+    );
 
-Later on in scenario:
+Later on in scenario you may access config data via `config` function:
 
     $ cat sparrowfile
 
-    my $install_base = input_params('install_base');
+    my $user         = config->user;
+    my $install-base = config->install-base;
     
 # AUTHOR
 
