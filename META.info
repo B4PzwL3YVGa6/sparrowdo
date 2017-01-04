@@ -14,7 +14,8 @@
         "source" : "https://github.com/melezhik/sparrowdo.git"
     },
    "provides" : {
-        "Sparrowdo" : "lib/Sparrowdo.pm6"
+        "Sparrowdo" : "lib/Sparrowdo.pm6",
+        "Sparrowdo::Core::DSL" : "lib/Sparrowdo/Core/DSL.pm6"
   },
   "source-url"  : "https://github.com/melezhik/sparrowdo.git"
 }

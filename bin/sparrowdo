@@ -1,6 +1,7 @@
 use Terminal::ANSIColor;
 use JSON::Tiny;
 use Sparrowdo;
+use Sparrowdo::Core::DSL;
 
 sub MAIN (
 
