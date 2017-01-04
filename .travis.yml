@@ -7,7 +7,7 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y cpanminus
   - sudo cpanm -q --notest install Sparrow
-  - ssh-keygen -t rsa
+  - cat /dev/zero | ssh-keygen -q -N ""
   - cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
   - chmod og-wx ~/.ssh/authorized_keys
 
