@@ -35,7 +35,7 @@ sub package-install ( @list ) is export {
       task => "install @list",
       plugin => 'package-generic',
       parameters => %(
-        list        => (join ',', @list),
+        list        => (join ' ', @list),
         action      => 'install',
       )
     );
