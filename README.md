@@ -39,7 +39,6 @@ Under the hood core dsl ends up in calling so called sparrow plugins with parame
 
 If you want direct access to sparrow plugins API you may use a plugin DSL:
 
-
 # Plugins DSL
   
 Examples above could be rewritten with low level API: 
@@ -81,22 +80,23 @@ Examples above could be rewritten with low level API:
         action      => 'create',
         target      => '/opt/file.txt',
         owner       => 'root',
-        mode        => '0644'
+        mode        => '0644',
         content     => 'hello world'
       )
     );
 
-# Core DSL VS Plugins DSL
+# Core DSL vs Plugins DSL
     
 Core DSL is kinda high level adapter bringing some "syntax sugar" to make your code terse.
-As well as adding Perl6 type/function checking as core-dsl functions are plain Perl6 function.
+As well as adding Perl6 type/function checking as core-dsl functions are plain Perl6 functions.
 
 From other hand core-dsl is limited. **Not every sparrow plugin** has a related core-dsl method.
 
 So it's up to you use core dsl or low level sparrow plugin API. Once I found some sparrow plugin
-very common and highly useful I add a proper core-dsl method for it. In case you need more
+very common and highly useful I add a proper core-dsl method for it. In case you need 
 core-dsl wrappers for new plugins - let me know!
 
+[Here](/core-dsl.md) is the list of core-dsl function available at current Sparrowdo version.
 
 # Running sparrowdo scenario
 
@@ -168,9 +168,9 @@ users.
 
 # Advanced usage
 
-## Running tasks with private plugins
+## Running private plugins
 
-You should use `set_spl(%hash)` function to set up priviate plugin index file:
+You should use `set_spl(%hash)` function to set up private plugin index file:
 
 
     $ cat sparrowfile
@@ -266,7 +266,7 @@ with some differences though:
 
 * They are Perl6 modules.
 
-* They deal with sparrowdo tasks ( relying on sparrowdo API ) rather then with sparrow tasks. 
+* They implemented in terms of sparrowdo tasks ( relying on sparrowdo API ) rather then with sparrow tasks. 
 
 An example of sparrowdo module:
 
@@ -407,8 +407,8 @@ Later on in scenario you may access config data via `config` function:
 
     $ cat sparrowfile
 
-    my $user         = config->user;
-    my $install-base = config->install-base;
+    my $user         = config<user>;
+    my $install-base = config<install-base>;
     
 # AUTHOR
 
