@@ -26,8 +26,8 @@ create directories or users, populate files from templates or start services.
 
     $ cat sparrowfile
 
-    user-create 'create foo user', name => 'foo';
-    service-start 'start nginx web server', service => 'nginx';
+    user-create 'create foo user', %( name => 'foo' );
+    service-start 'start nginx web server', %( service => 'nginx' );
     file-create 'create this file', %( 
         target => '/opt/file.txt', 
         owner => 'root', 
@@ -55,11 +55,11 @@ Examples above could be rewritten with low level API:
     );
     
     task_run  %(
-      task => 'start nginx web server',
-      plugin => 'service',
+      task => 'create user',
+      plugin => 'user',
       parameters => %( 
-        action      => 'start',
-        service     => 'nginx'
+        name        => 'foo',
+        action      => 'create',
       )
     );
 
