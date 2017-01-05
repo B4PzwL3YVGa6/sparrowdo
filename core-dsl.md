@@ -14,6 +14,13 @@ Examples:
     user-delete 'delete foo user', %(name => 'alexey');
 
 
+| function | description | usage | sparrow plugin |
+| -------- | ----------- | ----- | -------------- |
+| package-install | install software package ( OS independ ) | `package-install(@list)`| [package-generic](https://sparrowhub.org/info/package-generic) | 
+
+Examples:
+
+    package-install ('nano', 'tree', 'mc');
 
 
 
