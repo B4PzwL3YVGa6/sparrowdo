@@ -50,16 +50,7 @@ Examples above could be rewritten with low level API:
       plugin      => 'user',
       parameters  => %( 
         action => 'create' , 
-        name => 'foo'   
-      )
-    );
-    
-    task_run  %(
-      task => 'create user',
-      plugin => 'user',
-      parameters => %( 
-        name        => 'foo',
-        action      => 'create',
+        name => 'foo'
       )
     );
 
