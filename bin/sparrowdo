@@ -1,7 +1,8 @@
 use Terminal::ANSIColor;
 use JSON::Tiny;
 use Sparrowdo;
-use Sparrowdo::Core::DSL;
+use Sparrowdo::Core::DSL::User;
+use Sparrowdo::Core::DSL::Package;
 
 sub MAIN (
 
@@ -16,6 +17,7 @@ sub MAIN (
   Bool :$bootstrap = False, 
   Str  :$module_run, 
   Bool :$no_sudo = False,
+  Bool :$no_color = False,
   Bool :$no_index_update = False,
 )
 {
@@ -34,6 +36,7 @@ sub MAIN (
     SshPrivateKey => $ssh_private_key, 
     Verbose => $verbose,
     NoSudo => $no_sudo,
+    NoColor => $no_color,
     NoIndexUpdate => $no_index_update
   );
 
@@ -98,6 +101,7 @@ sub ssh_shell ( $cmd ) {
   @bash_commands.push:  'export GIT_PROTOCOL=https';
   @bash_commands.push:  'export PATH=/sbin/:/usr/local/bin:/usr/sbin/:$PATH';
   @bash_commands.push:  'export SPARROW_ROOT=/opt/sparrow';
+  @bash_commands.push:  'export SPARROW_NO_COLOR=1' if input_params('NoColor');
   @bash_commands.push:  $cmd;
 
   my $ssh_host_term = input_params('Host');

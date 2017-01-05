@@ -15,7 +15,8 @@
     },
    "provides" : {
         "Sparrowdo" : "lib/Sparrowdo.pm6",
-        "Sparrowdo::Core::DSL" : "lib/Sparrowdo/Core/DSL.pm6"
+        "Sparrowdo::Core::DSL::User" : "lib/Sparrowdo/Core/DSL/User.pm6",
+        "Sparrowdo::Core::DSL::Package" : "lib/Sparrowdo/Core/DSL/Package.pm6"
   },
   "source-url"  : "https://github.com/melezhik/sparrowdo.git"
 }

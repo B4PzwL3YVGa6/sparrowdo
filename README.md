@@ -229,6 +229,12 @@ are not going to update sparrow index to save time.
 
 Optional parameter.
 
+## --no\_color
+
+If set to true - disable color output when executing in sparrowdo scenarios. 
+
+Optional parameter.
+
 ## --module\_run
 
 Runs a sparrowdo module instead of executing tasks from sparrowfile. For example:
@@ -375,6 +381,7 @@ This is the list of arguments valid for input\_params function:
     SshPrivateKey 
     Verbose
     NoSudo
+    NoColor
     NoIndexUpdate
 
 See also [sparrowdo client command line parameters](#sparrowdo-client-command-line-parameters) section.
