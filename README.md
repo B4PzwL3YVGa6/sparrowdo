@@ -35,7 +35,7 @@ create directories or users, populate files from templates or start services.
         content => 'hello world'
     );
 
-Read [core-dsl](/core-dsl.md) doc to get acquainted with core-dsl functions available at current sparrowdo version.
+Read [core-dsl](/core-dsl.md) doc to get acquainted with core-dsl functions available at the current sparrowdo version.
 
 # Plugins DSL
 

@@ -7,7 +7,7 @@ use Sparrowdo;
 sub package-install ( @list ) is export {
 
     task_run  %(
-      task => "install @list",
+      task => "install packages: " ~ (join ' ', @list),
       plugin => 'package-generic',
       parameters => %(
         list        => (join ' ', @list),
