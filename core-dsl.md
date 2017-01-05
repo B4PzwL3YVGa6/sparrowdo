@@ -19,11 +19,17 @@ Examples:
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
-| package-install | install software package ( OS independent ) | `package-install(@list)`| [package-generic](https://sparrowhub.org/info/package-generic) | 
+| package-install | install software package ( OS independent ) | `package-install(@list|$list)`| [package-generic](https://sparrowhub.org/info/package-generic) | 
 
 Examples:
 
+    # pass list as Array
     package-install ('nano', 'tree', 'mc');
+
+    # pass list as String, 
+    # packages are space separated items 
+    package-install 'nano tree mc';
+    package-install 'nano';
 
 
 

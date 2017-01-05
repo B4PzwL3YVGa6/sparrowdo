@@ -27,13 +27,17 @@ create directories or users, populate files from templates or start services.
     $ cat sparrowfile
 
     user-create 'create foo user', %( name => 'foo' );
+
     service-start 'start nginx web server', %( service => 'nginx' );
+
     file-create 'create this file', %( 
         target => '/opt/file.txt', 
         owner => 'root', 
         mode => '0644', 
         content => 'hello world'
     );
+
+    package-install ('nano', 'ncdu', 'mc' );
 
 Read [core-dsl](/core-dsl.md) doc to get acquainted with core-dsl functions available at the current sparrowdo version.
 
@@ -79,6 +83,15 @@ Examples above could be rewritten with low level API:
         owner       => 'root',
         mode        => '0644',
         content     => 'hello world'
+      )
+    );
+
+
+    task_run  %(
+      task => 'install packages',
+      plugin => 'package-generic',
+      parameters => %( 
+        list  => 'nano ncdu mc'
       )
     );
 
