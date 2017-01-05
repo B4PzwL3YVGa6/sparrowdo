@@ -16,3 +16,5 @@ sub package-install ( @list ) is export {
     );
 
 }
+
+constant &package = &package-install; # just an alias for the sake of being terse

@@ -1,1 +1,2 @@
 package-install ('nano', 'tree', 'mc');
+package 'curl';
