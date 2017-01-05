@@ -35,11 +35,17 @@ create directories or users, populate files from templates or start services.
         content => 'hello world'
     );
 
-Under the hood core dsl ends up in calling so called sparrow plugins with parameters.
-
-If you want direct access to sparrow plugins API you may use a plugin DSL:
+Read [core-dsl](/core-dsl.md) doc to get acquainted with core-dsl functions available at current sparrowdo version.
 
 # Plugins DSL
+
+Under the hood core dsl ends up in "calling"(*) a [sparrow plugins](https://github.com/melezhik/sparrow#sparrow-plugins) with parameters.
+
+(*) Not that accurate. Technically speaking core-dsl function just generates JSONs to **serialize** a sparrow plugins with
+binded parameter ( so called sparrow tasks ) and then generated JSON gets copied with the help of scp to the target host,
+where it's finally executed by sparrow client.
+
+If you want direct access to sparrow plugins API you may use a plugin DSL.
   
 Examples above could be rewritten with low level API: 
 
@@ -87,7 +93,7 @@ So it's up to you use core dsl or low level sparrow plugin API. Once I found som
 very common and highly useful I add a proper core-dsl method for it. In case you need 
 core-dsl wrappers for new plugins - let me know!
 
-[Here](/core-dsl.md) is the list of core-dsl function available at current Sparrowdo version.
+[Here](/core-dsl.md) is the list of core-dsl function available at the current Sparrowdo version.
 
 # Running sparrowdo scenario
 

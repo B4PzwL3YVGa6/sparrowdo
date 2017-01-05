@@ -19,7 +19,7 @@ Examples:
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
-| package-install | install software package ( OS independ ) | `package-install(@list)`| [package-generic](https://sparrowhub.org/info/package-generic) | 
+| package-install | install software package ( OS independent ) | `package-install(@list)`| [package-generic](https://sparrowhub.org/info/package-generic) | 
 
 Examples:
 
