@@ -41,11 +41,11 @@ Read [core-dsl](/core-dsl.md) doc to get acquainted with core-dsl functions avai
 
 Under the hood core dsl ends up in "calling"(*) a [sparrow plugins](https://github.com/melezhik/sparrow#sparrow-plugins) with parameters.
 
-(\*) Not that accurate. Technically speaking core-dsl function just generates JSONs to **serialize** a sparrow plugins with
-binded parameter ( so called sparrow tasks ) and then generated JSON gets copied with the help of scp to the target host,
-where it's finally executed by sparrow client.
+(\*) Not that accurate. Technically speaking core-dsl functions just *generate* a JSONs to **serialize** a sparrow plugins with
+binded parameters ( so called [sparrow tasks](https://github.com/melezhik/sparrow#tasks) ) and then generated JSON gets copied with the help of scp to the target host,
+where it is finally executed by sparrow client.
 
-Thus, If you want a direct access to sparrow plugins API you may use a plugin DSL.
+Thus, if you want a direct access to sparrow plugins API you may use a plugin DSL.
   
 Examples above could be rewritten with low level API: 
 
