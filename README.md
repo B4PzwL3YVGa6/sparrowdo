@@ -46,8 +46,7 @@ Read [core-dsl](/core-dsl.md) doc to get acquainted with core-dsl functions avai
 Under the hood core dsl ends up in "calling"(*) a [sparrow plugins](https://github.com/melezhik/sparrow#sparrow-plugins) with parameters.
 
 (\*) Not that accurate. Technically speaking core-dsl functions just *generate* a JSONs to **serialize** a sparrow plugins with
-binded parameters ( so called [sparrow tasks](https://github.com/melezhik/sparrow#tasks) ) and then generated JSON gets copied with the help of scp to the target host,
-where it is finally executed by sparrow client.
+binded parameters ( so called [sparrow tasks](https://github.com/melezhik/sparrow#tasks) ) and then generated JSON gets copied (with the help of scp command ) to the target host, where it is finally executed by sparrow client.
 
 Thus, if you want a direct access to sparrow plugins API you may use a plugin DSL.
   
@@ -98,9 +97,10 @@ Examples above could be rewritten with low level API:
 Reasons you may prefer a plugins DSL:
 
 * not every sparrow plugin has a *related* core-dsl function ( see below )
-* a core-dsl methods are just a wrappers to generated a proper JSON data to map sparrow plugin parameters,
-but this mapping could differ from *original* plugin API. So if you want to hack into, you'd probably want
-a low level plugins API. 
+* a core-dsl methods are just a wrappers to generated a proper JSON data to "represent" sparrow plugin with parameters,
+however such a mapping could be limited in comparison with *original* plugin API, for example you might not have access to some plugin input parameters and so on. Thus, if you want to hack into plugin details, you'd probably want
+a low level plugins API.
+* anyway in most cases a core-dsl API should be enough for most common configuration management tasks.
 
 # Core DSL vs Plugins DSL
     
