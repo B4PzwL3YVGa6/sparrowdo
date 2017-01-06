@@ -26,7 +26,7 @@ create directories or users, populate files from templates or start services.
 
     $ cat sparrowfile
 
-    user-create 'create foo user', %( name => 'foo' );
+    user-create 'foo';
 
     service-start 'start nginx web server', %( service => 'nginx' );
 
