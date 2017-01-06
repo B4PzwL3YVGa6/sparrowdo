@@ -24,7 +24,7 @@ Examples:
 
 Examples:
 
-1. packages
+Packages
 
     # pass list as Array
     package-install ('nano', 'tree', 'mc');
@@ -34,22 +34,20 @@ Examples:
     package-install 'nano tree mc';
     package-install 'nano';
 
-2. CPAN packages
+CPAN packages
 
     # install 3 modules, system wide paths
     cpan-package-install ('CGI', 'Config::Tiny', 'HTTP::Tiny') ,
     
     # install 3 modules, users install
-    cpan-package-install
-      'CGI Config::Tiny HTTP::Tiny',
+    cpan-package-install 'CGI Config::Tiny HTTP::Tiny',
       %(
         user =>'foo',
         install-base => '/home/foo/',
       );
     
     # the same as above but passing modules list as Array
-    cpan-package-install
-      ('CGI', 'Config::Tiny', 'HTTP::Path'),
+    cpan-package-install ('CGI', 'Config::Tiny', 'HTTP::Path'),
       %(
         user =>'foo',
         install-base => '/home/foo/',

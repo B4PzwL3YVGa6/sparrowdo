@@ -1,21 +1,19 @@
 user-create 'foo user', %( name  => 'foo');
-cpan-package-install 
-  ('CGI', 'Config::Tiny', 'HTTP::Tiny') , 
+cpan-package-install ('CGI', 'Config::Tiny', 'HTTP::Tiny'), 
   %( 
     user =>'foo',
     install-base => '/home/foo/',
   );
 
-cpan-package-install 
-  'CGI Config::Tiny HTTP::Tiny', 
+cpan-package-install 'CGI Config::Tiny HTTP::Tiny', 
   %( 
     user =>'foo',
     install-base => '/home/foo/',
   );
 
-cpan-package-install 
-  'CGI', 
+cpan-package-install 'CGI', 
   %( 
     user =>'foo',
     install-base => '/home/foo/',
   );
+
