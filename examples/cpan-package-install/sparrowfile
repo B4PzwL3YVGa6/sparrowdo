@@ -1,4 +1,5 @@
-user-create 'foo user', %( name  => 'foo');
+user-create 'foo';
+
 cpan-package-install ('CGI', 'Config::Tiny', 'HTTP::Tiny'), 
   %( 
     user =>'foo',

@@ -4,26 +4,26 @@ unit module Sparrowdo::Core::DSL::User;
 
 use Sparrowdo;
 
-sub user-create ( $label, %params ) is export {
+sub user-create ( $user_id ) is export {
 
     task_run  %(
-      task => $label,
+      task => "create user $user_id",
       plugin => 'user',
       parameters => %(
-        name        => %params<name>,
+        name        => $user_id,
         action      => 'create',
       )
     );
 
 }
 
-sub user-delete ( $label, %params ) is export {
+sub user-delete ( $user_id ) is export {
 
     task_run  %(
-      task => $label,
+      task => "delete user $user_id",
       plugin => 'user',
       parameters => %(
-        name        => %params<name>,
+        name        => $user_id,
         action      => 'delete',
       )
     );
