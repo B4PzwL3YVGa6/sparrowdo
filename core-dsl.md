@@ -36,17 +36,17 @@ Packages
 
 CPAN packages
 
-    # install 3 modules, system wide paths
-    cpan-package-install ('CGI', 'Config::Tiny', 'HTTP::Tiny') ,
+    # install 3 cpan modules, system wide paths
+    cpan-package-install ('CGI', 'Config::Tiny', 'HTTP::Tiny');
     
-    # install 3 modules, users install
+    # install 3 cpan modules, users install
     cpan-package-install 'CGI Config::Tiny HTTP::Tiny',
       %(
         user =>'foo',
         install-base => '/home/foo/',
       );
     
-    # the same as above but passing modules list as Array
+    # the same as above but passing cpan modules list as Array
     cpan-package-install ('CGI', 'Config::Tiny', 'HTTP::Path'),
       %(
         user =>'foo',
