@@ -18,5 +18,4 @@ install:
 script:
   - perl6 -Ilib -c bin/sparrowdo
   - prove -vr -e 'perl6 -Ilib' t/
-  - perl6 -Ilib bin/sparrowdo --host=127.0.0.1 --sparrowfile=examples/user-create/sparrowfile --no_color
-  - perl6 -Ilib bin/sparrowdo --host=127.0.0.1 --sparrowfile=examples/package-install/sparrowfile --no_color
+  - strun --root examples/
