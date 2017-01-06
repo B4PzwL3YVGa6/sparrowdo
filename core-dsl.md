@@ -1,6 +1,6 @@
 # SYNOPSIS
 
-Sparrowdo core-dsl functions.
+Sparrowdo core-dsl functions spec.
 
 * User accounts
 
@@ -19,9 +19,12 @@ Examples:
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
-| package-install | install software package ( OS independent ) | `package-install(@list|$list)`| [package-generic](https://sparrowhub.org/info/package-generic) | 
+| package-install | install software package | `package-install(@list|$list)`| [package-generic](https://sparrowhub.org/info/package-generic) | 
+| cpan-package-install | install CPAN package | `cpan-package-install(@list|$list,%opts)`| [cpan-package](https://sparrowhub.org/info/cpan-package) | 
 
 Examples:
+
+1. packages
 
     # pass list as Array
     package-install ('nano', 'tree', 'mc');
@@ -31,7 +34,24 @@ Examples:
     package-install 'nano tree mc';
     package-install 'nano';
 
+2. CPAN packages
 
-
-
-  
+    # install 3 modules, system wide paths
+    cpan-package-install ('CGI', 'Config::Tiny', 'HTTP::Tiny') ,
+    
+    # install 3 modules, users install
+    cpan-package-install
+      'CGI Config::Tiny HTTP::Tiny',
+      %(
+        user =>'foo',
+        install-base => '/home/foo/',
+      );
+    
+    # the same as above but passing modules list as Array
+    cpan-package-install
+      ('CGI', 'Config::Tiny', 'HTTP::Path'),
+      %(
+        user =>'foo',
+        install-base => '/home/foo/',
+      );
+      
