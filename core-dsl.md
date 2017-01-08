@@ -19,7 +19,7 @@ Examples:
     user 'alexey', %(action => 'create'); # hash parameters form of user create
     user 'alexey', %(action => 'delete'); # hash parameters form of user delete
 
-* group groups
+* User groups
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
@@ -74,3 +74,30 @@ CPAN packages
         install-base => '/home/foo/',
       );
       
+* Services
+
+| function | description | usage | sparrow plugin |
+| -------- | ----------- | ----- | -------------- |
+| service-start | start service | `service-start($name)`| [service](https://sparrowhub.org/info/service) | 
+| service-restart | restart service | `service-restart($name)`| [service](https://sparrowhub.org/info/service) | 
+| service-stop | stop service | `service-stop($name)`| [service](https://sparrowhub.org/info/service) | 
+| service-enable | enable service | `service-enable($name)`| [service](https://sparrowhub.org/info/service) | 
+| service-disable | disable service | `service-disable($name)`| [service](https://sparrowhub.org/info/service) | 
+| service       | start/stop/restart/enable/disable service | `service($name, %args)`| [service](https://sparrowhub.org/info/service) |
+
+Examples:
+
+    service-enable 'nginx';
+    
+    service-start 'nginx';
+    
+    service-stop 'nginx';
+    
+    service-restart 'nginx';
+    
+    service 'nginx', %( action => 'stop' );
+    
+    service 'nginx', %( action => 'disable' );
+    
+    service-disable 'nginx';
+    

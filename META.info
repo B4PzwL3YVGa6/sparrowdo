@@ -18,7 +18,8 @@
         "Sparrowdo::Core::DSL::User" : "lib/Sparrowdo/Core/DSL/User.pm6",
         "Sparrowdo::Core::DSL::Group" : "lib/Sparrowdo/Core/DSL/Group.pm6",
         "Sparrowdo::Core::DSL::Package" : "lib/Sparrowdo/Core/DSL/Package.pm6",
-        "Sparrowdo::Core::DSL::CPAN::Package" : "lib/Sparrowdo/Core/DSL/CPAN/Package.pm6"
+        "Sparrowdo::Core::DSL::CPAN::Package" : "lib/Sparrowdo/Core/DSL/CPAN/Package.pm6",
+        "Sparrowdo::Core::DSL::Service" : "lib/Sparrowdo/Core/DSL/Service.pm6"
   },
   "source-url"  : "https://github.com/melezhik/sparrowdo.git"
 }
