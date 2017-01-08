@@ -8,12 +8,16 @@ Sparrowdo core-dsl functions spec.
 | -------- | ----------- | ----- | -------------- |
 | user-create | create linux/unix user | `user-create($name)`| [user](https://sparrowhub.org/info/user) | 
 | user-delete | delete linux/unix user | `user-delete($name)`| [user](https://sparrowhub.org/info/user) |
+| user        | create/delete linux/unix user | `user($name,[%args])`| [user](https://sparrowhub.org/info/user) |
 
 Examples:
 
 
-    user-create 'alexey';
-    user-delete 'alexey';
+    user-create 'alexey'; # create user `alexey'
+    user-delete 'alexey'; # delete user `alexey'
+    user 'alexey'; # short form of user create
+    user 'alexey', %(action => 'create'); # hash parameters form of user create
+    user 'alexey', %(action => 'delete'); # hash parameters form of user delete
 
 * Packages
 

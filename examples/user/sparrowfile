@@ -1,2 +1,4 @@
 user-create 'foo';
 user-delete 'foo';
+user 'foo';
+user 'foo' , %( action => 'delete' );
