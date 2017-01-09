@@ -114,6 +114,8 @@ Examples:
 
 Examples:
 
+    directory '/tmp/baz';
+
     directory-create '/tmp/baz';
 
     directory-create '/tmp/foo/bar', %(
