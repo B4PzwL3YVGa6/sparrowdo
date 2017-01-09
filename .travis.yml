@@ -19,5 +19,6 @@ script:
   - perl6 -Ilib -c bin/sparrowdo
   - prove -vr -e 'perl6 -Ilib' t/
   - panda install .
+  - panda install Sparrow::Update
   - perl6 -Ilib bin/sparrowdo --module_run=Sparrow::Update --bootstrap --host=127.0.0.1
   - strun --root examples/
