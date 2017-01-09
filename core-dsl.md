@@ -6,9 +6,9 @@ Sparrowdo core-dsl functions spec.
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
-| user-create | create linux/unix user | `user-create($name)`| [user](https://sparrowhub.org/info/user) | 
-| user-delete | delete linux/unix user | `user-delete($name)`| [user](https://sparrowhub.org/info/user) |
-| user        | create/delete linux/unix user | `user($name,[%args])`| [user](https://sparrowhub.org/info/user) |
+| user-create | create user | `user-create($name)`| [user](https://sparrowhub.org/info/user) | 
+| user-delete | delete user | `user-delete($name)`| [user](https://sparrowhub.org/info/user) |
+| user        | create/delete user | `user($name,[%args])`| [user](https://sparrowhub.org/info/user) |
 
 Examples:
 
@@ -23,9 +23,9 @@ Examples:
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
-| group-create | create linux/unix group | `group-create($name)`| [group](https://sparrowhub.org/info/group) | 
-| group-delete | delete linux/unix group | `group-delete($name)`| [group](https://sparrowhub.org/info/group) |
-| group        | create/delete linux/unix group | `group($name,[%args])`| [group](https://sparrowhub.org/info/group) |
+| group-create | create group | `group-create($name)`| [group](https://sparrowhub.org/info/group) | 
+| group-delete | delete group | `group-delete($name)`| [group](https://sparrowhub.org/info/group) |
+| group        | create/delete group | `group($name,[%args])`| [group](https://sparrowhub.org/info/group) |
 
 Examples:
 
@@ -103,3 +103,31 @@ Examples:
     
     service-disable 'nginx';
     
+
+* Directories
+
+| function | description | usage | sparrow plugin |
+| -------- | ----------- | ----- | -------------- |
+| directory-create | create directory | `directory-create($name,%args)`| [directory](https://sparrowhub.org/info/directory) | 
+| directory-delete | delete directory | `directory-delete($name)`| [directory](https://sparrowhub.org/info/directory) |
+| directory        | create/delete directory | `directory($name,[%args])`| [directory](https://sparrowhub.org/info/directory) |
+
+Examples:
+
+    directory-create '/tmp/foo/bar', %(
+      recursive => 1 ,
+      owner => 'foo',
+      mode => '755'
+    );
+    
+    directory '/tmp/foo/bar/bar/123', %(
+      action => 'create',
+      recursive => 1 ,
+      owner => 'foo',
+      mode => '755'
+    );
+    
+    
+    directory-delete '/tmp/foo/bar';
+
+
