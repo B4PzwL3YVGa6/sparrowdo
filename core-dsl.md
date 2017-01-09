@@ -114,6 +114,8 @@ Examples:
 
 Examples:
 
+    directory-create '/tmp/baz';
+
     directory-create '/tmp/foo/bar', %(
       recursive => 1 ,
       owner => 'foo',

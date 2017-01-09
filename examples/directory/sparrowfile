@@ -1,4 +1,5 @@
 directory-delete '/tmp/foo';
+directory-create '/tmp/foo';
 
 user 'foo';
 
