@@ -4,6 +4,7 @@ unit module Sparrowdo::Core::DSL::CPAN::Package;
 
 use Sparrowdo;
 
+
 multi sub cpan-package-install ( @list, %opts ) is export {
 
     my %params = Hash.new;
@@ -22,6 +23,8 @@ multi sub cpan-package-install ( @list, %opts ) is export {
     );
 
 }
+
+multi sub cpan-package ( @list, %opts ) is export { cpan-package-install @list, %opts  } # alias
 
 multi sub cpan-package-install ( $list, %opts ) is export {
 
@@ -42,4 +45,5 @@ multi sub cpan-package-install ( $list, %opts ) is export {
 
 }
 
+multi sub cpan-package ( $list, %opts ) is export { cpan-package-install  $list, %opts  } # alias
  

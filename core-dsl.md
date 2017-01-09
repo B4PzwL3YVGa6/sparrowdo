@@ -42,6 +42,7 @@ Examples:
 | -------- | ----------- | ----- | -------------- |
 | package-install | install software package | `package-install(@list|$list)`| [package-generic](https://sparrowhub.org/info/package-generic) | 
 | cpan-package-install | install CPAN package | `cpan-package-install(@list|$list,%opts)`| [cpan-package](https://sparrowhub.org/info/cpan-package) | 
+| cpan-package         | alias for cpan-install function | * | *  |
 
 Examples:
 
@@ -60,19 +61,20 @@ CPAN packages
     # install 3 cpan modules, system wide paths
     cpan-package-install ('CGI', 'Config::Tiny', 'HTTP::Tiny');
     
+    # short form of above
+    cpan-package ('CGI', 'Config::Tiny', 'HTTP::Tiny');
+    
     # install 3 cpan modules, users install
-    cpan-package-install 'CGI Config::Tiny HTTP::Tiny',
-      %(
+    cpan-package-install 'CGI Config::Tiny HTTP::Tiny', %(
         user =>'foo',
         install-base => '/home/foo/',
-      );
+    );
     
     # the same as above but passing cpan modules list as Array
-    cpan-package-install ('CGI', 'Config::Tiny', 'HTTP::Path'),
-      %(
+    cpan-package-install ('CGI', 'Config::Tiny', 'HTTP::Path'), %(
         user =>'foo',
         install-base => '/home/foo/',
-      );
+    );
       
 * Services
 
