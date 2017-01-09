@@ -1,6 +1,6 @@
 # Sparrowdo
 
-Simple configuration engine based on [sparrow](https://sparrowhub.org) plugin system.
+Configuration management tool based on [sparrow](https://sparrowhub.org) plugins system.
 
 # Build status
 
