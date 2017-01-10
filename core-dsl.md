@@ -134,4 +134,36 @@ Examples:
     
     directory-delete '/tmp/foo/bar';
 
+* Files
+
+| function | description | usage | sparrow plugin |
+| -------- | ----------- | ----- | -------------- |
+| file-create | create file | `file-create($name,%args)`| [file](https://sparrowhub.org/info/file) | 
+| file-delete | delete file | `file-delete($name)`| [file](https://sparrowhub.org/info/file) |
+| file        | create/delete file | `file($name,[%args])`| [file](https://sparrowhub.org/info/file) |
+
+Examples:
+
+    file '/var/data/animals.txt';
+
+    file-create '/var/data/animals.txt';
+
+    file-create '/var/data/animals.txt', %(
+      owner => 'zookeeper',
+      group => 'animals' ,
+      mode => '644',
+      content => 'I am read fox!'
+    );
+
+    file '/var/data/animals.txt', %(
+      action  => 'create',
+      owner   => 'zookeeper',
+      group   => 'animals' ,
+      mode    => '644',
+      content => 'I am read fox!'
+    );
+    
+    file-delete '/var/data/animals.txt';
+
+    file '/var/data/animals.txt', %( action => 'delete');
 

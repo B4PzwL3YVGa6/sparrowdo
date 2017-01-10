@@ -3,6 +3,7 @@ use JSON::Tiny;
 use Sparrowdo;
 use Sparrowdo::Core::DSL::User;
 use Sparrowdo::Core::DSL::Group;
+use Sparrowdo::Core::DSL::File;
 use Sparrowdo::Core::DSL::Directory;
 use Sparrowdo::Core::DSL::Package;
 use Sparrowdo::Core::DSL::CPAN::Package;
