@@ -167,3 +167,31 @@ Examples:
 
     file '/var/data/animals.txt', %( action => 'delete');
 
+* Templates
+
+Templates are files gets populated from templates sources in [Template-Toolkit](http://template-toolkit.org/) format.
+
+| function | description | usage | sparrow plugin |
+| -------- | ----------- | ----- | -------------- |
+| template-create | create template | `template-create($name,%args)`| [template](https://sparrowhub.org/info/templater) | 
+| template        | alias for template-create | * | * |
+
+Examples:
+
+    $ cat examples/templates/animals.tmpl
+
+    Hello, my name is [% name %]!
+    I speak [% language %]
+
+    template-create '/var/data/animals.txt', %(
+      source => ( slurp 'examples/templates/animals.tmpl' ),
+      owner => 'zookeeper',
+      group => 'animals' ,
+      mode => '644',
+      variables => %(
+        name => 'red fox',
+        language => 'English'
+      ),
+    );
+    
+    

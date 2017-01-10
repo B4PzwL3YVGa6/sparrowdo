@@ -5,6 +5,7 @@ use Sparrowdo::Core::DSL::User;
 use Sparrowdo::Core::DSL::Group;
 use Sparrowdo::Core::DSL::File;
 use Sparrowdo::Core::DSL::Directory;
+use Sparrowdo::Core::DSL::Template;
 use Sparrowdo::Core::DSL::Package;
 use Sparrowdo::Core::DSL::CPAN::Package;
 use Sparrowdo::Core::DSL::Service;
@@ -20,6 +21,7 @@ sub MAIN (
   Int  :$ssh_port = 22, 
   Bool :$verbose = False, 
   Bool :$bootstrap = False, 
+  Bool :$check_syntax = False, 
   Str  :$module_run, 
   Bool :$no_sudo = False,
   Bool :$no_color = False,
@@ -62,11 +64,14 @@ sub MAIN (
     config_set(EVALFILE 'config.pl6'); 
   }
 
+
   if $module_run {
     module_run $module_run;
   } else {
     EVALFILE $sparrowfile||'sparrowfile';
   }
+
+  exit if $check_syntax;
 
   spurt '/tmp/sparrowdo-box.json', (to-json get_tasks());
 

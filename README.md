@@ -230,6 +230,10 @@ Sets shh port for ssh connection to remote host. Default value is `22`.
 If set to true - do not initiate ssh command under `sudo`, just as is. Default value is false - use `sudo`.
 Optional parameter.
 
+## --check_syntax
+
+If set to true - only compile scenarios and don't run anything on target host. Optional parameter.
+
 ## --no\_index\_update
 
 If set to true - do not run `sparrow index update` command at the beginning`. This could be useful if you
