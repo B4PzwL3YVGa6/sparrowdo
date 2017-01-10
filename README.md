@@ -26,16 +26,20 @@ create directories or users, populate files from templates or start services.
 
     $ cat sparrowfile
 
-    user 'tomtit';
+    user 'zookeeper';
+
+    group 'birds';
+
+    directory '/var/data/avifauna/greetings/', %( owner => 'zookeeper' );
+
+    file-create '/var/data/avifauna/greetings/sparrow.txt', %( 
+        owner => 'zookeeper',
+        group => 'birds', 
+        mode  => '0644', 
+        content => 'I am little but I am smart'
+    );
 
     service-start 'nginx';
-
-    file-create 'create this file', %( 
-        target => '/opt/file.txt', 
-        owner => 'root', 
-        mode => '0644', 
-        content => 'hello world'
-    );
 
     package-install ('nano', 'ncdu', 'mc' );
 
@@ -55,11 +59,45 @@ Examples above could be rewritten with low level API:
     $ cat sparrowfile
 
     task_run  %(
-      task        => 'create small bird user',
+      task        => 'create zookeeper user',
       plugin      => 'user',
       parameters  => %( 
         action => 'create' , 
-        name => 'tomtit'
+        name => 'zookeeper'
+      )
+    );
+
+    task_run  %(
+      task        => 'create birds group',
+      plugin      => 'group',
+      parameters  => %( 
+        action => 'create' , 
+        name => 'birds'
+      )
+    );
+
+    task_run  %(
+      task        => 'create greetings directory',
+      plugin      => 'directory',
+      parameters  => %( 
+        action  => 'create' , 
+        path    => '/var/data/avifauna/greetings',
+        owner   => 'zookeeper'
+      )
+    );
+
+
+
+    task_run  %(
+      task => 'create sparrow greeting file',
+      plugin => 'file',
+      parameters => %( 
+        action      => 'create',
+        target      => '/var/data/avifauna/greetings/sparrow.txt',
+        owner       => 'zookeeper',
+        group       => 'birds' 
+        mode        => '0644',
+        content     => 'I am little but I am smart'
       )
     );
 
@@ -71,20 +109,6 @@ Examples above could be rewritten with low level API:
         service     => 'nginx'
       )
     );
-
-
-    task_run  %(
-      task => 'create this file',
-      plugin => 'file',
-      parameters => %( 
-        action      => 'create',
-        target      => '/opt/file.txt',
-        owner       => 'root',
-        mode        => '0644',
-        content     => 'hello world'
-      )
-    );
-
 
     task_run  %(
       task => 'install some handy packages',
