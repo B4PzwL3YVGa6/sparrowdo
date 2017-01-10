@@ -123,27 +123,9 @@ Now having ready sparrowfile you can run your scenario against some remote hosts
 
 # Schema
 
-Here is textual schema of what is going on.
+Here is visual presentation of sparrowdo system design
 
-      +-----------------+
-      |                 |    ssh
-      |                 |------------> < host-1 > 192.168.0.1
-      | <master host>   |    ssh
-      | {sparrowdo}     |------------------> < host-2 > 192.168.0.2
-      |                 |    ssh 
-      |                 |-----------------------> < host-N > 127.0.0.1
-      |                 |
-      +-----------------+
-
-
-      +-------------+
-      |             |
-      | <host>      |
-      |             |
-      | {sparrow}   | 
-      | {curl}      |
-      |             |
-      +-------------+
+![sparrowdo system design](https://sparrowdo.files.wordpress.com/2017/01/sparrowdo-system.png)
 
 ## Master host
 
