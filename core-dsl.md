@@ -118,9 +118,9 @@ Examples:
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
-| directory-create | create directory | `directory-create($name,%args)`| [directory](https://sparrowhub.org/info/directory) | 
-| directory-delete | delete directory | `directory-delete($name)`| [directory](https://sparrowhub.org/info/directory) |
-| directory        | create/delete directory | `directory($name,[%args])`| [directory](https://sparrowhub.org/info/directory) |
+| directory-create | create directory | `directory-create($path,%args)`| [directory](https://sparrowhub.org/info/directory) | 
+| directory-delete | delete directory | `directory-delete($path)`| [directory](https://sparrowhub.org/info/directory) |
+| directory        | create/delete directory | `directory($path,[%args])`| [directory](https://sparrowhub.org/info/directory) |
 
 Examples:
 
@@ -148,9 +148,9 @@ Examples:
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
-| file-create | create file | `file-create($name,%args)`| [file](https://sparrowhub.org/info/file) | 
-| file-delete | delete file | `file-delete($name)`| [file](https://sparrowhub.org/info/file) |
-| file        | create/delete file | `file($name,[%args])`| [file](https://sparrowhub.org/info/file) |
+| file-create | create file | `file-create($path,%args)`| [file](https://sparrowhub.org/info/file) | 
+| file-delete | delete file | `file-delete($path)`| [file](https://sparrowhub.org/info/file) |
+| file        | create/delete file | `file($path,[%args])`| [file](https://sparrowhub.org/info/file) |
 
 Examples:
 
@@ -183,7 +183,7 @@ Templates are files gets populated from templates sources in [Template-Toolkit](
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
-| template-create | create template | `template-create($name,%args)`| [template](https://sparrowhub.org/info/templater) | 
+| template-create | create template | `template-create($path,%args)`| [template](https://sparrowhub.org/info/templater) | 
 | template        | alias for template-create | * | * |
 
 Examples:
