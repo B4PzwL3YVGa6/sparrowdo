@@ -2,6 +2,16 @@
 
 Sparrowdo core-dsl functions spec.
 
+* [User accounts](#user-accounts)
+* [User groups](#user-groups)
+* [Packages](#packages)
+  * [System packages](#system-packages)
+  * [CPAN packages](#cpan-packages)
+* [Services](#services)
+* [Directories](#directories)
+* [Files](#files)
+* [Templates](#templates)
+
 ## User accounts
 
 | function | description | usage | sparrow plugin |
