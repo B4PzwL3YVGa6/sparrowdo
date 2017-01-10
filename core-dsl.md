@@ -2,7 +2,7 @@
 
 Sparrowdo core-dsl functions spec.
 
-* User accounts
+## User accounts
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
@@ -19,7 +19,7 @@ Examples:
     user 'alexey', %(action => 'create'); # hash parameters form of user create
     user 'alexey', %(action => 'delete'); # hash parameters form of user delete
 
-* User groups
+## User groups
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
@@ -36,7 +36,7 @@ Examples:
     group 'sparrows', %(action => 'create'); # hash parameters form of group create
     group 'sparrows', %(action => 'delete'); # hash parameters form of group delete
 
-* Packages
+## Packages
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
@@ -46,7 +46,7 @@ Examples:
 
 Examples:
 
-Packages
+### System packages
 
     # pass list as Array
     package-install ('nano', 'tree', 'mc');
@@ -56,7 +56,7 @@ Packages
     package-install 'nano tree mc';
     package-install 'nano';
 
-CPAN packages
+### CPAN packages
 
     # install 3 cpan modules, system wide paths
     cpan-package-install ('CGI', 'Config::Tiny', 'HTTP::Tiny');
@@ -76,7 +76,7 @@ CPAN packages
         install-base => '/home/foo/',
     );
       
-* Services
+## Services
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
@@ -104,7 +104,7 @@ Examples:
     service-disable 'nginx';
     
 
-* Directories
+## Directories
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
@@ -134,7 +134,7 @@ Examples:
     
     directory-delete '/tmp/foo/bar';
 
-* Files
+## Files
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
@@ -167,7 +167,7 @@ Examples:
 
     file '/var/data/animals.txt', %( action => 'delete');
 
-* Templates
+## Templates
 
 Templates are files gets populated from templates sources in [Template-Toolkit](http://template-toolkit.org/) format.
 
