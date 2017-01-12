@@ -12,8 +12,14 @@ user 'foo';
 
 bash('pwd', 'foo');
 
-
 bash 'pwd', %(
   user => 'foo',
   expect_stdout => '/home/foo'
 );
+
+bash 'echo $FOO; echo $BAR', %( 
+  envvars => %(
+    FOO => 'the-foo',
+    BAR => 'the-bar',
+  ) 
+)

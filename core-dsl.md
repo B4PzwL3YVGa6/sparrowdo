@@ -245,3 +245,12 @@ Examples:
     # or enable debug mode ( set -x ):
     bash 'very-long-command', %( debug => 1 );
     
+    # or passing environment variables:
+
+    bash 'echo $FOO; echo $BAR', %(
+      envvars => %(
+        FOO => 'the-foo',
+        BAR => 'the-bar',
+      )
+    )
+    

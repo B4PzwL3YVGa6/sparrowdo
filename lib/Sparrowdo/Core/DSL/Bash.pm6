@@ -19,6 +19,7 @@ multi sub bash ( $command, %opts = () ) is export {
     %params<user> = %opts<user> if %opts<user>:exists;
     %params<debug> = %opts<debug> if %opts<debug>:exists;
     %params<expect_stdout> = %opts<expect_stdout> if %opts<expect_stdout>:exists;
+    %params<envvars> = %opts<envvars> if %opts<envvars>:exists;
 
     task_run  %( task => $task_name, plugin => 'bash', parameters => %params );
 
