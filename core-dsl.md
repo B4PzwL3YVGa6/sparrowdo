@@ -11,6 +11,7 @@ Sparrowdo core-dsl functions spec.
 * [Directories](#directories)
 * [Files](#files)
 * [Templates](#templates)
+* [Bash commands](#bash)
 
 ## User accounts
 
@@ -204,4 +205,43 @@ Examples:
       ),
     );
     
+    
+## Bash
+
+This function executes bash code.
+
+| function | description | usage | sparrow plugin |
+| -------- | ----------- | ----- | -------------- |
+| bash | execute bash, default user | `bash($command)`| [bash](https://sparrowhub.org/info/bash) | 
+| bash | execute bash, for user | `bash($command,$user)`| [bash](https://sparrowhub.org/info/bash) |
+| bash | execute bash, generic form | `bash($command,%args)`| [bash](https://sparrowhub.org/info/bash) |
+
+Examples:
+
+    # execute bash for default user 
+    bash(q:to/HERE/);
+      set -e;
+      touch /tmp/sparrow123.txt
+      echo one
+      echo two
+      echo three
+    HERE
+    
+    # one-liner
+    bash('echo hello world');
+    
+
+    # execute command for `foo' user    
+    bash('pwd', 'foo');
+    
+
+    # pass parameters as Hash, many options here:
+    # e.g. check STDOUT from executed command
+    bash 'pwd', %(
+      user => 'foo',
+      expect_stdout => '/home/foo'
+    );
+
+    # or enable debug mode ( set -x ):
+    bash 'very-long-command', %( debug => 1 );
     
