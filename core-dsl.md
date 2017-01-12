@@ -236,21 +236,26 @@ Examples:
     
 
     # pass parameters as Hash, many options here:
-    # e.g. check STDOUT from executed command
+
+    # check STDOUT from executed command
     bash 'pwd', %(
       user => 'foo',
       expect_stdout => '/home/foo'
     );
 
-    # or enable debug mode ( set -x ):
+    # enable debug mode ( set -x ):
     bash 'very-long-command', %( debug => 1 );
     
     # or passing environment variables:
-
     bash 'echo $FOO; echo $BAR', %(
       envvars => %(
         FOO => 'the-foo',
         BAR => 'the-bar',
       )
     )
-    
+
+    # sets description for bash command 
+    # ( will be printed at sparrowdo report instead of dummy "execute bash command" )
+    bash "ls -l", %( 
+      description => "use this description for bash command" 
+    );    

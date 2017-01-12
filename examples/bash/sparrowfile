@@ -22,4 +22,6 @@ bash 'echo $FOO; echo $BAR', %(
     FOO => 'the-foo',
     BAR => 'the-bar',
   ) 
-)
+);
+
+bash "pwd", %( description => "use this description for bash command" );
