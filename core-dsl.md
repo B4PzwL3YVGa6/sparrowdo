@@ -184,7 +184,7 @@ Templates are files gets populated from templates sources in [Template-Toolkit](
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
-| template-create | create template | `template-create($path,%args)`| [template](https://sparrowhub.org/info/templater) | 
+| template-create | create template | `template-create($path,%args)`| [templater](https://sparrowhub.org/info/templater) | 
 | template        | alias for template-create | * | * |
 
 Examples:
