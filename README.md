@@ -76,16 +76,14 @@ Examples above could be rewritten with low level API:
       )
     );
 
-    task_run  %(
-      task        => 'create greetings directory',
-      plugin      => 'directory',
-      parameters  => %( 
-        action  => 'create' , 
-        path    => '/var/data/avifauna/greetings',
-        owner   => 'zookeeper'
-      )
-    );
+    # this one uses a short form of task_run function:
+    # in a form of task_run $task_desc, $plugin_name, %parameters
 
+    task_run 'create greetings directory', 'directory', %( 
+      action  => 'create' , 
+      path    => '/var/data/avifauna/greetings',
+      owner   => 'zookeeper'
+    );
 
 
     task_run  %(

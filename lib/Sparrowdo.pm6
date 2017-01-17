@@ -62,7 +62,15 @@ sub set_spl(%args) is export {
   }
 }
 
-sub task_run(%args) is export { 
+multi sub task_run( $task_desc, $plugin_name, %parameters?  ) is export { 
+    task_run %(
+      task          => $task_desc,
+      plugin        => $plugin_name,
+      parameters    => %parameters
+    );
+}
+
+multi sub task_run(%args) is export { 
 
   my %task_data = %( 
       task => %args<task>,
