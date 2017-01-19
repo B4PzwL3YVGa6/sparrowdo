@@ -58,7 +58,7 @@ Examples above could be rewritten with low level API:
 
     $ cat sparrowfile
 
-    task_run  %(
+    task-run  %(
       task        => 'create zookeeper user',
       plugin      => 'user',
       parameters  => %( 
@@ -67,7 +67,7 @@ Examples above could be rewritten with low level API:
       )
     );
 
-    task_run  %(
+    task-run  %(
       task        => 'create birds group',
       plugin      => 'group',
       parameters  => %( 
@@ -76,45 +76,30 @@ Examples above could be rewritten with low level API:
       )
     );
 
-    # this one uses a short form of task_run function:
-    # in a form of task_run $task_desc, $plugin_name, %parameters
+    # a following code will use a short form of task-run $task_desc, $plugin_name, %parameters
 
-    task_run 'create greetings directory', 'directory', %( 
+    task-run 'create greetings directory', 'directory', %( 
       action  => 'create' , 
       path    => '/var/data/avifauna/greetings',
       owner   => 'zookeeper'
     );
 
 
-    task_run  %(
-      task => 'create sparrow greeting file',
-      plugin => 'file',
-      parameters => %( 
-        action      => 'create',
-        target      => '/var/data/avifauna/greetings/sparrow.txt',
-        owner       => 'zookeeper',
-        group       => 'birds' 
-        mode        => '0644',
-        content     => 'I am little but I am smart'
-      )
+    task-run 'create sparrow greeting file', 'file', %(
+      action      => 'create',
+      target      => '/var/data/avifauna/greetings/sparrow.txt',
+      owner       => 'zookeeper',
+      group       => 'birds' 
+      mode        => '0644',
+      content     => 'I am little but I am smart'
     );
 
-    task_run  %(
-      task => 'start nginx web server',
-      plugin => 'service',
-      parameters => %( 
-        action      => 'start',
-        service     => 'nginx'
-      )
+    task-run 'start nginx web server', 'service',  %(
+      action      => 'start',
+      service     => 'nginx'
     );
 
-    task_run  %(
-      task => 'install some handy packages',
-      plugin => 'package-generic',
-      parameters => %( 
-        list  => 'nano ncdu mc'
-      )
-    );
+    task-run 'install some handy packages', 'package-generic', %( list  => 'nano ncdu mc' );
 
 Reasons you may prefer a plugins DSL:
 
@@ -201,18 +186,10 @@ You should use `set_spl(%hash)` function to set up private plugin index file:
         df-check-dev => 'https://github.com/melezhik/df-check.git'
     );
     
-    task_run  %(
-      task => 'install my packages',
-      plugin => 'package-generic-dev',
-      parameters => %( list => 'cpanminus git-core' )
-    );
+    task-run 'install my packages', 'package-generic-dev', %( list => 'cpanminus git-core' );
 
-    task_run  %(
-      task => 'check my disk',
-      plugin => 'df-check-dev'
-    );
+    task-run 'check my disk', 'df-check-dev';
     
-
 # Sparrowdo client command line parameters
 
 ## --help
@@ -309,24 +286,17 @@ An example of sparrowdo module:
 
     our sub tasks (%args) {
 
-      task_run  %(
-        task => 'install nginx',
-        plugin => 'package-generic',
-        parameters => %( list => 'nginx' )
+      task-run 'install nginx', 'package-generic', %( list => 'nginx' );
+
+      task-run 'enable nginx', 'service', %(
+        service => 'nginx', 
+        action => 'enable'
       );
 
-      task_run  %(
-        task => 'enable nginx',
-        plugin => 'service',
-        parameters => %( service => 'nginx', action => 'enable' )
+      task-run task => 'start nginx', 'service', %( 
+        service => 'nginx', 
+        action => 'start' 
       );
-
-      task_run  %(
-        task => 'start nginx',
-        plugin => 'service',
-        parameters => %( service => 'nginx', action => 'start' )
-      );
-  
 
     }
         
@@ -370,13 +340,7 @@ This function returns OS name for the target server.
 For example:
 
     if target_os() ~~ m/centos/ {
-    
-      task_run  %(
-        task => 'install epel-release',
-        plugin => 'package-generic',
-        parameters => %( list => 'epel-release' )
-      );
-    
+      task-run 'install epel-release', 'package-generic', %( list => 'epel-release' );
     }
     
 
@@ -395,14 +359,10 @@ Input\_params function returns command line parameter one provides running sparr
 For example:
 
 
-    task_run  %(
-      task => 'install great CPAN module',
-      plugin => 'cpan-package',
-      parameters => %( 
-        list => 'Moose',
-        http_proxy => input_params('HttpProxy'), 
-        https_proxy => input_params('HttpsProxy'), 
-      )
+    task-run  %('install Moose', 'cpan-package', %( 
+      list => 'Moose',
+      http_proxy => input_params('HttpProxy'), 
+      https_proxy => input_params('HttpsProxy'), 
     );
 
 This is the list of arguments valid for input\_params function:
