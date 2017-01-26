@@ -1,7 +1,7 @@
 # 0.0.3
 
-* bash core-dsl - generated a proper description for command ( if not set )
-instead of dummy "execute bash command"
+* bash core-dsl - generated a proper description for command ( if not set ) instead of dummy "execute bash command"
+* ssh core-dsl function added
 
 # 0.0.2
 
