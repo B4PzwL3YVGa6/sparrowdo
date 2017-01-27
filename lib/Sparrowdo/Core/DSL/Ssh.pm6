@@ -2,18 +2,18 @@ use v6;
 
 unit module Sparrowdo::Core::DSL::Ssh;
 
-use Sparrowdo;
+#use Sparrowdo;
 use Sparrowdo::Core::DSL::Bash;
 use Sparrowdo::Core::DSL::Directory;
 use Sparrowdo::Core::DSL::File;
 
-sub ssh ( $command, %args = () ) is export { 
+sub ssh ( $command, %args? ) is export { 
 
   my %ssh-command;
 
   directory '/opt/sparrow/.cache/';
 
-  file '/opt/sparrow/.cache/ssh-command', %( content => $command );
+  file '/opt/sparrow/.cache/ssh-command', %( content => $command ~ "\nexit" );
   
   if %args<ssh-key>:exists {
     file '/opt/sparrow/.cache/ssh-key', %( 

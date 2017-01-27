@@ -1,3 +1,7 @@
+# 0.0.4
+
+* ssh core-dsl - explicit exit at the end of ssh command
+
 # 0.0.3
 
 * bash core-dsl - generated a proper description for command ( if not set ) instead of dummy "execute bash command"
