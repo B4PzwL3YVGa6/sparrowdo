@@ -1,3 +1,7 @@
+# 0.0.5
+
+* ssh core-dsl - fix documentation issues / add `create` parameter
+
 # 0.0.4
 
 * ssh core-dsl - explicit exit at the end of ssh command

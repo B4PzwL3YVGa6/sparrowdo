@@ -2,7 +2,7 @@ use v6;
 
 unit module Sparrowdo::Core::DSL::Ssh;
 
-#use Sparrowdo;
+use Sparrowdo;
 use Sparrowdo::Core::DSL::Bash;
 use Sparrowdo::Core::DSL::Directory;
 use Sparrowdo::Core::DSL::File;
@@ -35,10 +35,20 @@ sub ssh ( $command, %args? ) is export {
 
   $ssh-run-cmd ~= " $ssh-host-term " ~ ' < /opt/sparrow/.cache/ssh-command ';
 
-  bash $ssh-run-cmd, %(
-   description => $ssh-run-cmd
+  my $bash-cmd;
+
+  if %args<create>:exists {
+    $bash-cmd = "if ! test -f %args<create> ; then $ssh-run-cmd ; else echo skip due to %args<create> exists; fi"    
+  } else {
+    $bash-cmd = $ssh-run-cmd
+  }
+
+  bash $bash-cmd, %(
+    description => $ssh-run-cmd
   );
 
   file-delete '/opt/sparrow/.cache/ssh-key' if %args<ssh-key>:exists;
+
+  file %args<create> if %args<create>:exists;
 
 }

@@ -287,21 +287,27 @@ Examples:
 
     # you also may set a user:
     ssh 'uptime', %(
-      remote_host => '192.168.0.1',
-      user        => 'old_dog'
+      host  => '192.168.0.1',
+      user  => 'old_dog'
     );
 
     # and ssh_key
     ssh 'uptime', %(
-      remote_host => '192.168.0.1',
-      user        => 'old_dog',
-      ssh-key     => '/home/old_dog/.ssh/id_rsa'
+      host    => '192.168.0.1',
+      user    => 'old_dog',
+      ssh-key => '/home/old_dog/.ssh/id_rsa'
     );
 
 
     # an example for multiline command
-    ssh q:to/CMD/, %( remote_host => '192.168.0.1', user => 'old_dog');
+    ssh q:to/CMD/, %( host => '192.168.0.1', user => 'old_dog');
       set -e
       apt-get update
       DEBIAN_FRONTEND=noninteractive apt-get install -y -qq curl
     CMD
+  
+    # create $create file upon successful execution
+    # prevent from running ssh command next time if file $create exist:
+    ssh "run-me", %(  host => '192.168.0.1' , create => '/do/not/run/me.txt' )
+
+    
