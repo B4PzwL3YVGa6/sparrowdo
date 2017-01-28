@@ -22,9 +22,8 @@ sub ssh ( $command, %args? ) is export {
     );
   }
 
-  my $ssh-host-term = %args<host>;
+  my $ssh-host-term = %args<user>:exists ?? %args<user> ~ '@' ~ %args<host> !! %args<host>;
 
-  $ssh-host-term = %args<user> ~ '@' ~ $ssh-host-term if %args<user>:exists;
 
   my $ssh-run-cmd  =  'ssh -o ConnectionAttempts=1  -o ConnectTimeout=5';
 
