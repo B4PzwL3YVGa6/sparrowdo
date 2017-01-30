@@ -36,9 +36,9 @@ sub ssh ( $command, %args? ) is export {
   my $bash-cmd;
 
   if %args<create>:exists {
-    $bash-cmd = "if ! test -f %args<create> ; then $ssh-run-cmd ; else echo skip due to %args<create> exists; fi"    
+    $bash-cmd = "if ! test -f %args<create> ; then set -x; $ssh-run-cmd ; else echo skip due to %args<create> exists; fi"    
   } else {
-    $bash-cmd = $ssh-run-cmd
+    $bash-cmd = "set -x; $ssh-run-cmd"
   }
 
   bash $bash-cmd, %(
