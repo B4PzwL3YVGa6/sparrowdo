@@ -42,7 +42,8 @@ sub ssh ( $command, %args? ) is export {
   }
 
   bash $bash-cmd, %(
-    description => "ssh command on $ssh-host-term"
+    description => "ssh command on $ssh-host-term",
+    debug       => %args<debug>:exists ?? 1 !! 0,
   );
 
   file-delete '/opt/sparrow/.cache/ssh-key' if %args<ssh-key>:exists;
