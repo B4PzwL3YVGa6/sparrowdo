@@ -55,7 +55,7 @@ sub MAIN (
 
   ssh_shell 'mkdir -m 777 -p /tmp/sparrow-cache && echo print os | perl -MOutthentic  > /tmp/sparrow-cache/os.txt';
 
-  scp "/tmp/sparrow-cache/os.txt", "/tmp/target_os", 1; # copy back /tmp/os.txt 
+  _scp "/tmp/sparrow-cache/os.txt", "/tmp/target_os", 1; # copy back /tmp/os.txt 
 
   set_target_os slurp "/tmp/target_os";
 
@@ -79,7 +79,7 @@ sub MAIN (
 
   spurt "/tmp/sparrowdo/task-box$*PID.json", (to-json get_tasks());
 
-  scp "/tmp/sparrowdo/task-box$*PID.json", "/tmp/sparrow-cache/";
+  _scp "/tmp/sparrowdo/task-box$*PID.json", "/tmp/sparrow-cache/";
 
   say colored("set up task box file - /tmp/sparrowdo/task-box$*PID.json - OK", 'bold green on_blue');
 
@@ -92,7 +92,7 @@ sub MAIN (
     }
 
     spurt '/tmp/sparrowdo/sparrow.list', get_spl().join: "\n";
-    scp '/tmp/sparrowdo/sparrow.list', '/tmp/sparrow-cache/';
+    _scp '/tmp/sparrowdo/sparrow.list', '/tmp/sparrow-cache/';
     ssh_shell 'mkdir -p /opt/sparrow && mv  /tmp/sparrow-cache/sparrow.list /opt/sparrow';
     say colored('copied SPL file as /opt/sparrow/sparrow.list - OK', 'bold green on_blue');
 
@@ -144,7 +144,7 @@ sub ssh_shell ( $cmd ) {
 
 }
 
-sub scp ( $file, $dest, $reverse = 0 ) {
+sub _scp ( $file, $dest, $reverse = 0 ) {
 
   my $ssh_host_term = input_params('Host');
 
