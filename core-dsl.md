@@ -285,10 +285,10 @@ Examples:
 
     # ssh to 192.168.0.1 and execute 'uptime'
     # a shortest form, only obligatory parameters are set:
-    ssh 'uptime', %( remote_host => '192.168.0.1' )
+    ssh 'uptime', %( host => '192.168.0.1' )
 
     # the same but add description for command:
-    ssh 'uptime', %( remote_host => '192.168.0.1' , description => "how old are you?" );
+    ssh 'uptime', %( host => '192.168.0.1' , description => "how old are you?" );
 
     # you also may set a user:
     ssh 'uptime', %(
