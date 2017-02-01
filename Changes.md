@@ -1,3 +1,9 @@
+# 0.0.7
+
+2017-02-01
+
+* a lot of improvements for bash/ssh/scp core dsl functions
+
 # 0.0.6
 
 * core-dsl/ssh - refactoring
