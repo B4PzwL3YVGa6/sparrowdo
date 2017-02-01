@@ -13,6 +13,7 @@ Sparrowdo core-dsl functions spec.
 * [Templates](#templates)
 * [Bash commands](#bash)
 * [Ssh commands](#ssh)
+* [Scp command](#scp)
 
 ## User accounts
 
@@ -308,6 +309,26 @@ Examples:
   
     # create $create file upon successful execution
     # prevent from running ssh command next time if file $create exist:
-    ssh "run-me", %(  host => '192.168.0.1' , create => '/do/not/run/me.txt' )
+    ssh "run-me", %(  host => '192.168.0.1' , create => '/do/not/run/twice' )
 
-    
+
+## Scp
+
+This function copy files from target host to remote host
+
+| function | description | usage |
+| -------- | ----------- | ----- |
+| scp | copy files remotely by scp | scp(%args)
+
+Example:
+
+    # copy files dir1/file1 dir2/file2 dir3/file3 from target server to 192.168.0.1
+    # do not copy if /tmp/do/not/copy/twice exists at target server
+    scp %( 
+      data    => "dir1/file1 dir2/file2 dir3/file3",
+      host    => "192.168.0.1", 
+      user    => "Me", 
+      ssh-key => "/path/to/key.pem", 
+      create  => "/tmp/do/not/copy/twice"
+    );
+

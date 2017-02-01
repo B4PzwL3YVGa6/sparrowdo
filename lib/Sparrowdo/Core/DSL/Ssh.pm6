@@ -7,7 +7,7 @@ use Sparrowdo::Core::DSL::Bash;
 use Sparrowdo::Core::DSL::Directory;
 use Sparrowdo::Core::DSL::File;
 
-sub ssh ( $command, %args? ) is export { 
+multi sub ssh ( $command, %args? ) is export { 
 
   directory '/opt/sparrow/.cache/';
 
@@ -40,7 +40,7 @@ sub ssh ( $command, %args? ) is export {
   }
 
   bash $bash-cmd, %(
-    description => "ssh command on $ssh-host-term",
+    description => $ssh-run-cmd,
     debug       => %args<debug>:exists ?? 1 !! 0,
   );
 
@@ -48,6 +48,10 @@ sub ssh ( $command, %args? ) is export {
 
   file %args<create> if %args<create>:exists;
 
+}
+
+multi sub ssh ( %args ) is export { 
+  ssh %args<command>, %args;
 }
 
 sub scp ( %args ) is export { 
@@ -82,7 +86,7 @@ sub scp ( %args ) is export {
   }
 
   bash $bash-cmd, %(
-    description => "copy %args<data> to %args<host>",
+    description => $scp-run-cmd,
     debug       => %args<debug>:exists ?? 1 !! 0,
   );
 
