@@ -40,7 +40,7 @@ multi sub ssh ( $command, %args? ) is export {
   }
 
   bash $bash-cmd, %(
-    description => $ssh-run-cmd,
+    description => %args<description> ||  "remote command on $ssh-host-term",
     debug       => %args<debug>:exists ?? 1 !! 0,
   );
 

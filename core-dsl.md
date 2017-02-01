@@ -279,12 +279,16 @@ This function executes ssh commands.
 | function | description | usage |
 | -------- | ----------- | ----- |
 | ssh | execute ssh commands | ssh($command,%args)
+| ssh | alias for `ssh` with command set via %args | ssh(%args)
 
 Examples:
 
     # ssh to 192.168.0.1 and execute 'uptime'
     # a shortest form, only obligatory parameters are set:
     ssh 'uptime', %( remote_host => '192.168.0.1' )
+
+    # the same but add description for command:
+    ssh 'uptime', %( remote_host => '192.168.0.1' , description => "how old are you?" );
 
     # you also may set a user:
     ssh 'uptime', %(
