@@ -343,10 +343,10 @@ Example:
     );
 
 
-    # copy files dir1/file1 dir2/file2 dir3/file3 from target server to 192.168.0.1
+    # copy file dir1/file1 from target server to 192.168.0.1, destination dir2
     scp %( 
-      data    => "dir1/file1 dir2/file2 dir3/file3",
-      host    => "192.168.0.1", 
+      data    => "dir2/",
+      host    => "192.168.0.1:dir1/file1", 
       user    => "Me",
       pull    => 1, 
     );
