@@ -286,7 +286,7 @@ Examples:
     # ssh to 192.168.0.1 and execute 'uptime'
     # a shortest form, only obligatory parameters are set:
     ssh 'uptime', %( host => '192.168.0.1' )
-
+OOB
     # the same but add description for command:
     ssh 'uptime', %( host => '192.168.0.1' , description => "how old are you?" );
 
@@ -299,8 +299,8 @@ Examples:
     # and ssh_key
     ssh 'uptime', %(
       host    => '192.168.0.1',
-      user    => 'old_dog',
-      ssh-key => '/home/old_dog/.ssh/id_rsa'
+      user    => 'old-dog',
+      ssh-key => 'keys/id_rsa'
     );
 
 
@@ -318,7 +318,7 @@ Examples:
 
 ## Scp
 
-This function copy files from target host to remote host
+This function copies files from/to target host from/to remote host
 
 | function | description | usage |
 | -------- | ----------- | ----- |
@@ -326,13 +326,40 @@ This function copy files from target host to remote host
 
 Example:
 
+    # copy files dir1/file1 dir2/file2 dir3/file3 to target server to 192.168.0.1
+    scp %( 
+      data    => "dir1/file1 dir2/file2 dir3/file3",
+      host    => "192.168.0.1", 
+    );
+
+
+    # copy files dir1/file1 dir2/file2 dir3/file3 to target server to 192.168.0.1
+    # set ssh private key and user id 
+    scp %( 
+      data    => "dir1/file1 dir2/file2 dir3/file3",
+      host    => "192.168.0.1", 
+      user    => 'old-dog',
+      ssh-key => 'keys/id_rsa'
+    );
+
+
     # copy files dir1/file1 dir2/file2 dir3/file3 from target server to 192.168.0.1
+    scp %( 
+      data    => "dir1/file1 dir2/file2 dir3/file3",
+      host    => "192.168.0.1", 
+      user    => "Me",
+      pull    => 1, 
+    );
+
+
+    # copy files dir1/file1 dir2/file2 dir3/file3 to target server to 192.168.0.1
     # do not copy if /tmp/do/not/copy/twice exists at target server
     scp %( 
       data    => "dir1/file1 dir2/file2 dir3/file3",
       host    => "192.168.0.1", 
-      user    => "Me", 
-      ssh-key => "/path/to/key.pem", 
       create  => "/tmp/do/not/copy/twice"
     );
+
+
+
 
