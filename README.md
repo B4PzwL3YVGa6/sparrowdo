@@ -355,6 +355,9 @@ A list of OS names provided by `target_os()` function:
     centos7
     ubuntu
     debian
+    minoca
+    archlinux
+    fedora
 
 * `input_params($param)`
 
