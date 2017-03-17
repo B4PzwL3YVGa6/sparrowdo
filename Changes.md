@@ -1,6 +1,8 @@
-# 0.0.7
+# 0.0.8 2017-03-17
 
-2017-02-01
+* Add SparrowRoot input parameter
+
+# 0.0.7 2017-02-01
 
 * a lot of improvements for bash/ssh/scp core dsl functions
 

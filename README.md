@@ -224,6 +224,12 @@ Is equal to `ssh -i` parameter.
 
 Sets shh port for ssh connection to remote host. Default value is `22`.
 
+## --sparrow\_root
+
+Sets alternative location for sparrow root directory. Default value is `/opt/sparrow`;
+
+Optional parameter.
+
 ## --no\_sudo
 
 If set to true - do not initiate ssh command under `sudo`, just as is. Default value is false - use `sudo`.
@@ -250,9 +256,7 @@ Optional parameter.
 
 Runs a sparrowdo module instead of executing tasks from sparrowfile. For example:
 
-
     $ sparrowdo --host=127.0.0.1 --module_run=Nginx
-
 
 ## --verbose
 
@@ -369,7 +373,8 @@ This is the list of arguments valid for input\_params function:
 
     Host 
     HttpProxy 
-    HttpsProxy 
+    HttpsProxy
+    SparrowRoot 
     SshPort 
     SshUser 
     SshPrivateKey 
