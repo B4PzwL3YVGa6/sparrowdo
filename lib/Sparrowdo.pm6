@@ -14,7 +14,7 @@ sub push_task (%data){
 
   @tasks.push: %data;
 
-  say colored('push task <' ~ %data<task> ~ '> plg <' ~ %data<plugin> ~ '> OK', 'bold green on_blue');
+  say colored('push [task] ' ~ %data<task> ~  ' OK', 'bold green on_blue');
 
 }
 
@@ -65,7 +65,7 @@ sub set_spl(%args) is export {
 
 multi sub task_run($task_desc, $plugin_name, %parameters?) is export { 
     task_run %(
-      task          => $task_desc,
+      task          => "$task_desc" ~ " [plg] " ~ $plugin_name,
       plugin        => $plugin_name,
       parameters    => %parameters
     );
@@ -74,7 +74,7 @@ multi sub task_run($task_desc, $plugin_name, %parameters?) is export {
 multi sub task_run(%args) is export { 
 
   my %task_data = %( 
-      task => %args<task>,
+      task => %args<task> ~ " [plg] " ~ %args<plugin>,
       plugin => %args<plugin>,
       data => %args<parameters>
   );
