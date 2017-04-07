@@ -1,3 +1,7 @@
+# 0.0.9 2017-04-04
+
+Changing reports layout
+
 # 0.0.8 2017-03-17
 
 * Add SparrowRoot input parameter
