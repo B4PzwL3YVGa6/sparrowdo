@@ -24,7 +24,8 @@ sub MAIN (
   Bool :$verbose = False, 
   Bool :$bootstrap = False, 
   Bool :$check_syntax = False, 
-  Str  :$module_run, 
+  Str  :$module_run,
+  Str  :$task_run, 
   Bool :$no_sudo = False,
   Bool :$no_color = False,
   Bool :$no_index_update = False,
@@ -71,6 +72,8 @@ sub MAIN (
 
   if $module_run {
     module_run $module_run;
+  } elsif $task_run {
+    task-run $task_run, $task_run;
   } else {
     EVALFILE $sparrowfile||'sparrowfile';
   }

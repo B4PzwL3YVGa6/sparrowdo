@@ -258,6 +258,12 @@ Runs a sparrowdo module instead of executing tasks from sparrowfile. For example
 
     $ sparrowdo --host=127.0.0.1 --module_run=Nginx
 
+## --task\_run
+
+Runs a sparrow plugin instead of executing tasks from sparrowfile. For example:
+
+    $ sparrowdo --host=127.0.0.1 --task_run=df-check
+
 ## --verbose
 
 Sets verbose mode ( low level information will be printed at console ).
