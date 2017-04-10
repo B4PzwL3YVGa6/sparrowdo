@@ -1,3 +1,7 @@
+# 0.0.10 2017-04-10
+
+Running multiple tasks from command line
+
 # 0.0.9 2017-04-04
 
 Changing reports layout

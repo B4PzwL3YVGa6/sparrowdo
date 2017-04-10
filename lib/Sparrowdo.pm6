@@ -7,6 +7,7 @@ use Terminal::ANSIColor;
 my %input_params = Hash.new;
 my $target_os;
 my @tasks = Array.new;
+my @plugins = Array.new;
 my @spl = Array.new;
 my %config = Hash.new;
 
@@ -89,6 +90,25 @@ multi sub task-run(%args) is export {
 
 multi sub task-run($task_desc, $plugin_name, %parameters?) is export { 
   task_run $task_desc, $plugin_name, %parameters
+}
+
+sub plg-list() is export {
+  @plugins;
+}
+
+sub plg-run($plugin_name) is export {
+
+  for split(/\;/, $plugin_name) -> $p {
+    if $p ~~ /(\S+)\@(.*)/ {
+      my $name = $0; my $params = $1;
+      my $params2 = split(/\,/,$params).map({" --param $_"});
+      @plugins.push: [ $name,  $params2 ];
+      say colored('push [plugin] ' ~ $name ~  ~ ' ' ~ $params2 ~ ' OK', 'bold green on_blue');
+    } else {
+      @plugins.push: [ $p ];
+      say colored('push [plugin] ' ~ $p ~  ' OK', 'bold green on_blue');
+    }
+  }
 }
 
 sub module_run($name, %args = %()) is export {

@@ -73,24 +73,14 @@ sub MAIN (
   if $module_run {
     module_run $module_run;
   } elsif $task_run {
-    task-run $task_run, $task_run;
+    plg-run $task_run;
   } else {
     EVALFILE $sparrowfile||'sparrowfile';
   }
 
   exit if $check_syntax;
 
-  mkdir '/tmp/sparrowdo/';
-
-  spurt "/tmp/sparrowdo/task-box$*PID.json", (to-json get_tasks());
-
-  _scp "/tmp/sparrowdo/task-box$*PID.json", "/tmp/sparrow-cache/";
-
-  say colored("set up task box file - /tmp/sparrowdo/task-box$*PID.json - OK", 'bold green on_blue');
-
-
   if get_spl() {
-
 
     if input_params('Verbose') {
       say colored( 'puplating SPL file', 'bold yellow on_cyan' );
@@ -105,7 +95,24 @@ sub MAIN (
 
   ssh_shell 'sparrow index update' unless input_params('NoIndexUpdate');
 
-  ssh_shell "sparrow box run /tmp/sparrow-cache/task-box$*PID.json --mode quiet --purge-cache";
+  # plugins mode
+  if ($task_run) {
+    for plg-list() -> @p {
+      ssh_shell "sparrow plg install " ~ @p[0];
+      if @p[1] {
+        ssh_shell "sparrow plg run " ~ @p[0] ~ @p[1];
+      } else {
+        ssh_shell "sparrow plg run " ~ @p[0];
+      }
+    } 
+    # task box mode  
+  } else {
+    mkdir '/tmp/sparrowdo/';
+    spurt "/tmp/sparrowdo/task-box$*PID.json", (to-json get_tasks());
+    _scp "/tmp/sparrowdo/task-box$*PID.json", "/tmp/sparrow-cache/";
+    say colored("set up task box file - /tmp/sparrowdo/task-box$*PID.json - OK", 'bold green on_blue');
+    ssh_shell "sparrow box run /tmp/sparrow-cache/task-box$*PID.json --mode quiet --purge-cache";
+  }
 
 }
 

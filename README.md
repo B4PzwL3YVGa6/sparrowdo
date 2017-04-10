@@ -152,7 +152,7 @@ Only [public](https://metacpan.org/pod/Sparrow#Public-plugins) sparrow plugins a
 
 Remote hosts are configured by running sparrow client on them and executing sparrow tasks.
 
-A Sparrow CPAN module, version >= 0.2.20 should be installed on remote hosts:
+A Sparrow CPAN module, version >= 0.2.33 should be installed on remote hosts:
 
     $ cpanm Sparrow
 
@@ -260,9 +260,21 @@ Runs a sparrowdo module instead of executing tasks from sparrowfile. For example
 
 ## --task\_run
 
-Runs a sparrow plugin instead of executing tasks from sparrowfile. For example:
+Runs a sparrow plugin instead of executing tasks from sparrowfile. 
+
+For example:
 
     $ sparrowdo --host=127.0.0.1 --task_run=df-check
+
+You can multiple tasks (plugins) with parameters as well:
+
+    $ sparrowdo --host=127.0.0.1 --task_run=plg@p1=v1,p2=v2\;plg@p1=v1,p2=v2 ...
+
+Where `plg` - plugin-name, p1,p2 - plugins parameters (separated by `,`) 
+
+For example:
+
+    $ sparrowdo --host=127.0.0.1 --task_run=bash@command=uptime,user=root\;bash@command=pwd,user=centos
 
 ## --verbose
 
