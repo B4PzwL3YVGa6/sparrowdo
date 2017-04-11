@@ -1,3 +1,7 @@
+# 0.0.11 2017-04-11
+
+Final version for: running multiple tasks (plugins) with multiples parameters via command line
+
 # 0.0.10 2017-04-10
 
 Running multiple tasks from command line
