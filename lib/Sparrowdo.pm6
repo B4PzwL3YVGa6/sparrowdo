@@ -96,7 +96,11 @@ sub plg-list() is export {
   @plugins;
 }
 
-sub plg-run(@plg-list) is export {
+multi sub plg-run($plg) is export {
+  plg-run([$plg])
+}
+
+multi sub plg-run(@plg-list) is export {
 
   for @plg-list -> $p {
     if $p ~~ /(\S+)\@(.*)/ {
