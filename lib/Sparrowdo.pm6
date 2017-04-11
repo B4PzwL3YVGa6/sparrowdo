@@ -96,9 +96,9 @@ sub plg-list() is export {
   @plugins;
 }
 
-sub plg-run($plugin_name) is export {
+sub plg-run(@plugins) is export {
 
-  for split(/\;/, $plugin_name) -> $p {
+  for @plugins -> $p {
     if $p ~~ /(\S+)\@(.*)/ {
       my $name = $0; my $params = $1;
       my @args = split(/\,/,$params);

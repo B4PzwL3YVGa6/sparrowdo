@@ -25,7 +25,7 @@ sub MAIN (
   Bool :$bootstrap = False, 
   Bool :$check_syntax = False, 
   Str  :$module_run,
-  Str  :$task_run, 
+       :@task_run, 
   Bool :$no_sudo = False,
   Bool :$no_color = False,
   Bool :$no_index_update = False,
@@ -56,7 +56,7 @@ sub MAIN (
 
   say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
 
-  ssh_shell 'mkdir -m 777 -p /tmp/sparrow-cache/plugins && echo print os | perl -MOutthentic  > /tmp/sparrow-cache/os.txt';
+  ssh_shell 'mkdir -m 777 -p /tmp/sparrow-cache/ && mkdir  /tmp/sparrow-cache/plugins && echo print os | perl -MOutthentic  > /tmp/sparrow-cache/os.txt';
 
   _scp "/tmp/sparrow-cache/os.txt", "/tmp/target_os", 1; # copy back /tmp/os.txt 
 
@@ -72,8 +72,8 @@ sub MAIN (
 
   if $module_run {
     module_run $module_run;
-  } elsif $task_run {
-    plg-run $task_run;
+  } elsif @task_run {
+    plg-run @task_run;
   } else {
     EVALFILE $sparrowfile||'sparrowfile';
   }
@@ -96,7 +96,7 @@ sub MAIN (
   ssh_shell 'sparrow index update' unless input_params('NoIndexUpdate');
 
   # plugins mode
-  if ($task_run) {
+  if (@task_run) {
     mkdir '/tmp/sparrowdo/';
     mkdir '/tmp/sparrowdo/plugins';
     for plg-list() -> @p {
