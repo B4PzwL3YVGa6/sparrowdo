@@ -1,3 +1,7 @@
+# 0.0.12 2017-04-11
+
+A minor fixes for Travis and bootstrap
+
 # 0.0.11 2017-04-11
 
 Final version for: running multiple tasks (plugins) with multiples parameters via command line
