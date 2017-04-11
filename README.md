@@ -275,9 +275,9 @@ Where `plg` - plugin-name, p1,p2 - plugins parameters (separated by `,`)
 For example:
 
     $ sparrowdo --host=127.0.0.1 \
-    --task_run=user@name=foo\;\
-    bash@command='id && cd ~/ && pwd && uptime && ls -l && ps uax|grep nginx|grep -v grep',user=foo\;\
-    df-check@therhold=54
+    --task_run=user@name=foo \
+    --task_run=bash@command='id &&  pwd && uptime && ls -l && ps uax|grep nginx|grep -v grep',user=foo \
+    --task_run=df-check@therhold=54
 
 ## --verbose
 
