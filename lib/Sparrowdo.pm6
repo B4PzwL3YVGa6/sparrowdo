@@ -101,9 +101,9 @@ sub plg-run($plugin_name) is export {
   for split(/\;/, $plugin_name) -> $p {
     if $p ~~ /(\S+)\@(.*)/ {
       my $name = $0; my $params = $1;
-      my $params2 = split(/\,/,$params).map({" --param $_"});
-      @plugins.push: [ $name,  $params2 ];
-      say colored('push [plugin] ' ~ $name ~  ~ ' ' ~ $params2 ~ ' OK', 'bold green on_blue');
+      my @args = split(/\,/,$params);
+      @plugins.push: [ $name,  @args ];
+      say colored('push [plugin] ' ~ $name ~  ~ ' ' ~ @args ~ ' OK', 'bold green on_blue');
     } else {
       @plugins.push: [ $p ];
       say colored('push [plugin] ' ~ $p ~  ' OK', 'bold green on_blue');

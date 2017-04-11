@@ -56,7 +56,7 @@ sub MAIN (
 
   say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
 
-  ssh_shell 'mkdir -m 777 -p /tmp/sparrow-cache && echo print os | perl -MOutthentic  > /tmp/sparrow-cache/os.txt';
+  ssh_shell 'mkdir -m 777 -p /tmp/sparrow-cache/plugins && echo print os | perl -MOutthentic  > /tmp/sparrow-cache/os.txt';
 
   _scp "/tmp/sparrow-cache/os.txt", "/tmp/target_os", 1; # copy back /tmp/os.txt 
 
@@ -97,10 +97,14 @@ sub MAIN (
 
   # plugins mode
   if ($task_run) {
+    mkdir '/tmp/sparrowdo/';
+    mkdir '/tmp/sparrowdo/plugins';
     for plg-list() -> @p {
       ssh_shell "sparrow plg install " ~ @p[0];
       if @p[1] {
-        ssh_shell "sparrow plg run " ~ @p[0] ~ @p[1];
+        spurt "/tmp/sparrowdo/plugins/@p[0].args", @p[1].join: "\n";
+        _scp "/tmp/sparrowdo/plugins/@p[0].args", '/tmp/sparrow-cache/plugins';
+        ssh_shell "sparrow plg run " ~ @p[0] ~ ' --args-file ' ~ '/tmp/sparrow-cache/plugins/' ~ "@p[0].args";
       } else {
         ssh_shell "sparrow plg run " ~ @p[0];
       }
