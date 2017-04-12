@@ -1,3 +1,7 @@
+# 0.0.15 2017-04-12
+
+Figure out my tests. Fix for #3
+
 # 0.0.14 2017-04-12
 
 * Pass module parameters by command line
