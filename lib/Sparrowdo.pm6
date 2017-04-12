@@ -75,7 +75,7 @@ multi sub task_run($task_desc, $plugin_name, %parameters?) is export {
 multi sub task_run(%args) is export { 
 
   my %task_data = %( 
-      task => %args<task> ~ " [plg] " ~ %args<plugin>,
+      task => %args<task>,
       plugin => %args<plugin>,
       data => %args<parameters>
   );
