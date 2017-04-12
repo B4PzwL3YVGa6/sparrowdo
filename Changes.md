@@ -1,3 +1,8 @@
+# 0.0.14 2017-04-12
+
+* Pass module parameters by command line
+* Change colors in reports ( to be more readable at travis and asciinema )
+
 # 0.0.12 2017-04-11
 
 A minor fixes for Travis and bootstrap
