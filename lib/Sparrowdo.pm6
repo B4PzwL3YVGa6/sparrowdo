@@ -117,7 +117,7 @@ multi sub plg-run(@plg-list) is export {
 
 sub module_run($name, %args = %()) is export {
 
-  say colored('enter module <' ~ $name ~ '> ... ', 'bold cyan on_blue');
+  say colored('enter module <' ~ $name ~ '> ... ', 'bold cyan on_black');
 
   if ( $name ~~ /(\S+)\@(.*)/ ) {
       my $mod-name = $0; my $params = $1;
