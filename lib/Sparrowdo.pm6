@@ -119,8 +119,16 @@ sub module_run($name, %args = %()) is export {
 
   say colored('enter module <' ~ $name ~ '> ... ', 'bold cyan on_blue');
 
-  require ::('Sparrowdo::' ~ $name); 
-  ::('Sparrowdo::' ~ $name ~ '::&tasks')(%args);
+  if ( $name ~~ /(\S+)\@(.*)/ ) {
+      my $mod-name = $0; my $params = $1;
+      my %mod-args;
+      for split(/\,/,$params) -> $p { %mod-args{$0.Str} = $1.Str if $p ~~ /(\S+?)\=(.*)/ };
+      require ::('Sparrowdo::' ~ $mod-name); 
+      ::('Sparrowdo::' ~ $mod-name ~ '::&tasks')(%mod-args);
+  } else {
+      require ::('Sparrowdo::' ~ $name); 
+      ::('Sparrowdo::' ~ $name ~ '::&tasks')(%args);
+  }
 
 
 }
