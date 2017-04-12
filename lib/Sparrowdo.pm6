@@ -15,7 +15,7 @@ sub push_task (%data){
 
   @tasks.push: %data;
 
-  say colored('push [task] ' ~ %data<task> ~  ' OK', 'bold green on_blue');
+  say colored('push [task] ' ~ %data<task> ~  ' OK', 'bold green on_black');
 
 }
 
@@ -107,10 +107,10 @@ multi sub plg-run(@plg-list) is export {
       my $name = $0; my $params = $1;
       my @args = split(/\,/,$params);
       @plugins.push: [ $name,  @args ];
-      say colored('push [plugin] ' ~ $name ~  ~ ' ' ~ @args ~ ' OK', 'bold green on_blue');
+      say colored('push [plugin] ' ~ $name ~  ~ ' ' ~ @args ~ ' OK', 'bold green on_black');
     } else {
       @plugins.push: [ $p ];
-      say colored('push [plugin] ' ~ $p ~  ' OK', 'bold green on_blue');
+      say colored('push [plugin] ' ~ $p ~  ' OK', 'bold green on_black');
     }
   }
 }

@@ -12,6 +12,7 @@ install:
     - install_zef_as_user.sh
     - zef install .
     - zef install Sparrowdo::Sparrow::Update
+    - zef install Sparrowdo::Cpanm::GitHub
 script:
   - sparrowdo --module_run=Sparrow::Update --bootstrap --host=127.0.0.1
   - sparrowdo --task_run=df-check --host=127.0.0.1
