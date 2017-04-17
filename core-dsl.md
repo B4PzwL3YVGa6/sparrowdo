@@ -208,15 +208,15 @@ And even this won't help you due to local file coping gets happened first:
     file '/opt/data/hello.txt', %( local => 'data/hello.txt' );
  
 
-But you can use `/tmp/sparrow-cache/` directory ( which existence is ensured ) to keep your data safely:
+But you can use `/tmp/sparrow-cache/files` directory ( which existence is ensured ) to keep your data safely:
 
-    file '/tmp/sparrow-cache/', %( local => 'data/hello.txt' );
+    file '/tmp/sparrow-cache/files', %( local => 'data/hello.txt' );
 
 And then:
 
     directory '/opt/data/';
 
-    file '/opt/data/hello.txt', %( source => /tmp/sparrow-cache/hello.txt );
+    file '/opt/data/hello.txt', %( source => /tmp/sparrow-cache/files/hello.txt );
 
 ## Templates
 
