@@ -188,6 +188,19 @@ Examples:
     # the same as above
     file '/var/data/animals.txt', %( action => 'delete' );
 
+## Copy local files 
+
+Sparrowdo provides limited API to copy local files existed at your project
+to remote server:
+
+    file '/tmp/hello.txt', %( local => 'data/hello.txt' );
+
+This code will copy file located at $*PWD/data/hello.txt to remote server under location '/tmp/hello.txt'
+Please be aware that local file coping gets happened at the very beginning of sparrowdo scenario execution, so this
+code ***won't work*** unless you have a remote directory /opt/data exists at the target server:
+
+    file '/opt/data/hello.txt', %( local => 'data/hello.txt' );
+
 ## Templates
 
 Templates are files gets populated from templates sources in [Template-Toolkit](http://template-toolkit.org/) format.
