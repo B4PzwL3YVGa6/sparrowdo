@@ -10,6 +10,7 @@ Sparrowdo core-dsl functions spec.
 * [Services](#services)
 * [Directories](#directories)
 * [Files](#files)
+* [Copy local file](#copy-local-files)
 * [Templates](#templates)
 * [Bash commands](#bash)
 * [Ssh commands](#ssh)
@@ -190,16 +191,32 @@ Examples:
 
 ## Copy local files 
 
-Sparrowdo provides limited API to copy local files existed at your project
-to remote server:
+Sparrowdo provides limited API to copy local files at your project to remote server:
 
     file '/tmp/hello.txt', %( local => 'data/hello.txt' );
 
-This code will copy file located at $*PWD/data/hello.txt to remote server under location '/tmp/hello.txt'
-Please be aware that local file coping gets happened at the very beginning of sparrowdo scenario execution, so this
+This code will copy file located at $*PWD/data/hello.txt to remote server under location '/tmp/hello.txt'.
+Please aware that local file coping gets happened at the very beginning of sparrowdo scenario execution, so this
 code ***won't work*** unless you have a remote directory /opt/data exists at the target server:
 
     file '/opt/data/hello.txt', %( local => 'data/hello.txt' );
+
+And even this won't help you due to local file coping gets happened first:
+
+    directory '/opt/data/';
+
+    file '/opt/data/hello.txt', %( local => 'data/hello.txt' );
+ 
+
+But you can use `/tmp/sparrow-cache/` directory ( which existence is ensured ) to keep your data safely:
+
+    file '/tmp/sparrow-cache/', %( local => 'data/hello.txt' );
+
+And then:
+
+    directory '/opt/data/';
+
+    file '/opt/data/hello.txt', %( source => /tmp/sparrow-cache/hello.txt );
 
 ## Templates
 
