@@ -1,2 +1,2 @@
-file '/tmp/hello.txt', %( local => 'data/hello.txt' );
+copy-local-file 'data/hello.txt','/tmp/hello.txt';
 
