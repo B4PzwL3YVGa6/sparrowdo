@@ -1,4 +1,4 @@
-user-delete 'travis';
+#user-delete 'travis';
 
 user-create 'travis';
 
