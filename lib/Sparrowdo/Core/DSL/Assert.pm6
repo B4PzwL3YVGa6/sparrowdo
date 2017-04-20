@@ -13,9 +13,6 @@ multi sub proc-exists ( $proc, %params ) is export {
     %args<pid_file>   = %params<pid-file>     if %params<pid-file>:exists;
     %args<footprint>  = %params<footprint>    if %params<footprint>:exists;
 
-    say %params;
-    say %args;
-
     task_run  %(
       task        => "check $proc process",
       plugin      => 'proc-validate',
