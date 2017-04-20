@@ -35,7 +35,7 @@ sub proc-exists-by-footprint ( $proc, $fp ) is export {
 
 sub http-ok ( $url ) is export {
 
-  bash "curl -sSLk -o /dev/null -D - $url", %( debug => True );
+  bash "curl -fsSLk -o /dev/null -D - $url", %( debug => True );
 
 }
 
