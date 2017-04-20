@@ -3,6 +3,7 @@ use v6;
 unit module Sparrowdo::Core::DSL::Assert;
 
 use Sparrowdo;
+use Sparrowdo::Core::DSL::Bash;
 
 multi sub proc-exists ( $proc, %params ) is export {
 
@@ -33,5 +34,11 @@ sub proc-exists-by-pid ( $proc, $pid-file ) is export {
 
 sub proc-exists-by-footprint ( $proc, $fp ) is export {
   proc-exists($proc, %( footprint => $fp ))
+}
+
+sub http-ok ( $url ) is export {
+
+  bash "curl -sSLk -o /dev/null -D - $url", %( debug => True );
+
 }
 

@@ -408,3 +408,10 @@ Asserts are functions to audit your server state. Here are some examples
     proc-exists-by-pid 'sshd', '/var/run/sshd.pid';
     
 
+## Check if http resource accessible
+
+It's just simple check by `curl's GET` with follow redirect enabled.
+
+    http-ok 'http://sparrowhub.org';
+
+
