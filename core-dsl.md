@@ -418,11 +418,11 @@ Ignore http proxy when making request:
 
     http-ok 'localhost', %( no-proxy => True );
 
-Use `ssh host` ( input_params('Host') ) as URL:
+Use `ssh host` command line parameter as URL:
 
     http-ok;
 
-The same as above but with port and path:
+The same as above but with `port` and `path`:
 
     http-ok %( port  => '8080' , path => '/Foo/Bar' );
  

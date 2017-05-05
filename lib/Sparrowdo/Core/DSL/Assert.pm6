@@ -47,7 +47,15 @@ multi sub http-ok ( $url, %args? ) is export {
 
 }
 
-multi sub http-ok ( %args? ) is export {
+multi sub http-ok () is export {
+
+  my $host = input_params('Host');
+
+  http-ok($host);
+
+}
+
+multi sub http-ok ( %args ) is export {
 
   my $host = input_params('Host');
 
