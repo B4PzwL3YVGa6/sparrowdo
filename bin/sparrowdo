@@ -27,7 +27,7 @@ sub MAIN (
   Bool :$bootstrap = False, 
   Bool :$check_syntax = False, 
   Str  :$module_run,
-  Str  :$task_run, 
+       :$task_run, 
   Bool :$no_sudo = False,
   Bool :$no_color = False,
   Bool :$no_index_update = False,
