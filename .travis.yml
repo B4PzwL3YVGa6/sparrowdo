@@ -7,7 +7,7 @@ before_install:
 
 install:
     - export PATH=/opt/rakudo/bin:~/.perl6/bin:$PATH
-    - wget https://github.com/nxadm/rakudo-pkg/releases/download/2017.03_03/perl6-rakudo-moarvm-ubuntu16.10_20170300-03_amd64.deb
+    - wget $RAKUDO_DEB_URL
     - sudo dpkg -i *.deb
     - install_zef_as_user.sh
     - zef install .
