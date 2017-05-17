@@ -9,7 +9,7 @@ install:
     - export PATH=/opt/rakudo/bin:~/.perl6/bin:$PATH
     - wget $RAKUDO_DEB_URL
     - sudo dpkg -i *.deb
-    - install_zef_as_user.sh
+    - /opt/rakudo/bin/install_zef_as_user.sh
     - zef install .
     - zef install Sparrowdo::Sparrow::Update
     - zef install Sparrowdo::Cpanm::GitHub
