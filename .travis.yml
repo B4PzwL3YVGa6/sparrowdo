@@ -13,6 +13,7 @@ install:
     - install_zef_as_user.sh
     - zef install .
     - zef install Sparrowdo::Sparrow::Update
+    - zef --force install JSON::Unmarshal
     - zef install Sparrowdo::Cpanm::GitHub
 script:
   - sparrowdo --module_run=Sparrow::Update --bootstrap --host=127.0.0.1
