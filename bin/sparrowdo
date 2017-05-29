@@ -38,7 +38,7 @@ sub MAIN (
 {
 
   # read config if exists
-  my $conf-ini-file = '/home/' ~ %*ENV<USER> ~ '/sparrowdo.ini';
+  my $conf-ini-file = %*ENV<USER> ?? '/home/' ~ %*ENV<USER> ~ '/sparrowdo.ini' !! ( input_params('SparrowRoot') || '/opt/sparrow') ~ '/sparrowdo.ini';
   my $conf-ini = $conf-ini-file.IO ~~ :e ?? Config::Simple.read($conf-ini-file,:f<ini>) !! Hash.new;
   
   # dirty hacks to pass command line parameter into sparrowfile context
