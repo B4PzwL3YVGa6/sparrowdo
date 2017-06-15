@@ -425,4 +425,8 @@ Use `ssh host` command line parameter as URL:
 The same as above but with `port` and `path`:
 
     http-ok %( port  => '8080' , path => '/Foo/Bar' );
+
+Checks that web page has content:
+
+    http-ok 'http://sparrowhub.org', %( has-content => 'SparrowHub' );
  

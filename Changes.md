@@ -1,3 +1,7 @@
+# 0.0.19 2017-06-15
+
+- Http-ok function now is able to check web page content
+
 # 0.0.18 2017-05-05
 
 - Improve http-ok asserts ( support many signatures )
