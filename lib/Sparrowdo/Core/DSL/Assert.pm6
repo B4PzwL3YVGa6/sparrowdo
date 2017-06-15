@@ -43,7 +43,9 @@ multi sub http-ok ( $url, %args? ) is export {
   $curl-cmd ~= "%args<path>"  if %args<path>;
   $curl-cmd ~= " --noproxy $host" if %args<no-proxy>;
 
-  bash $curl-cmd, %( debug => True );
+  my %bash-args =  %( debug => True );
+  %bash-args<expect_stdout> = %args<stdout> if %args<stdout>;
+  bash $curl-cmd, %bash-args;
 
 }
 
