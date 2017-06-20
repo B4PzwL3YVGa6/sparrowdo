@@ -6,14 +6,12 @@ before_install:
   - chmod og-wx ~/.ssh/authorized_keys
 
 install:
-    #- export PATH=/opt/rakudo/bin:~/.perl6/bin:$PATH
+    - export PATH=/opt/rakudo/bin:~/.perl6/bin:$PATH
     #- wget https://github.com/nxadm/rakudo-pkg/releases/download/2017.06/perl6-rakudo-moarvm-ubuntu16.04_20170600-01_amd64.deb
-    #- wget https://github.com/nxadm/rakudo-pkg/releases/download/2017.03_02/perl6-rakudo-moarvm-ubuntu16.04_20170300-02_amd64.deb
-    #-  wget https://github.com/nxadm/rakudo-pkg/releases/download/2017.03_03/perl6-rakudo-moarvm-ubuntu16.04_20170300-03_amd64.deb
-    #- sudo dpkg -i *.deb
-    #- install_zef_as_root
-    - sudo apt-get install rakudo
-    - panda install Zef
+    - wget https://github.com/nxadm/rakudo-pkg/releases/download/2017.03_02/perl6-rakudo-moarvm-ubuntu16.04_20170300-02_amd64.deb
+    #- wget https://github.com/nxadm/rakudo-pkg/releases/download/2017.03_03/perl6-rakudo-moarvm-ubuntu16.04_20170300-03_amd64.deb
+    - sudo dpkg -i *.deb
+    - install_zef_as_root
     - zef install .
     - zef install Sparrowdo::Sparrow::Update
     - zef --force install JSON::Unmarshal
