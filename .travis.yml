@@ -12,7 +12,7 @@ install:
     #-  wget https://github.com/nxadm/rakudo-pkg/releases/download/2017.03_03/perl6-rakudo-moarvm-ubuntu16.04_20170300-03_amd64.deb
     #- sudo dpkg -i *.deb
     #- install_zef_as_root
-    - apt-get install rakudo
+    - sudo apt-get install rakudo
     - zef install .
     - zef install Sparrowdo::Sparrow::Update
     - zef --force install JSON::Unmarshal
