@@ -13,6 +13,7 @@ install:
     #- sudo dpkg -i *.deb
     #- install_zef_as_root
     - sudo apt-get install rakudo
+    - panda install Zef
     - zef install .
     - zef install Sparrowdo::Sparrow::Update
     - zef --force install JSON::Unmarshal
