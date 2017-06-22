@@ -1,1 +1,0 @@
-zef 'Foo', %( debug => False , user => input_params('SshUser') );
