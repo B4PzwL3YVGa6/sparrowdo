@@ -14,5 +14,5 @@ case:
   - copy-local-file
   - asserts
 
-opts: --no_index_update --local_mode --ssh_user=travis
+opts: --no_index_update --ssh_user=travis
 
