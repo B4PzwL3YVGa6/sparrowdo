@@ -12,7 +12,7 @@ before_install:
   - git clone https://github.com/ugexe/zef.git
   - cd zef
   - perl6 -Ilib bin/zef install .
-  - cpanm -q --notest https://github.com/melezhik/sparrow.git
+  - cpanm -q --notest https://github.com/melezhik/outthentic.git https://github.com/melezhik/sparrow.git
 
 install:
     - zef install .
