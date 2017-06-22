@@ -1,27 +1,25 @@
-language: perl6
-
-perl6:
-  - latest
+language: perl
 
 env:
   - PATH=/home/travis/.rakudobrew/moar-nom/install/share/perl6/site/bin:$PATH
 
 before_install:
-  - sudo curl -s -L https://cpanmin.us/ -o /usr/bin/cpanm
-  - sudo chmod +x /usr/bin/cpanm
-  - sudo cpanm -q --notest https://github.com/melezhik/sparrow.git
   - cat /dev/zero | ssh-keygen -q -N ""
   - cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
   - chmod og-wx ~/.ssh/authorized_keys
+  - wget https://github.com/nxadm/rakudo-pkg/releases/download/2017.06/perl6-rakudo-moarvm-ubuntu17.04_20170600-01_amd64.deb
+  - dpkg -i *.deb 
+  - git clone https://github.com/ugexe/zef.git
+  - cd zef
+  - perl6 -Ilib bin/zef install .
+  - cpanm -q --notest https://github.com/melezhik/sparrow.git
 
 install:
-    - git clone https://github.com/ugexe/zef.git
-    - cd zef
-    - perl6 -Ilib bin/zef install .
     - zef install .
     - zef install Sparrowdo::Sparrow::Update
     - zef --force install JSON::Unmarshal
     - zef install Sparrowdo::Cpanm::GitHub
+
 script:
   - sparrowdo --module_run=Sparrow::Update --bootstrap --host=127.0.0.1
   - sparrowdo --task_run=df-check --host=127.0.0.1
