@@ -264,7 +264,7 @@ Runs a sparrowdo module instead of executing tasks from sparrowfile. For example
 
 You can use task_run notation to pass parameter to modules:
 
-    --module_run=module-name@p1=v1,p2=v2\;plg@p1=v1,p2=v2 ...
+    --module_run=module-name@p1=v1,p2=v2,p3=v3 ...
 
 Where `module-name` - module name. `p1, p2 ...` - module parameters (separated by `,`) 
 
