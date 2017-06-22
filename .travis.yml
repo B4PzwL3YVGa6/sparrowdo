@@ -1,7 +1,7 @@
 language: perl
 
 env:
-  - PATH=/home/travis/.rakudobrew/moar-nom/install/share/perl6/site/bin:$PATH
+  - PATH=/opt/rakudo/bin:/home/travis/.rakudobrew/moar-nom/install/share/perl6/site/bin:$PATH
 
 before_install:
   - cat /dev/zero | ssh-keygen -q -N ""
