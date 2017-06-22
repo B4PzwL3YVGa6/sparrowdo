@@ -11,6 +11,9 @@ before_install:
   - chmod og-wx ~/.ssh/authorized_keys
 
 install:
+    - git clone https://github.com/ugexe/zef.git
+    - cd zef
+    - perl6 -Ilib bin/zef install .
     - zef install .
     - zef install Sparrowdo::Sparrow::Update
     - zef --force install JSON::Unmarshal
