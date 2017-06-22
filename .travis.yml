@@ -1,11 +1,15 @@
 language: perl6
+
 perl6:
   - latest
+
+env:
+  - PATH=/home/travis/.rakudobrew/moar-nom/install/share/perl6/site/bin:$PATH
 
 before_install:
   - sudo curl -s -L https://cpanmin.us/ -o /usr/bin/cpanm
   - sudo chmod +x /usr/bin/cpanm
-  - sudo cpanm -q -t https://github.com/melezhik/sparrow.git
+  - sudo cpanm -q --notest https://github.com/melezhik/sparrow.git
   - cat /dev/zero | ssh-keygen -q -N ""
   - cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
   - chmod og-wx ~/.ssh/authorized_keys
