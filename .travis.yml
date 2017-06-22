@@ -3,14 +3,14 @@ perl6:
   - latest
 
 before_install:
+  - sudo curl -s -L https://cpanmin.us/ -o /usr/bin/cpanm
+  - sudo chmod +x /usr/bin/cpanm
+  - sudo cpanm -q -t https://github.com/melezhik/sparrow.git
   - cat /dev/zero | ssh-keygen -q -N ""
   - cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
   - chmod og-wx ~/.ssh/authorized_keys
 
 install:
-    - curl -s -L http://cpanmin.us/ -o /usr/bin/cpanm
-    - chmod +x /usr/bin/cpanm
-    - cpanm -q -t https://github.com/melezhik/sparrow.git
     - zef install .
     - zef install Sparrowdo::Sparrow::Update
     - zef --force install JSON::Unmarshal
