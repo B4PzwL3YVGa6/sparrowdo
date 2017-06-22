@@ -1,3 +1,7 @@
+# 0.0.20 2017-06-22
+
+- Experimental zef support ( not even documented )
+
 # 0.0.19 2017-06-15
 
 - Http-ok function now is able to check web page content
