@@ -157,7 +157,7 @@ sub ssh_shell ( $cmd ) {
   @bash_commands.push:  'export http_proxy=' ~ input_params('HttpProxy') if input_params('HttpProxy');
   @bash_commands.push:  'export https_proxy=' ~ input_params('HttpsProxy') if input_params('HttpsProxy');
   @bash_commands.push:  'export GIT_PROTOCOL=https';
-  @bash_commands.push:  'export PATH=/usr/bin/site_perl:/sbin/:/usr/local/bin:/usr/sbin/:$PATH';
+  @bash_commands.push:  'export PATH=/usr/bin/site_perl:/usr/local/bin:/usr/sbin/:/sbin/:/bin/$PATH';
   @bash_commands.push:  'export SPARROW_ROOT=' ~ ( input_params('SparrowRoot') || '/opt/sparrow' );
   @bash_commands.push:  'export SPARROW_NO_COLOR=1' if input_params('NoColor');
   @bash_commands.push:  'export SPARROW_CONF_PATH=/tmp/sparrow-cache/sparrow.yaml';
