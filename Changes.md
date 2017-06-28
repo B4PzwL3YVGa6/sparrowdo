@@ -1,3 +1,7 @@
+# 0.0.21
+
+- Support for --cwd option
+
 # 0.0.20 2017-06-22
 
 - Experimental zef support ( not even documented )

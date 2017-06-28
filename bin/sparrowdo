@@ -34,7 +34,8 @@ sub MAIN (
   Bool :$no_index_update = False,
   Str  :$sparrow_root, 
   Str  :$repo,
-  Bool :$local_mode = False 
+  Bool :$local_mode = False,
+  Str  :$cwd, 
 )
 {
 
@@ -60,7 +61,8 @@ sub MAIN (
   set_input_params %(  
     Host => $host, 
     Sparrowfile => $sparrowfile,
-    LocalMode => $local_mode, 
+    LocalMode => $local_mode,
+    Cwd => $cwd, 
     HttpProxy => $http_proxy, 
     HttpsProxy => $https_proxy, 
     SshPort => $ssh_port, 
@@ -161,6 +163,7 @@ sub ssh_shell ( $cmd ) {
   @bash_commands.push:  'export SPARROW_ROOT=' ~ ( input_params('SparrowRoot') || '/opt/sparrow' );
   @bash_commands.push:  'export SPARROW_NO_COLOR=1' if input_params('NoColor');
   @bash_commands.push:  'export SPARROW_CONF_PATH=/tmp/sparrow-cache/sparrow.yaml';
+  @bash_commands.push:  'export OUTTHENTIC_CWD=' ~ input_params('Cwd') if input_params('Cwd');
 
   @bash_commands.push:  $cmd;
 
@@ -194,8 +197,6 @@ sub ssh_shell ( $cmd ) {
 
     $ssh_cmd ~=  ~ ( join ' ; ', @bash_commands ) ~ "'";
   
-    #$ssh_cmd ~= ' 2>/dev/null' unless input_params('Verbose');
-
   }
 
   say colored($ssh_cmd, 'bold green') if input_params('Verbose');

@@ -305,6 +305,11 @@ For example:
 
     --repo=192.168.0.2:4441
 
+## --cwd
+
+This option sets current working directory for the process which execute sparrow scenarios. 
+Optional, no default values.
+
 # Run sparrowdo in local mode
 
 In case you need to run sparrowdo on localhost add `--local_mode` flag and
@@ -455,6 +460,8 @@ This is the list of arguments valid for input\_params function:
     NoSudo
     NoColor
     NoIndexUpdate
+    Cwd
+    LocalMode
 
 See also [sparrowdo client command line parameters](#sparrowdo-client-command-line-parameters) section.
 
