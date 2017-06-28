@@ -44,7 +44,7 @@ sub MAIN (
   my $uuid = UUID.new(:version(4)) ~ '-' ~ $*PID;
 
   # read config if exists
-  my $conf-ini-file = %*ENV<USER> ?? '/home/' ~ %*ENV<USER> ~ '/sparrowdo.ini' !! ( input_params('SparrowRoot') || "/opt/sparrow/$uuid") ~ '/sparrowdo.ini';
+  my $conf-ini-file = %*ENV<USER> ?? '/home/' ~ %*ENV<USER> ~ '/sparrowdo.ini' !! ( input_params('SparrowRoot') || "/opt/sparrow") ~ '/sparrowdo.ini';
   my $conf-ini = $conf-ini-file.IO ~~ :e ?? Config::Simple.read($conf-ini-file,:f<ini>) !! Hash.new;
   
   # dirty hacks to pass command line parameter into sparrowfile context
@@ -119,13 +119,13 @@ sub MAIN (
 
     spurt "/tmp/sparrowdo-cache/$uuid/sparrow.list", get_spl().join: "\n";
     _scp "/tmp/sparrowdo-cache/$uuid/sparrow.list", "/tmp/sparrow-cache/$uuid/";
-    ssh_shell "mkdir -p /opt/sparrow/$uuid && mv /tmp/sparrow-cache/$uuid/sparrow.list /opt/sparrow/$uuid";
-    say colored("copied SPL file as /opt/sparrow/$uuid/sparrow.list - OK", 'bold green on_black');
+    ssh_shell "mkdir -p /opt/sparrow && mv /tmp/sparrow-cache/$uuid/sparrow.list /opt/sparrow/";
+    say colored("copied SPL file as /opt/sparrow/sparrow.list - OK", 'bold green on_black');
 
   } else {
 
-    ssh_shell "mkdir -p /opt/sparrow/$uuid && touch /opt/sparrow/$uuid/sparrow.list";
-    say colored("SPL file /opt/sparrow/$uuid/sparrow.list is empty", 'bold green on_black');
+    ssh_shell "mkdir -p /opt/sparrow && touch /opt/sparrow/sparrow.list";
+    say colored("SPL file /opt/sparrow/sparrow.list is empty", 'bold green on_black');
 
   }
 
@@ -170,7 +170,7 @@ sub ssh_shell ( $cmd ) {
   @bash_commands.push:  'export https_proxy=' ~ input_params('HttpsProxy') if input_params('HttpsProxy');
   @bash_commands.push:  'export GIT_PROTOCOL=https';
   @bash_commands.push:  'export PATH=/usr/bin/site_perl:/usr/local/bin:/usr/sbin/:/sbin/:/bin/$PATH';
-  @bash_commands.push:  'export SPARROW_ROOT=' ~ ( input_params('SparrowRoot') || "/opt/sparrow/$uuid" );
+  @bash_commands.push:  'export SPARROW_ROOT=' ~ ( input_params('SparrowRoot') || "/opt/sparrow/" );
   @bash_commands.push:  'export SPARROW_NO_COLOR=1' if input_params('NoColor');
   @bash_commands.push:  "export SPARROW_CONF_PATH=/tmp/sparrow-cache/$uuid/sparrow.yaml";
   @bash_commands.push:  'export OUTTHENTIC_CWD=' ~ input_params('Cwd') if input_params('Cwd');
