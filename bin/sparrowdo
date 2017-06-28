@@ -14,6 +14,8 @@ use Sparrowdo::Core::DSL::Bash;
 use Sparrowdo::Core::DSL::Ssh;
 use Sparrowdo::Core::DSL::Assert;
 use Config::Simple;
+use UUID;
+
 
 sub MAIN (
 
@@ -57,8 +59,11 @@ sub MAIN (
   my $repo_val = $repo;
 
   $repo_val = $conf-ini<sparrowdo><repo> if $conf-ini<sparrowdo><repo> && ! $repo_val;
+
+  my $uuid = UUID.new(:version(4));
   
   set_input_params %(  
+    UUID => $uuid,
     Host => $host, 
     Sparrowfile => $sparrowfile,
     LocalMode => $local_mode,
@@ -78,13 +83,14 @@ sub MAIN (
 
   bootstrap() if $bootstrap;
 
-  say colored('running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
+  say colored( $uuid ~ ' running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
 
-  ssh_shell 'rm -rf /tmp/sparrow-cache/; mkdir -m 777 -p /tmp/sparrow-cache/ && mkdir -m 777 -p /tmp/sparrow-cache/plugins && mkdir -m 777 -p /tmp/sparrow-cache/files && echo print os | perl -MOutthentic  > /tmp/sparrow-cache/os.txt';
+  ssh_shell "rm -rf /tmp/sparrow-cache/$uuid && mkdir -m 777 -p /tmp/sparrow-cache/$uuid && mkdir -m 777 -p /tmp/sparrow-cache/$uuid/plugins && mkdir -m 777 -p /tmp/sparrow-cache/$uuid/files && echo print os | perl -MOutthentic  > /tmp/sparrow-cache/$uuid/os.txt";
 
-  _scp "/tmp/sparrow-cache/os.txt", "/tmp/target_os", 1; # copy back /tmp/os.txt 
+  mkdir "/tmp/sparrowdo-cache/$uuid/plugins";
+  _scp "/tmp/sparrow-cache/$uuid/os.txt", "/tmp/sparrowdo-cache/$uuid/target_os", 1; # copy back to master host 
 
-  set_target_os slurp "/tmp/target_os";
+  set_target_os slurp "/tmp/sparrowdo-cache/$uuid/target_os";
 
   say colored('target OS is - '~ target_os, 'black on_white');
 
@@ -110,15 +116,15 @@ sub MAIN (
       say colored( 'puplating SPL file', 'bold yellow on_cyan' );
     }
 
-    spurt '/tmp/sparrowdo/sparrow.list', get_spl().join: "\n";
-    _scp '/tmp/sparrowdo/sparrow.list', '/tmp/sparrow-cache/';
-    ssh_shell 'mkdir -p /opt/sparrow && mv  /tmp/sparrow-cache/sparrow.list /opt/sparrow';
+    spurt "/tmp/sparrowdo-cache/$uuid/sparrow.list", get_spl().join: "\n";
+    _scp "/tmp/sparrowdo-cache/$uuid/sparrow.list", "/tmp/sparrow-cache/$uuid/";
+    ssh_shell "mkdir -p /opt/sparrow && mv  /tmp/sparrow-cache/$uuid/sparrow.list /opt/sparrow";
     say colored('copied SPL file as /opt/sparrow/sparrow.list - OK', 'bold green on_black');
 
   }
 
   if $repo_val {
-    ssh_shell "echo repo: $repo_val > /tmp/sparrow-cache/sparrow.yaml";
+    ssh_shell "echo repo: $repo_val > /tmp/sparrow-cache/$uuid/sparrow.yaml";
     say colored("set custom repo to $repo_val - OK", 'bold green on_black');
   }
 
@@ -126,25 +132,22 @@ sub MAIN (
 
   # plugins mode
   if ($task_run) {
-    mkdir '/tmp/sparrowdo/';
-    mkdir '/tmp/sparrowdo/plugins';
     for plg-list() -> @p {
       ssh_shell "sparrow plg install " ~ @p[0];
       if @p[1] {
-        spurt "/tmp/sparrowdo/plugins/@p[0].args", @p[1].join: "\n";
-        _scp "/tmp/sparrowdo/plugins/@p[0].args", '/tmp/sparrow-cache/plugins';
-        ssh_shell "sparrow plg run " ~ @p[0] ~ ' --args-file ' ~ '/tmp/sparrow-cache/plugins/' ~ "@p[0].args";
+        spurt "/tmp/sparrowdo-cache/$uuid/plugins/@p[0].args", @p[1].join: "\n";
+        _scp  "/tmp/sparrowdo-cache/$uuid/plugins/@p[0].args", "/tmp/sparrow-cache/$uuid/plugins";
+        ssh_shell "sparrow plg run " ~ @p[0] ~ ' --args-file ' ~ "/tmp/sparrow-cache/$uuid/plugins/" ~ "@p[0].args";
       } else {
         ssh_shell "sparrow plg run " ~ @p[0];
       }
     } 
     # task box mode  
   } else {
-    mkdir '/tmp/sparrowdo/';
-    spurt "/tmp/sparrowdo/task-box$*PID.json", (to-json get_tasks());
-    _scp "/tmp/sparrowdo/task-box$*PID.json", "/tmp/sparrow-cache/";
-    say colored("set up task box file - /tmp/sparrowdo/task-box$*PID.json - OK", 'bold green on_black');
-    ssh_shell "sparrow box run /tmp/sparrow-cache/task-box$*PID.json --mode quiet --purge-cache";
+    spurt "/tmp/sparrowdo-cache/$uuid/task-box.json", (to-json get_tasks());
+    _scp "/tmp/sparrowdo-cache/$uuid/task-box.json", "/tmp/sparrow-cache/$uuid";
+    say colored("set up task box file - /tmp/sparrowdo-cache/$uuid/task-box.json - OK", 'bold green on_black');
+    ssh_shell "sparrow box run /tmp/sparrow-cache/$uuid/task-box.json --mode quiet --purge-cache";
   }
 
 }
@@ -155,6 +158,7 @@ sub ssh_shell ( $cmd ) {
   #my @bash_commands = ( 'export LC_ALL=en_US.UTF-8' );
   my @bash_commands = ( 'export LC_ALL=C' );
 
+  my $uuid = input_params('UUID');
 
   @bash_commands.push:  'export http_proxy=' ~ input_params('HttpProxy') if input_params('HttpProxy');
   @bash_commands.push:  'export https_proxy=' ~ input_params('HttpsProxy') if input_params('HttpsProxy');
@@ -162,7 +166,7 @@ sub ssh_shell ( $cmd ) {
   @bash_commands.push:  'export PATH=/usr/bin/site_perl:/usr/local/bin:/usr/sbin/:/sbin/:/bin/$PATH';
   @bash_commands.push:  'export SPARROW_ROOT=' ~ ( input_params('SparrowRoot') || '/opt/sparrow' );
   @bash_commands.push:  'export SPARROW_NO_COLOR=1' if input_params('NoColor');
-  @bash_commands.push:  'export SPARROW_CONF_PATH=/tmp/sparrow-cache/sparrow.yaml';
+  @bash_commands.push:  "export SPARROW_CONF_PATH=/tmp/sparrow-cache/$uuid/sparrow.yaml";
   @bash_commands.push:  'export OUTTHENTIC_CWD=' ~ input_params('Cwd') if input_params('Cwd');
 
   @bash_commands.push:  $cmd;

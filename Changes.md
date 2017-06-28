@@ -1,6 +1,8 @@
 # 0.0.21
 
 - Support for --cwd option
+- Use uuids to make it possible run multiple sparrowdo scenarios safely
+
 
 # 0.0.20 2017-06-22
 
