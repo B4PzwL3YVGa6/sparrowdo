@@ -20,6 +20,7 @@ multi sub zef ( $pkg, %args? ) is export {
   %bash-args<description> = %args<description> ||  "zef install $pkg";
   %bash-args<debug>       = %args<debug> || 0;
   %bash-args<user>        = %args<user> if %args<user>;
+  %bash-args<envvars>     = %(PATH => '/opt/rakudo/bin:$PATH');
 
   bash $zef-cmd, %bash-args;
 
