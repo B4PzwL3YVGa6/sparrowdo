@@ -8,7 +8,9 @@ use Sparrowdo::Core::DSL::Bash;
 
 multi sub zef ( $pkg, %args? ) is export { 
 
-  my $zef-cmd = %args<cwd>:exists ?? 'cd ' ~ %args<cwd> ~ '&& zef' !! 'zef';
+  my $zef-cmd = 'export PATH=/opt/rakudo/bin:$PATH && ';
+
+  $zef-cmd ~= %args<cwd>:exists ?? 'cd ' ~ %args<cwd> ~ '&& zef' !! 'zef';
 
   $zef-cmd ~= ' --depsonly' if %args<depsonly>;
   $zef-cmd ~= ' --force' if %args<force>;
@@ -20,7 +22,6 @@ multi sub zef ( $pkg, %args? ) is export {
   %bash-args<description> = %args<description> ||  "zef install $pkg";
   %bash-args<debug>       = %args<debug> || 0;
   %bash-args<user>        = %args<user> if %args<user>;
-  %bash-args<envvars>     = %(PATH => '/opt/rakudo/bin:$PATH');
 
   bash $zef-cmd, %bash-args;
 
