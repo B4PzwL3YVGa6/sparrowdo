@@ -207,15 +207,15 @@ And even this won't help you due to local file coping gets happened first:
     directory '/opt/data/';
     copy-local-file 'data/hello.txt','/opt/data/hello.txt';
 
-But you can use `/tmp/sparrow-cache/files` directory ( which existence is ensured ) to keep your data safely:
+But you can use `$sparrow-root/sparrow-cache/files` directory ( which existence is ensured ) to keep your data safely:
 
-    copy-local-file 'data/hello.txt','/tmp/sparrow-cache/files';
+    copy-local-file 'data/hello.txt','/opt/sparrow/sparrow-cache/files';
 
 And then:
 
     directory '/opt/data/';
 
-    file '/opt/data/hello.txt', %( source => /tmp/sparrow-cache/files/hello.txt );
+    file '/opt/data/hello.txt', %( source => /opt/sparrow/sparrow-cache/files/hello.txt );
 
 ## Templates
 
