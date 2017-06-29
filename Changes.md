@@ -3,6 +3,7 @@
 - Support for --cwd option
 - Sparrow/Sparrowdo cache files refactoring to allow run multiple sparrowdo scenarios on the same host safely
 - Now respect no_color completely
+- Varios zef dsl fixes
 
 # 0.0.20 2017-06-22
 
