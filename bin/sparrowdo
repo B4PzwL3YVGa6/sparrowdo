@@ -33,16 +33,16 @@ sub MAIN (
   Bool :$no_sudo = False,
   Bool :$no_color = False,
   Bool :$no_index_update = False,
-  Str  :$sparrow_root, 
+  Str  :$sparrow_root = '/opt/sparrow', 
   Str  :$repo,
   Bool :$local_mode = False,
   Str  :$cwd, 
-  Str  :$uuid = 'root', 
 )
 {
 
   # read config if exists
-  my $conf-ini-file = %*ENV<USER> ?? '/home/' ~ %*ENV<USER> ~ '/sparrowdo.ini' !! ( input_params('SparrowRoot') || "/opt/sparrow/$uuid") ~ '/sparrowdo.ini';
+
+  my $conf-ini-file = %*ENV<USER> ?? '/home/' ~ %*ENV<USER> ~ '/sparrowdo.ini' !! ( $sparrow_root ~ '/sparrowdo.ini' );
   my $conf-ini = $conf-ini-file.IO ~~ :e ?? Config::Simple.read($conf-ini-file,:f<ini>) !! Hash.new;
   
   # dirty hacks to pass command line parameter into sparrowfile context
@@ -62,7 +62,6 @@ sub MAIN (
 
   
   set_input_params %(  
-    UUID => $uuid,
     Host => $host, 
     Sparrowfile => $sparrowfile,
     LocalMode => $local_mode,
@@ -82,14 +81,15 @@ sub MAIN (
 
   bootstrap() if $bootstrap;
 
-  say colored( $uuid ~ ' running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
+  say colored( 'running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
 
-  ssh_shell "rm -rf /tmp/sparrow-cache/$uuid && mkdir -m 777 -p /tmp/sparrow-cache/$uuid && mkdir -m 777 -p /tmp/sparrow-cache/$uuid/plugins && mkdir -m 777 -p /tmp/sparrow-cache/$uuid/files && echo print os | perl -MOutthentic  > /tmp/sparrow-cache/$uuid/os.txt";
+  ssh_shell "rm -rf $sparrow_root/sparrow-cache && mkdir -m 777 -p $sparrow_root/sparrow-cache && mkdir -m 777 -p $sparrow_root/sparrow-cache/plugins && mkdir -m 777 -p $sparrow_root/sparrow-cache/files && echo print os | perl -MOutthentic  > $sparrow_root/sparrow-cache/os.txt";
+  ssh_shell "rm -rf $sparrow_root/sparrowdo-cache && mkdir -m 777 -p $sparrow_root/sparrowdo-cache";
 
-  mkdir "/tmp/sparrowdo-cache/$uuid/plugins";
-  _scp "/tmp/sparrow-cache/$uuid/os.txt", "/tmp/sparrowdo-cache/$uuid/target_os", 1; # copy back to master host 
+  mkdir "$sparrow_root/sparrowdo-cache/plugins";
+  _scp "$sparrow_root/sparrow-cache/os.txt", "$sparrow_root/sparrowdo-cache/target_os", 1; # copy back to master host 
 
-  set_target_os slurp "/tmp/sparrowdo-cache/$uuid/target_os";
+  set_target_os slurp "$sparrow_root/sparrowdo-cache/target_os";
 
   say colored('target OS is - '~ target_os, 'black on_white');
 
@@ -115,20 +115,20 @@ sub MAIN (
       say colored( 'populating SPL file', 'bold yellow on_cyan' );
     }
 
-    spurt "/tmp/sparrowdo-cache/$uuid/sparrow.list", get_spl().join: "\n";
-    _scp "/tmp/sparrowdo-cache/$uuid/sparrow.list", "/tmp/sparrow-cache/$uuid/";
-    ssh_shell "mkdir -p /opt/sparrow/$uuid && mv /tmp/sparrow-cache/$uuid/sparrow.list /opt/sparrow/$uuid";
-    say colored("copied SPL file as /opt/sparrow/$uuid/sparrow.list - OK", 'bold green on_black');
+    spurt "$sparrow_root/sparrowdo-cache/sparrow.list", get_spl().join: "\n";
+    _scp "$sparrow_root/sparrowdo-cache/sparrow.list", "$sparrow_root/sparrow-cache/";
+    ssh_shell "mkdir -p $sparrow_root && mv $sparrow_root/sparrow-cache/sparrow.list $sparrow_root";
+    say colored("copied SPL file as $sparrow_root/sparrow.list - OK", 'bold green on_black');
 
   } else {
 
-    ssh_shell "mkdir -p /opt/sparrow/$uuid && touch /opt/sparrow/$uuid/sparrow.list";
-    say colored("SPL file /opt/sparrow/$uuid/sparrow.list is empty", 'bold green on_black');
+    ssh_shell "mkdir -p $sparrow_root && touch $sparrow_root/sparrow.list";
+    say colored("SPL file $sparrow_root/sparrow.list is empty", 'bold green on_black');
 
   }
 
   if $repo_val {
-    ssh_shell "echo repo: $repo_val > /tmp/sparrow-cache/$uuid/sparrow.yaml";
+    ssh_shell "echo repo: $repo_val > $sparrow_root/sparrow-cache/sparrow.yaml";
     say colored("set custom repo to $repo_val - OK", 'bold green on_black');
   }
 
@@ -139,19 +139,19 @@ sub MAIN (
     for plg-list() -> @p {
       ssh_shell "sparrow plg install " ~ @p[0];
       if @p[1] {
-        spurt "/tmp/sparrowdo-cache/$uuid/plugins/@p[0].args", @p[1].join: "\n";
-        _scp  "/tmp/sparrowdo-cache/$uuid/plugins/@p[0].args", "/tmp/sparrow-cache/$uuid/plugins";
-        ssh_shell "sparrow plg run " ~ @p[0] ~ ' --args-file ' ~ "/tmp/sparrow-cache/$uuid/plugins/" ~ "@p[0].args";
+        spurt "$sparrow_root/sparrowdo-cache/plugins/@p[0].args", @p[1].join: "\n";
+        _scp  "$sparrow_root/sparrowdo-cache/plugins/@p[0].args", "$sparrow_root/sparrow-cache/plugins";
+        ssh_shell "sparrow plg run " ~ @p[0] ~ ' --args-file ' ~ "$sparrow_root/sparrow-cache/plugins/" ~ "@p[0].args";
       } else {
         ssh_shell "sparrow plg run " ~ @p[0];
       }
     } 
     # task box mode  
   } else {
-    spurt "/tmp/sparrowdo-cache/$uuid/task-box.json", (to-json get_tasks());
-    _scp "/tmp/sparrowdo-cache/$uuid/task-box.json", "/tmp/sparrow-cache/$uuid";
-    say colored("set up task box file - /tmp/sparrowdo-cache/$uuid/task-box.json - OK", 'bold green on_black');
-    ssh_shell "sparrow box run /tmp/sparrow-cache/$uuid/task-box.json --mode quiet --purge-cache";
+    spurt "$sparrow_root/sparrowdo-cache/task-box.json", (to-json get_tasks());
+    _scp "$sparrow_root/sparrowdo-cache/task-box.json", "$sparrow_root/sparrow-cache";
+    say colored("set up task box file - $sparrow_root/sparrowdo-cache/task-box.json - OK", 'bold green on_black');
+    ssh_shell "sparrow box run $sparrow_root/sparrow-cache/task-box.json --mode quiet --purge-cache";
   }
 
 }
@@ -161,16 +161,15 @@ sub ssh_shell ( $cmd ) {
 
   #my @bash_commands = ( 'export LC_ALL=en_US.UTF-8' );
   my @bash_commands = ( 'export LC_ALL=C' );
-
-  my $uuid = input_params('UUID');
+  my $sparrow_root = input_params('SparrowRoot');
 
   @bash_commands.push:  'export http_proxy=' ~ input_params('HttpProxy') if input_params('HttpProxy');
   @bash_commands.push:  'export https_proxy=' ~ input_params('HttpsProxy') if input_params('HttpsProxy');
   @bash_commands.push:  'export GIT_PROTOCOL=https';
   @bash_commands.push:  'export PATH=/usr/bin/site_perl:/usr/local/bin:/usr/sbin/:/sbin/:/bin/$PATH';
-  @bash_commands.push:  'export SPARROW_ROOT=' ~ ( input_params('SparrowRoot') || "/opt/sparrow/$uuid" );
+  @bash_commands.push:  'export SPARROW_ROOT=' ~ input_params('SparrowRoot');
   @bash_commands.push:  'export SPARROW_NO_COLOR=1' if input_params('NoColor');
-  @bash_commands.push:  "export SPARROW_CONF_PATH=/tmp/sparrow-cache/$uuid/sparrow.yaml";
+  @bash_commands.push:  "export SPARROW_CONF_PATH=$sparrow_root/sparrow-cache/sparrow.yaml";
   @bash_commands.push:  'export OUTTHENTIC_CWD=' ~ input_params('Cwd') if input_params('Cwd');
 
   @bash_commands.push:  $cmd;
