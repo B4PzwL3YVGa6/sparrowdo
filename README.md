@@ -342,7 +342,7 @@ One may use `bootstrap` mode to install Sparrow on target host first:
 
     $ sparrowdo --host=192.168.0.0.1 --bootstrap
 
-Currently only CentOS platform is supported for bootstrap operation. 
+Bootstrap is supported fof Centos and probably would work on a lot of other OC, like Ubuntu, Debian and Fedora. The future plans are make it universal.
 
 # Sparrowdo modules
 
