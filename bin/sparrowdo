@@ -42,6 +42,9 @@ sub MAIN (
 
   # read config if exists
 
+  my $sparrowdo-cache = '/home/' ~ %*ENV<USER> ~ '/.sparrowdo/' ~ $sparrow_root;
+  mkdir "$sparrowdo-cache/plugins";
+
   my $conf-ini-file = %*ENV<USER> ?? '/home/' ~ %*ENV<USER> ~ '/sparrowdo.ini' !! ( $sparrow_root ~ '/sparrowdo.ini' );
   my $conf-ini = $conf-ini-file.IO ~~ :e ?? Config::Simple.read($conf-ini-file,:f<ini>) !! Hash.new;
   
@@ -88,10 +91,9 @@ sub MAIN (
   ssh_shell "rm -rf $sparrow_root/sparrow-cache && mkdir -m 777 -p $sparrow_root/sparrow-cache && mkdir -m 777 -p $sparrow_root/sparrow-cache/plugins && mkdir -m 777 -p $sparrow_root/sparrow-cache/files && echo print os | perl -MOutthentic  > $sparrow_root/sparrow-cache/os.txt";
   ssh_shell "rm -rf $sparrow_root/sparrowdo-cache && mkdir -m 777 -p $sparrow_root/sparrowdo-cache";
 
-  mkdir "$sparrow_root/sparrowdo-cache/plugins";
-  _scp "$sparrow_root/sparrow-cache/os.txt", "$sparrow_root/sparrowdo-cache/target_os", 1; # copy back to master host 
+  _scp "$sparrow_root/sparrow-cache/os.txt", "$sparrowdo-cache/target_os", 1; # copy back to master host 
 
-  set_target_os slurp "$sparrow_root/sparrowdo-cache/target_os";
+  set_target_os slurp "$sparrowdo-cache/target_os";
 
   say $no_color ??
   ('target OS is - '~ target_os ) !!
@@ -123,8 +125,8 @@ sub MAIN (
       colored( 'populating SPL file', 'bold yellow on_cyan' );
     }
 
-    spurt "$sparrow_root/sparrowdo-cache/sparrow.list", get_spl().join: "\n";
-    _scp "$sparrow_root/sparrowdo-cache/sparrow.list", "$sparrow_root/sparrow-cache/";
+    spurt "$sparrowdo-cache/sparrow.list", get_spl().join: "\n";
+    _scp "$sparrowdo-cache/sparrow.list", "$sparrow_root/sparrow-cache/";
     ssh_shell "mkdir -p $sparrow_root && mv $sparrow_root/sparrow-cache/sparrow.list $sparrow_root";
     say input_params('NoColor') ??
     "copied SPL file as $sparrow_root/sparrow.list - OK" !!
@@ -153,8 +155,8 @@ sub MAIN (
     for plg-list() -> @p {
       ssh_shell "sparrow plg install " ~ @p[0];
       if @p[1] {
-        spurt "$sparrow_root/sparrowdo-cache/plugins/@p[0].args", @p[1].join: "\n";
-        _scp  "$sparrow_root/sparrowdo-cache/plugins/@p[0].args", "$sparrow_root/sparrow-cache/plugins";
+        spurt "$sparrowdo-cache/plugins/@p[0].args", @p[1].join: "\n";
+        _scp  "$sparrowdo-cache/plugins/@p[0].args", "$sparrow_root/sparrow-cache/plugins";
         ssh_shell "sparrow plg run " ~ @p[0] ~ ' --args-file ' ~ "$sparrow_root/sparrow-cache/plugins/" ~ "@p[0].args";
       } else {
         ssh_shell "sparrow plg run " ~ @p[0];
@@ -162,12 +164,12 @@ sub MAIN (
     } 
     # task box mode  
   } else {
-    spurt "$sparrow_root/sparrowdo-cache/task-box.json", (to-json get_tasks());
-    _scp "$sparrow_root/sparrowdo-cache/task-box.json", "$sparrow_root/sparrow-cache";
+    spurt "$sparrowdo-cache/task-box.json", (to-json get_tasks());
+    _scp "$sparrowdo-cache/task-box.json", "$sparrow_root/sparrow-cache";
     say input_params('NoColor') ??
-    "set up task box file - $sparrow_root/sparrowdo-cache/task-box.json - OK" !!
-    colored("set up task box file - $sparrow_root/sparrowdo-cache/task-box.json - OK", 'bold green on_black');
-    ssh_shell "sparrow box run $sparrow_root/sparrow-cache/task-box.json --mode quiet --purge-cache";
+    "set up task box file - $sparrowdo-cache/task-box.json - OK" !!
+    colored("set up task box file - $sparrowdo-cache/task-box.json - OK", 'bold green on_black');
+    ssh_shell "sparrow box run $sparrowdo-cache/task-box.json --mode quiet --purge-cache";
   }
 
 }
