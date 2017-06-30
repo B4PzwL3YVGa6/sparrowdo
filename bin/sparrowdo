@@ -169,7 +169,7 @@ sub MAIN (
     say input_params('NoColor') ??
     "set up task box file - $sparrowdo-cache/task-box.json - OK" !!
     colored("set up task box file - $sparrowdo-cache/task-box.json - OK", 'bold green on_black');
-    ssh_shell "sparrow box run $sparrowdo-cache/task-box.json --mode quiet --purge-cache";
+    ssh_shell "sparrow box run $sparrow_root/sparrow-cache/task-box.json --mode quiet --purge-cache";
   }
 
 }
