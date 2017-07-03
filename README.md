@@ -8,7 +8,6 @@ Configuration management tool based on [sparrow](https://sparrowhub.org) plugins
 
 # Usage
 
-
 There are 3 essential things in Sparrowdo:
 
 * [Core DSL](#core-dsl)
@@ -22,7 +21,7 @@ There are 3 essential things in Sparrowdo:
 
 Core DSL is probably the easiest way to start using Sparrowdo right away. It offers some
 high level functions to deal with the most common configuration tasks, like
-creation of directories or users, populating configuration files from templates or starting services.
+a creation of directories or users, populating configuration files from templates or starting services.
 
     $ cat sparrowfile
 
@@ -43,18 +42,15 @@ creation of directories or users, populating configuration files from templates 
 
     package-install ('nano', 'ncdu', 'mc' );
 
-Read [core-dsl](/core-dsl.md) doc to get familar with core-dsl functions available at the current sparrowdo version.
+Read the [core-dsl](/core-dsl.md) doc to get familiar with core-dsl functions available in the current sparrowdo version.
 
 # Plugins DSL
 
-Under the hood Core DSL is "call"(*) a [sparrow plugins](https://github.com/melezhik/sparrow#sparrow-plugins) with parameters.
+Under the hood the plugins DSL is just a "call"(*) of some [sparrow plugins](https://github.com/melezhik/sparrow#sparrow-plugins) with parameters.
 
-(\*) Not that accurate. Technically speaking core-dsl functions just *return* a JSON data to **serialize** a sparrow plugins with
-binded parameters ( so called [sparrow tasks](https://github.com/melezhik/sparrow#tasks) ) and after that the data are JSON copied ( by scp ) to the target host, where it is finally **executed** by sparrow client.
-
-Thus, if you want a direct access to sparrow plugins API you use the Plugins DSL.
+Thus, if you want a direct access to sparrow plugins API you use the plugins DSL.
   
-Examples above could be rewritten in the terms of low level Plugins API: 
+Examples above could be rewritten in the terms of the low level plugins API: 
 
     $ cat sparrowfile
 
@@ -76,7 +72,7 @@ Examples above could be rewritten in the terms of low level Plugins API:
       )
     );
 
-    # the following code will use the short form of task-run $task_desc, $plugin_name, %parameters
+    # the following code will use the short form of running tasks - task-run($task_desc, $plugin_name, %parameters)
 
     task-run 'create greetings directory', 'directory', %( 
       action  => 'create' , 
@@ -101,25 +97,28 @@ Examples above could be rewritten in the terms of low level Plugins API:
 
     task-run 'install some handy packages', 'package-generic', %( list  => 'nano ncdu mc' );
 
-Reasons you may prefer Plugins DSL:
+(\*) Not that accurate. Technically speaking plugins DSL functions just *return* a JSON data to **serialize** sparrow plugins with
+its binded parameters ( so called [sparrow tasks](https://github.com/melezhik/sparrow#tasks) ) and after that the data is copied ( by scp ) to the target host, where it is finally **executed** by sparrow client.
 
-* Not every sparrow plugin has a *related* core-dsl function ( see below ).
-* core-dsl methods are just wrappers to generated the proper JSON data to "map" sparrow plugins with parameters,
-however such a mapping could be limited in comparison with *original* Plugins API, for example you might not have access to the some plugin's input parameters and so on. Thus, if you want to hack into the plugin details, you will need low level Plugins API.
-* Anyway core-dsl API is enough for the most common configuration management tasks.
+Reasons you may prefer plugins DSL:
+
+* Not every sparrow plugin has a *related* core DSL function ( see below ).
+* Core DSL methods are just wrappers to generated the proper JSON data to "map" sparrow plugins with parameters,
+however such a mapping could be limited in comparison with *original* plugins API, for example you might not have access to the some plugin's input parameters and so on. Thus, if you want to hack into the plugin details, you will need low level plugins API.
+* Anyway core DSL API is enough for the most common configuration management tasks.
 
 # Core DSL vs Plugins DSL
     
-Core DSL is a kinda high level adapter with addition of some "syntax sugar" to make your code terse.
-It is also important that as core-dsl methods are Perl6 functions, you take advatage of input parameters
-validation.  However core-dsl is limited. **Not every sparrow plugin** has its core-dsl method.
+Core DSL is a kinda high level adapter with addition of some "syntax sugar" to make your code terse and effective.
+It is also important that as the core DSL methods are Perl6 functions, you take advantage of input parameters
+validation.  However core DSL is limited. **Not every sparrow plugin** has _related_ core DSL method.
 
-So it's up to you whether to use core-dsl or low level Plugins API. 
+So it's up to you whether to use the core DSL or low level plugins API. 
 
-Once I found some sparrow plugin very common and highly useful I add the proper core-dsl method for it. In case you need 
-core-dsl wrappers for the new plugins - let me know!
+Once I've found some sparrow plugin very common and highly useful I will the proper core DSL binded to the plugin. 
+In case you need core DSL wrappers for the new plugins - let me know!
 
-[Here](/core-dsl.md) is the list of core-dsl functions available in the current Sparrowdo version.
+[Here](/core-dsl.md) is the list of core DSL functions available in the current Sparrowdo version.
 
 # Running sparrowdo scenario
 
@@ -129,36 +128,38 @@ Now, once we've created a sparrowfile let's run the scenario on some remote host
 
 # Schema
 
-Here is the visual presentation of the sparrowdo system design:
+Here is the visual presentation of sparrowdo system design:
 
 ![sparrowdo system design](https://sparrowdo.files.wordpress.com/2017/01/sparrowdo-system.png)
 
 ## Master host
 
-Master host is  dedicated server where from you "push" sparrow tasks execution on some remote hosts.
+Master host is a dedicated server where you "push" sparrow tasks from for being executed on remote hosts.
 
 Sparrowdo client should be installed at the master host:
 
     $ zef install Sparrowdo
 
-Sparrowdo acts over ssh invoking sparrow client with input json data genereted by. Sparrow in turn download and installs the [plugins](https://metacpan.org/pod/Sparrow#Plugins-API) and create plugins' confuguration - sparrow [tasks](https://metacpan.org/pod/Sparrow#Tasks-API). Finally tasks are executed converging the server to desired configuration.
+Sparrowdo acts over ssh invoking sparrow client with input json data generated by. 
+
+Sparrow client in turn downloads and installs the [plugins](https://metacpan.org/pod/Sparrow#Plugins-API) and create plugins configuration - sparrow [tasks](https://metacpan.org/pod/Sparrow#Tasks-API). Finally tasks are executed converging the server to desired configuration.
 
 A list of available sparrow plugins could be found here - [https://sparrowhub.org/search](https://sparrowhub.org/search).
 
 ## Remote hosts
 
-Remote hosts are configured by sparrow client which configure and executing sparrow tasks.
+Remote hosts are configured by sparrow client which sets up and executes sparrow tasks.
 
-Sparrow client have to be installed at the remote host.
+Sparrow client have to be installed on the remote host.
 
     $ cpanm Sparrow
 
-A minimal none Perl dependencies also should be satisfied - `curl`. Sparrow manages its index files and
-upload plugins by curl:
+A minimal none Perl dependencies also should be satisfied - `curl` utility. Sparrow manages its index files and
+upload plugins by using curl:
 
     $ yum install curl
 
-It is possible to automate the process of sparrow client installation on the remote host, see bootstrap section. 
+It is possible to automate the process of sparrow client installation on the remote host, see the bootstrap section for details. 
 
 # SSH/User setup
 
@@ -167,15 +168,11 @@ An assumption is made that ssh user you run `sparrowdo` with ( see --ssh_user co
 * ssh passwordless access on the remote host
 * sudo (passwordless?) rights on remote host
 
-Eventually I will make user/ssh related stuff configurable so one could run sparrowdo with various ssh configurations and
-users.
-
 # Advanced usage
 
 ## Running private plugins
 
-You should use `set_spl(%hash)` function to set up a private plugins index file:
-
+You should use `set_spl(%hash)` function to set up the private plugins index file:
 
     $ cat sparrowfile
 
@@ -196,11 +193,13 @@ Prints brief usage info.
 
 ## --host
 
-Sets remote host's IP address or hostname. This is mandatory parameter. Default value is `127.0.0.1`.
+Sets the remote host's IP address or hostname. This is mandatory parameter. Default value is `127.0.0.1`.
 
 ## --sparrowfile
 
-Alternative location of sparrowfile. If `--sparrowfile` is not set, sparrowdo will look fir the file named `sparrowfile` in the current working directory.
+Alternative location of sparrowfile. 
+
+If `--sparrowfile` is not set, sparrowdo will look for the file named `sparrowfile` in the current working directory.
 
     $ sparrowdo --sparrowfile=~/sparrowfiles/sparrowfile.pl6
 
@@ -214,7 +213,7 @@ Sets https\_proxy environment variable on the remote host.
 
 ## --ssh\_user
 
-Sets user for the ssh connection to remote host.
+Sets user for the ssh connection to the remote host.
 
 ## --ssh\_private\_key
 
@@ -235,6 +234,7 @@ Optional parameter.
 ## --no\_sudo
 
 If set to true - do not initiate ssh command under `sudo`, just as is. Default value is false - use `sudo`.
+
 Optional parameter.
 
 ## --check_syntax
@@ -243,15 +243,16 @@ If set to true - only compiles scenarios and don't run anything on the remote ho
 
 ## --no\_index\_update
 
-If set to true - do not run `sparrow index update` command on the remote host. This could be useful if you
-are not going to install new versions of sparrow plugins on the remote host and want to save the time as operation
-is time consuming.
+If set to true - do not run `sparrow index update` command on the remote host. 
+
+This could be useful if you are not going to install new versions of sparrow plugins on the remote host 
+and want to save the time as index operation is quite time consuming.
 
 Optional parameter.
 
 ## --no\_color
 
-If set to true - disable color ouput of sparrowdo client. 
+If set to true - disable color output of sparrowdo client. 
 
 Optional parameter.
 
@@ -273,7 +274,7 @@ For example:
 
 ## --task\_run
 
-Runs a sparrow plugin instead of executing scenario from sparrowfile. 
+Runs a sparrow plugin instead of executing scenario from a sparrowfile. 
 
 For example:
 
@@ -294,11 +295,11 @@ For example:
 
 ## --verbose
 
-Sets verbose mode ( low level information will be printed at console ).
+Sets a verbose mode ( low level information will be printed at console ).
 
 ## --repo
 
-This option sets custom sparrow repo to used when sparrow runs on the remote machine.
+This option sets the custom sparrow repository for being used when sparrow runs on the remote machine.
 
 For example:
 
@@ -307,12 +308,12 @@ For example:
 ## --cwd
 
 This option sets the current working directory for the process which executes sparrow scenarios. 
+
 Optional, no default values.
 
 # Run sparrowdo in local mode
 
-In case you need to run sparrowdo on localhost add `--local_mode` flag and
-get things done locally, not remotely:
+In case you need to run sparrowdo on localhost add `--local_mode` flag and get things done locally, not remotely:
 
     $ sparrowdo --local_mode
 
@@ -337,16 +338,19 @@ For example:
 
 # Bootstrapping 
 
-One may use `bootstrap` mode to install Sparrow on target host first:
+One may use `bootstrap` mode to install sparrow client on the remote host first:
 
     $ sparrowdo --host=192.168.0.0.1 --bootstrap
 
-Bootstrap is supported for Centos but probably would work on a lot of other OC, like Ubuntu, Debian and Fedora. The future plans are to make it universal.
+Bootstrap is supported for Centos but probably would work on a lot of other OCs, like Ubuntu, Debian and Fedora. 
+
+The future plans are to make it universal.
 
 # Sparrowdo modules
 
-Sparrowdo modules are collection of sparrow tasks. They are very similar to sparrow task boxes,
-with some differences though:
+Sparrowdo modules are collections of sparrow tasks. 
+
+They are very similar to the sparrow task boxes, with some differences though:
 
 * They are Perl6 modules.
 
@@ -379,16 +383,15 @@ An example of sparrowdo module:
 
 Later on, in your sparrowfile you may have this:
 
-
     $ cat sparrowfile
 
     module_run 'Nginx';
 
-You may pass parameters to sparrowdo module:
+You may pass parameters to a sparrowdo module:
 
     module_run 'Nginx', port => 80;
 
-In module definition one access parameters as:
+In module's definition one access the parameters as:
 
     our sub tasks (%args) {
 
@@ -397,21 +400,21 @@ In module definition one access parameters as:
     }
 
 
-A module naming convention is:
+The module naming convention is:
 
     Sparrowdo::Foo::Bar ---> module_run Foo::Bar
 
 `module_run($module_name)` function loads  module Sparrowdo::$module_name at runtime and calls 
-function `tasks` defined at module global context.
+function `tasks` defined in the module's global context.
 
 
 ## Helper functions
 
-Module developers could rely on some helper function, when creating their modules.
+Module developers could rely on some helper functions, when creating their modules.
 
 * `target_os()`
 
-This function returns OS name for the target server.
+This function returns the remote server OS name.
 
 For example:
 
@@ -420,7 +423,7 @@ For example:
     }
     
 
-A list of OS names provided by `target_os()` function:
+The list of OS names is provided by `target_os()` function:
 
     centos5
     centos6
@@ -434,7 +437,7 @@ A list of OS names provided by `target_os()` function:
 
 * `input_params($param)`
 
-Input\_params function returns command line parameter one provides running sparrowdo client. 
+The input\_params function returns command line parameter one provides when run sparrowdo client. 
 
 For example:
 
@@ -445,7 +448,7 @@ For example:
       https_proxy => input_params('HttpsProxy'), 
     );
 
-This is the list of arguments valid for input\_params function:
+This is the list of arguments valid for the input\_params function:
 
     Host 
     HttpProxy 
@@ -462,14 +465,17 @@ This is the list of arguments valid for input\_params function:
     Cwd
     LocalMode
 
-See also [sparrowdo client command line parameters](#sparrowdo-client-command-line-parameters) section.
+See also the [sparrowdo client command line parameters](#sparrowdo-client-command-line-parameters) section.
 
 # Scenarios configuration
 
-There is no "magic" way to load configuration into sparrowdo scenarios. You are free to
-choose any Perl6 modules to deal with configuration data. But if `config.pl6` file exists
-at the current working directory it will be loaded via `EVALFILE` at the _beginning_ of
-scenario. For example:
+There is no "magic" way to load a configuration into sparrowdo scenarios. You are free to
+choose any Perl6 modules you want to deal with a configuration data. 
+
+But if `config.pl6` file exists at the current working directory it _will be loaded_ via `EVALFILE` at the _beginning_ of
+scenario. 
+
+For example:
 
 
     $ cat config.pl6
@@ -479,7 +485,7 @@ scenario. For example:
       install-base => '/opt/foo/bar'
     };
 
-Later on in scenario you may access config data via `config` function:
+Later on in the scenario you may access config data via `config` function:
 
     $ cat sparrowfile
 
