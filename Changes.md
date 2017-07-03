@@ -1,4 +1,4 @@
-# 0.0.21
+# 0.0.21 2017-06-29
 
 - Support for --cwd option
 - Sparrow/Sparrowdo cache files refactoring to allow run multiple sparrowdo scenarios on the same host safely
