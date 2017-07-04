@@ -342,9 +342,11 @@ One may use `bootstrap` mode to install sparrow client on the remote host first:
 
     $ sparrowdo --host=192.168.0.0.1 --bootstrap
 
-Bootstrap is supported for Centos but probably would work on a lot of other OCs, like Ubuntu, Debian and Fedora. 
+Bootstrap is supported for all OCs from the list except Minoca OS. 
 
-The future plans are to make it universal.
+**CAVEAT** 
+
+The bootstrap feature is still experimental and poorly tested, I urge you not to run bootstrap on production, valuable hosts.
 
 # Sparrowdo modules
 
