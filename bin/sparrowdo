@@ -305,18 +305,22 @@ os=$(lsb_release -d 2>/dev/null; uname -a; cat /etc/issue; cat /etc/*-release 2>
 
 shopt -s nocasematch;
 
-if ! which cpanm 2>/dev/null; then
-  echo "installing cpanm ..."
-  curl -s -kL http://cpanmin.us/ -o /bin/cpanm
-  chmod a+x /bin/cpanm
-fi
-
 if [[ $os =~ "debian" ]]; then
 
   echo bootstrap for debian
 
   DEBIAN_FRONTEND=noninteractive
 
+  if ! which curl 2>/dev/null; then
+     apt-get install -y -qq curl
+  fi
+
+  if ! which cpanm 2>/dev/null; then
+    echo "installing cpanm ..."
+    curl -s -kL http://cpanmin.us/ -o /bin/cpanm
+    chmod a+x /bin/cpanm
+  fi
+  
   if ! which perl 2>/dev/null; then
      apt-get install -y -qq perl
   fi
@@ -332,6 +336,16 @@ elif [[ "$os" =~ "ubuntu" ]]; then
 
   DEBIAN_FRONTEND=noninteractive
 
+  if ! which curl 2>/dev/null; then
+     apt-get install -y -qq curl
+  fi
+
+  if ! which cpanm 2>/dev/null; then
+    echo "installing cpanm ..."
+    curl -s -kL http://cpanmin.us/ -o /bin/cpanm
+    chmod a+x /bin/cpanm
+  fi
+
   if ! which perl 2>/dev/null; then
     apt-get install -y -qq perl
   fi
@@ -344,6 +358,16 @@ elif [[ "$os" =~ "ubuntu" ]]; then
 elif [[ "$os" =~ "amazon" ]]; then
 
   echo bootstrap for amazon
+
+  if ! which curl 2>/dev/null; then
+     yum -y install curl
+  fi
+
+  if ! which cpanm 2>/dev/null; then
+    echo "installing cpanm ..."
+    curl -s -kL http://cpanmin.us/ -o /bin/cpanm
+    chmod a+x /bin/cpanm
+  fi
 
   if ! which perl 2>/dev/null; then
     yum -y install perl
@@ -358,6 +382,16 @@ elif [[ "$os" =~ "centos" ]]; then
 
   echo bootstrap for centos
 
+  if ! which curl 2>/dev/null; then
+     yum -y install curl
+  fi
+
+  if ! which cpanm 2>/dev/null; then
+    echo "installing cpanm ..."
+    curl -s -kL http://cpanmin.us/ -o /bin/cpanm
+    chmod a+x /bin/cpanm
+  fi
+
   if ! which perl 2>/dev/null; then
     yum -y install perl
   fi
@@ -370,6 +404,16 @@ elif [[ "$os" =~ "centos" ]]; then
 elif [[ "$os" =~ "archlinux" ]]; then
 
   echo bootstrap for archlinux
+
+  if ! which curl 2>/dev/null; then
+     pacman -Q -q curl
+  fi
+
+  if ! which cpanm 2>/dev/null; then
+    echo "installing cpanm ..."
+    curl -s -kL http://cpanmin.us/ -o /bin/cpanm
+    chmod a+x /bin/cpanm
+  fi
 
   if ! which perl 2>/dev/null; then
     pacman -Sy
@@ -388,6 +432,16 @@ elif [[ "$os" =~ "fedora" ]]; then
 
   echo bootstrap for fedora
 
+  if ! which curl 2>/dev/null; then
+     dnf -y install curl
+  fi
+
+  if ! which cpanm 2>/dev/null; then
+    echo "installing cpanm ..."
+    curl -s -kL http://cpanmin.us/ -o /bin/cpanm
+    chmod a+x /bin/cpanm
+  fi
+
   if ! which perl 2>/dev/null; then
     dnf -y install perl
   fi
@@ -402,6 +456,16 @@ elif [[ "$os" =~ "alpine" ]]; then
   echo bootstrap for alpine
 
   apk update
+
+  if ! which curl 2>/dev/null; then
+     apk add wget curl
+  fi
+
+  if ! which cpanm 2>/dev/null; then
+    echo "installing cpanm ..."
+    curl -s -kL http://cpanmin.us/ -o /bin/cpanm
+    chmod a+x /bin/cpanm
+  fi
 
   if ! which perl 2>/dev/null; then
     apk add perl
