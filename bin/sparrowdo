@@ -322,7 +322,7 @@ if [[ $os =~ "debian" ]]; then
   fi
 
   if ! which sparrow 2>/dev/null; then
-    apt-get build-essential
+    apt-get install -y -qq build-essential
     cpanm -q Outthentic Sparrow || cpanm -q Outthentic Sparrow
   fi
 
@@ -337,7 +337,7 @@ elif [[ "$os" =~ "ubuntu" ]]; then
   fi
 
   if ! which sparrow 2>/dev/null; then
-    apt-get build-essential
+    apt-get install -y -qq build-essential
     cpanm -q Outthentic Sparrow || cpanm -q Outthentic Sparrow
   fi
 
