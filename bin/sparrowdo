@@ -393,8 +393,8 @@ elif [[ "$os" =~ "fedora" ]]; then
   fi
 
   if ! which sparrow 2>/dev/null; then
-    dnf -y install gcc perl-Digest-MD5 perl-Test-Harness perl-Data-Dumper perl-ExtUtils-MakeMaker perl-Hash-Merge
-    cpanm -q Outthentic Sparrow || cpanm -q Outthentic Sparrow
+    dnf -y install gcc perl-open perl-Test perl-Test-Simple perl-Storable perl-Digest-MD5 perl-Test-Harness perl-Data-Dumper perl-ExtUtils-MakeMaker perl-Hash-Merge
+    cpanm -q Test::More Outthentic Sparrow || cpanm -q Outthentic Sparrow
   fi
 
 elif [[ "$os" =~ "alpine" ]]; then
