@@ -1,3 +1,7 @@
+# 0.0.22
+
+- Universal bootstrap
+
 # 0.0.21 2017-06-29
 
 - Support for --cwd option
