@@ -295,7 +295,7 @@ sub bootstrap ( $sparrow_root, $sparrowdo-cache ) {
   my $host = input_params('Host');
   say input_params('NoColor') ?? 
   'running sparrow bootstrap for host: ' ~ $host ~ ' ... ' !!
-  colored( 'running bootstrap for host: ' ~ $host ~ ' ... ', 'bold black on_yellow');
+  colored( 'running sparrow bootstrap for host: ' ~ $host ~ ' ... ', 'bold black on_yellow');
 
   my $bootstrap = q:to/HERE/;
 
@@ -425,10 +425,6 @@ cpanm -q --notest Outthentic Sparrow || cpanm --notest -q Outthentic Sparrow
 
 HERE
 
-
-  say input_params('NoColor') ??
-  'running Sparrow bootstrap on ' ~ input_params('Host') !!
-  colored('running Sparrow bootstrap on ' ~ input_params('Host'), 'green on_red');
 
   spurt "$sparrowdo-cache/bootstrap.sh", $bootstrap;  
 
