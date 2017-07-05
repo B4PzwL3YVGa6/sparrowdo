@@ -406,26 +406,35 @@ elif [[ "$os" =~ "archlinux" ]]; then
   echo bootstrap for archlinux
 
 
-  if ! which curl 2>/dev/null; then
-     pacman -Q -q curl
-  fi
-
-  if ! which cpanm 2>/dev/null; then
-    echo "installing cpanm ..."
-    curl -s -kL http://cpanmin.us/ -o /bin/cpanm
-    chmod a+x /bin/cpanm
-  fi
-
-  if ! which perl 2>/dev/null; then
-    pacman -Sy
-    pacman -Q -q perl
-  fi
-
   if ! which sparrow 2>/dev/null; then
-    pacman -S gcc make
-    cpanm -q Outthentic Sparrow || cpanm -q Outthentic Sparrow
-  fi
 
+    pacman -Sy
+
+    if ! which curl 2>/dev/null; then
+      pacman -S --noconfirm -q curl
+    fi
+
+    if ! which cpanm 2>/dev/null; then
+      echo "installing cpanm ..."
+      curl -s -kL http://cpanmin.us/ -o /bin/cpanm
+      chmod a+x /bin/cpanm
+    fi
+
+    if ! which perl 2>/dev/null; then
+      pacman -S --noconfirm -q perl
+    fi
+
+    if ! which gcc 2>/dev/null; then
+      pacman -S --noconfirm -q gcc 
+    fi
+
+    if ! which make 2>/dev/null; then
+      pacman -S --noconfirm -q make 
+    fi
+
+    cpanm -q Outthentic Sparrow || echo "Some error occurs. On Archlinux sometimes you may need make upgrade before sparrow installation. Try 'pacman -Syu' if sparrow doesn't install later."
+
+  fi
 elif [[ "$os" =~ "fedora" ]]; then
 
   echo bootstrap for fedora
