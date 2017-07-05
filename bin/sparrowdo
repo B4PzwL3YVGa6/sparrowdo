@@ -421,9 +421,7 @@ elif [[ "$os" =~ "archlinux" ]]; then
   fi
 
   if ! which sparrow 2>/dev/null; then
-    pacman -Q -q base-level
-    pacman -Q -q gcc
-    pacman -Q -q guile
+    pacman -Q -q base-devel
     cpanm -q Outthentic Sparrow || cpanm -q Outthentic Sparrow
   fi
 
