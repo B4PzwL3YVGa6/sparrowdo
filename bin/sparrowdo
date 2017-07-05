@@ -405,7 +405,6 @@ elif [[ "$os" =~ "archlinux" ]]; then
 
   echo bootstrap for archlinux
 
-  pacman -Q -q gcc make
 
   if ! which curl 2>/dev/null; then
      pacman -Q -q curl
@@ -423,6 +422,7 @@ elif [[ "$os" =~ "archlinux" ]]; then
   fi
 
   if ! which sparrow 2>/dev/null; then
+    pacman -S gcc make
     cpanm -q Outthentic Sparrow || cpanm -q Outthentic Sparrow
   fi
 
