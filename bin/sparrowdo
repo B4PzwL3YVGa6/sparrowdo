@@ -493,7 +493,7 @@ fi
 
 
 # forcefully upgrade Outthentic and Sparrow
-cpanm -q --notest https://github.com/melezhik/outthentic/archive/master.zip Sparrow || cpanm --notest -q https://github.com/melezhik/outthentic/archive/master.zip Sparrow
+cpanm -q --notest Outthentic Sparrow || cpanm --notest -q Outthentic Sparrow
 
 HERE
 
