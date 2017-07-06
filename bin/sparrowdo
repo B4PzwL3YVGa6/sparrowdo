@@ -330,30 +330,6 @@ if [[ $os =~ "debian" ]]; then
     cpanm -q Outthentic Sparrow || cpanm -q Outthentic Sparrow
   fi
 
-elif [[ "$os" =~ "ubuntu" ]]; then
-
-  echo bootstrap for ubuntu
-
-  DEBIAN_FRONTEND=noninteractive
-
-  if ! which curl 2>/dev/null; then
-     apt-get install -y -qq curl
-  fi
-
-  if ! which cpanm 2>/dev/null; then
-    echo "installing cpanm ..."
-    curl -s -kL http://cpanmin.us/ -o /bin/cpanm
-    chmod a+x /bin/cpanm
-  fi
-
-  if ! which perl 2>/dev/null; then
-    apt-get install -y -qq perl
-  fi
-
-  if ! which sparrow 2>/dev/null; then
-    apt-get install -y -qq build-essential
-    cpanm -q Outthentic Sparrow || cpanm -q Outthentic Sparrow
-  fi
 
 elif [[ "$os" =~ "amazon" ]]; then
 
@@ -481,6 +457,31 @@ elif [[ "$os" =~ "alpine" ]]; then
 
   if ! which sparrow 2>/dev/null; then
     apk add wget git curl bash build-base gcc perl-dev
+    cpanm -q Outthentic Sparrow || cpanm -q Outthentic Sparrow
+  fi
+
+elif [[ "$os" =~ "ubuntu" ]]; then
+
+  echo bootstrap for ubuntu
+
+  DEBIAN_FRONTEND=noninteractive
+
+  if ! which curl 2>/dev/null; then
+     apt-get install -y -qq curl
+  fi
+
+  if ! which cpanm 2>/dev/null; then
+    echo "installing cpanm ..."
+    curl -s -kL http://cpanmin.us/ -o /bin/cpanm
+    chmod a+x /bin/cpanm
+  fi
+
+  if ! which perl 2>/dev/null; then
+    apt-get install -y -qq perl
+  fi
+
+  if ! which sparrow 2>/dev/null; then
+    apt-get install -y -qq build-essential
     cpanm -q Outthentic Sparrow || cpanm -q Outthentic Sparrow
   fi
 
