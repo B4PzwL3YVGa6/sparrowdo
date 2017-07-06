@@ -433,7 +433,7 @@ elif [[ "$os" =~ "archlinux" ]]; then
       pacman -S --noconfirm -q make 
     fi
 
-    cpanm -q Outthentic Sparrow || echo "Some error occurs. On Archlinux sometimes you may need to take upgrade before sparrow installation. Try 'pacman -Syu' if sparrow doesn't install later."
+    cpanm -q Outthentic Sparrow || echo "Some error occurs. Try to take the system upgrade of your server: run 'pacman -Syu' on the target machine and then run bootstrap again"
 
   fi
 elif [[ "$os" =~ "fedora" ]]; then
