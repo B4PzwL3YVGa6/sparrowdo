@@ -419,6 +419,8 @@ elif [[ "$os" =~ "archlinux" ]]; then
 
     pacman -Sy
 
+    pacman -S --noconfirm -q guile
+
     if ! which perl 2>/dev/null; then
       pacman -S --noconfirm -q perl
     fi
@@ -431,7 +433,7 @@ elif [[ "$os" =~ "archlinux" ]]; then
       pacman -S --noconfirm -q make 
     fi
 
-    cpanm -q Outthentic Sparrow || echo "Some error occurs. On Archlinux sometimes you may need make upgrade before sparrow installation. Try 'pacman -Syu' if sparrow doesn't install later."
+    cpanm -q Outthentic Sparrow || echo "Some error occurs. On Archlinux sometimes you may need to take upgrade before sparrow installation. Try 'pacman -Syu' if sparrow doesn't install later."
 
   fi
 elif [[ "$os" =~ "fedora" ]]; then
