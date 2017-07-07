@@ -485,6 +485,8 @@ elif [[ "$os" =~ "ubuntu" ]]; then
     cpanm -q Outthentic Sparrow || cpanm -q Outthentic Sparrow
   fi
 
+  echo
+
 else
   echo "unknown os: $os"
   exit 1
