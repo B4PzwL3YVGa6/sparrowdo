@@ -434,6 +434,7 @@ The list of OS names is provided by `target_os()` function:
     debian
     minoca
     archlinux
+    alpine
     fedora
     amazon
 
