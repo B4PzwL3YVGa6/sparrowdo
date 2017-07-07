@@ -1,3 +1,7 @@
+# 0.0.23 2017-07-06
+
+- Universal bootstrap: ubuntu / alpine bugfix
+
 # 0.0.22 2017-07-06
 
 - Universal bootstrap
