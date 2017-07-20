@@ -439,10 +439,10 @@ elif [[ "$os" =~ "alpine" ]]; then
 
   echo bootstrap for alpine
 
-  apk update
+  apk update --wait 120
 
   if ! which curl 2>/dev/null; then
-     apk add wget curl
+     apk add --wait 120 wget curl
   fi
 
   if ! which cpanm 2>/dev/null; then
@@ -452,11 +452,11 @@ elif [[ "$os" =~ "alpine" ]]; then
   fi
 
   if ! which perl 2>/dev/null; then
-    apk add perl
+    apk add --wait 120 perl
   fi
 
   if ! which sparrow 2>/dev/null; then
-    apk add wget git curl bash build-base gcc perl-dev
+    apk add --wait 120 wget git curl bash build-base gcc perl-dev
     cpanm -q Outthentic Sparrow || cpanm -q Outthentic Sparrow
   fi
 
