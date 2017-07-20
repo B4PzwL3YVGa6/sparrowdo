@@ -13,7 +13,6 @@ case:
   - scp
   - copy-local-file
   - asserts
-  - zef
 
 opts: --no_index_update --ssh_user=travis
 
