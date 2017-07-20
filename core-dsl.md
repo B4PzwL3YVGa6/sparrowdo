@@ -335,8 +335,8 @@ This function executes ssh commands.
 
 | function | description | usage |
 | -------- | ----------- | ----- |
-| ssh | execute ssh commands | ssh($command,%args)
-| ssh | alias for `ssh` with command set via %args | ssh(%args)
+| ssh | execute ssh commands | `ssh($command,%args)`
+| ssh | alias for `ssh` with command set via %args | `ssh(%args)`
 
 Examples:
 
