@@ -56,8 +56,8 @@ Examples:
 
 | function | description | usage | sparrow plugin |
 | -------- | ----------- | ----- | -------------- |
-| package-install | install software package | `package-install(@list|$list)` | [package-generic](https://sparrowhub.org/info/package-generic) | * |
-| cpan-package-install | install CPAN package | `cpan-package-install(@list|$list,%opts)` | [cpan-package](https://sparrowhub.org/info/cpan-package) | * | 
+| package-install | install software package | `package-install(@list\|$list)` | [package-generic](https://sparrowhub.org/info/package-generic) |
+| cpan-package-install | install CPAN package | `cpan-package-install(@list\|$list,%opts)` | [cpan-package](https://sparrowhub.org/info/cpan-package) | 
 | cpan-package         | alias for cpan-install function | * | *  |
 
 Examples:
