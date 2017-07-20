@@ -7,6 +7,7 @@ Sparrowdo core-dsl functions spec.
 * [Packages](#packages)
   * [System packages](#system-packages)
   * [CPAN packages](#cpan-packages)
+  * [Zef modules](#zef-modules)
 * [Services](#services)
 * [Directories](#directories)
 * [Files](#files)
@@ -90,7 +91,34 @@ Examples:
         user =>'foo',
         install-base => '/home/foo/',
     );
-      
+
+### Zef modules
+
+| function | description | usage | sparrow plugin |
+| -------- | ----------- | ----- | -------------- |
+| zef | install zef module | `zef($module,[%opts])`| * | 
+
+Examples:
+
+    # install DBIish module
+    zef 'DBIish';
+
+    # Force install
+    zef 'DBIish', %( force => True );
+
+    # User's install
+    zef 'DBIish', %( user => 'me' );
+
+    # Only dependencies, inside CWD
+    zef '.', %( depsonly => True );
+
+    # Sets custom description
+    zef 'DBIish', %( description => 'Database interface module' );
+
+    # Show debug info when install
+    zef 'DBIish', %( debug => True );
+  
+
 ## Services
 
 | function | description | usage | sparrow plugin |

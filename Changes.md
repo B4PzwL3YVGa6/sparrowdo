@@ -1,3 +1,8 @@
+# 0.0.24 2017-07-20
+
+- Minor correction to alpine bootstrap
+- Documenting zef DSL
+
 # 0.0.23 2017-07-07
 
 - Universal bootstrap: ubuntu / alpine bugfix

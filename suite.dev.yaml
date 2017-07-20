@@ -13,6 +13,7 @@ case:
   - scp
   - copy-local-file
   - asserts
+  - zef
 
 opts: --local_mode --ssh_user=melezhik
 
