@@ -13,6 +13,7 @@ case:
   - scp
   - copy-local-file
   - asserts
+  - dev
 
 opts: --no_index_update --ssh_user=travis
 
