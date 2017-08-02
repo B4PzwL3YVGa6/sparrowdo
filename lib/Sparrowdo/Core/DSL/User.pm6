@@ -17,7 +17,7 @@ sub user-create ( $user_id ) is export {
 
 }
 
-multi sub user ( $user_id, %args? ) is export {
+multi sub user ( $user_id, %args ) is export {
 
     my $action = %args<action>;
 
