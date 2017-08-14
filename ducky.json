@@ -34,5 +34,25 @@
         "JSON::Unmarshal"
       ]
     }
+  },
+  {
+    "task" : "df-check plugin",
+    "plugin" : "bash",
+    "data" : {
+      "command" : "sparrowdo --task_run=df-check --local_mode --no_sudo",
+      "envvars" : {
+        "PATH" : "/opt/rakudo/share/perl6/site/bin:/opt/rakudo/bin/:$PATH"
+      }
+    }
+  },
+  {
+    "task" : "uptime",
+    "plugin" : "bash",
+    "data" : {
+      "command" : "sparrowdo --task_run='bash@command=uptime' --local_mode --no_sudo",
+      "envvars" : {
+        "PATH" : "/opt/rakudo/share/perl6/site/bin:/opt/rakudo/bin/:$PATH"
+      }
+    }
   }
 ]
