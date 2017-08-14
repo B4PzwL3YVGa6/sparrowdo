@@ -9,3 +9,6 @@ before_install:
   - docker pull centos
   - docker run --privileged --name centos7 --entrypoint  init -v $PWD:/var/ducky -v /sys/fs/cgroup:/sys/fs/cgroup:ro  -d centos:7
   - ducky.bash centos7 
+
+script:
+  - echo 
