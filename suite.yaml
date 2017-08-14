@@ -9,8 +9,8 @@ case:
   - templates
   - bash
   - task_run_short
-  #- ssh
-  #- scp
+  - ssh
+  - scp
   - copy-local-file
   - asserts
   - git
