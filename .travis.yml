@@ -6,8 +6,8 @@ env:
 before_install:
 
   - git clone https://github.com/melezhik/ducky.git .ducky
-  - docker pull centos
-  - docker run --privileged --name centos7 --entrypoint  init -v $PWD:/var/ducky -v /sys/fs/cgroup:/sys/fs/cgroup:ro  -d centos:7
+  - docker pull melezhik/centos7
+  - docker run --privileged --name centos7 --entrypoint  init -v $PWD:/var/ducky -v /sys/fs/cgroup:/sys/fs/cgroup:ro  -d centos7
   - ducky.bash centos7 
 
 script:
