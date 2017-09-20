@@ -2,4 +2,8 @@ use v6;
 
 use Sparrowdo;
 
-package-install ("nano", "zsh");
+package-install ("nano", "zsh", "nginx");
+
+service-stop "nginx";
+service-start "nginx";
+http-ok %( port => 8888 );
