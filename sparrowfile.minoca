@@ -2,4 +2,4 @@ use v6;
 
 use Sparrowdo;
 
-package-install "nano";
+package-install ("nano", "zsh");
