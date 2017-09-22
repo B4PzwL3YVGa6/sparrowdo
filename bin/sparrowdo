@@ -351,6 +351,8 @@ if [[ $os =~ "debian" ]]; then
 
   DEBIAN_FRONTEND=noninteractive
 
+  apt-get update
+
   if ! which curl 2>/dev/null; then
      apt-get install -y -qq curl
   fi
@@ -507,6 +509,8 @@ elif [[ "$os" =~ "ubuntu" ]]; then
   echo bootstrap for ubuntu
 
   DEBIAN_FRONTEND=noninteractive
+
+  apt-get update
 
   if ! which curl 2>/dev/null; then
      apt-get install -y -qq curl
