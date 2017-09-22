@@ -168,8 +168,9 @@ An assumption is made that ssh user you run `sparrowdo` with ( see --ssh_user co
 * ssh passwordless access on the remote host
 * sudo (passwordless?) rights on remote host
 
-*NOTE* 
-You can use password authentication with --password command line parameter or ( more preferred) via shell environment $SSHPASS. See --password parameter below.
+***NOTE!***
+
+You can use password authentication with --password command line parameter or ( more preferred) via shell environment `SSHPASS`. See info for `--password` parameter below.
    
 
 # Advanced usage
@@ -226,11 +227,11 @@ Sets user for the ssh connection to the remote host.
 
 ## --password
 
-Your password for authentication to the remote host. Also you can use shell environment var #SSHPASS, e.g:
+Your password for authentication to the remote host. Also you can use shell environment variable `SSHPASS`, e.g:
 
     $ export SSHPASS=12345; sparrowdo ...
 
-You must install `sshpass` for using this feature.
+You must install `sshpass` to use this feature.
 
 ## --ssh\_private\_key
 
