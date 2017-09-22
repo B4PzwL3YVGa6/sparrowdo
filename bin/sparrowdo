@@ -37,6 +37,8 @@ sub MAIN (
   Str  :$sparrow_root = '/opt/sparrow', 
   Str  :$repo,
   Bool :$local_mode = False,
+  Bool :$use_sshpass = True,
+  Str  :$password,
   Str  :$docker,
   Str  :$cwd, 
   Str  :$format, 
@@ -85,9 +87,12 @@ sub MAIN (
     NoIndexUpdate => $no_index_update_val,
     SparrowRoot => $sparrow_root,
     Repo => $repo_val,
-    SparrowhubApi => $conf-ini<sparrowdo><sparrowhub_api>
+    SparrowhubApi => $conf-ini<sparrowdo><sparrowhub_api>,
+    Password => $password,
+    UseSshpass => $use_sshpass
   );
 
+  %*ENV<SSHPASS> = input_params('Password') if input_params('Password');
 
   ssh_shell "rm -rf $sparrow_root/sparrowdo-cache && mkdir -m 777 -p $sparrow_root/sparrowdo-cache";
 
@@ -239,6 +244,8 @@ sub ssh_shell ( $cmd ) {
     $ssh_host_term = input_params('SshUser') ~ '@' ~ $ssh_host_term if input_params('SshUser');
   
     $ssh_cmd  =  'ssh -o ConnectionAttempts=1  -o ConnectTimeout=5';
+
+    $ssh_cmd = 'sshpass -e' ~ ' ' ~ $ssh_cmd if %*ENV<SSHPASS>;
   
     $ssh_cmd ~= ' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -tt';
   
@@ -313,6 +320,8 @@ our sub _scp ( $file, $dest, $reverse = 0, $recursive = 0 ) {
     $scp_params ~= ' -r ' if $recursive;
   
     $scp_command = 'scp -o ConnectionAttempts=1 -o ConnectTimeout=5 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ' ~ $scp_params;
+
+    $scp_command = 'sshpass -e' ~ ' ' ~ $scp_command if %*ENV<SSHPASS>;
   
     if $reverse {
       $scp_command ~= ' ' ~ $ssh_host_term ~ ':' ~ $file ~ ' ' ~ $dest ;
