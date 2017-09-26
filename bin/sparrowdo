@@ -240,38 +240,31 @@ sub ssh_shell ( $cmd ) {
  
   } else {
   
-    my $ssh_host_term;
-
-    if input_params('SshUser') {
-      $ssh_host_term = input_params('SshUser') ~ '@' ~ input_params('Host');
-    } else {
-      $ssh_host_term = input_params('Host');
-    }
-
-
     if input_params('Password') {
       $ssh_cmd = 'sshpass -p ' ~ input_params('Password');
       $ssh_cmd ~= ' ssh -o ConnectionAttempts=1  -o ConnectTimeout=5';
-      $ssh_cmd ~= ' ' ~ $ssh_host_term;
     } elsif %*ENV<SSHPASS> {
-      $ssh_cmd = 'sshpass -e';
-      $ssh_cmd ~= ' ssh -o ConnectionAttempts=1  -o ConnectTimeout=5';
-      $ssh_cmd ~= ' ' ~ $ssh_host_term;
+      $ssh_cmd = 'sshpass -e ssh -o ConnectionAttempts=1  -o ConnectTimeout=5';
     } else {
       $ssh_cmd =  'ssh -o ConnectionAttempts=1  -o ConnectTimeout=5';
-      $ssh_cmd ~= ' ' ~ $ssh_host_term;
     }
+
+    $ssh_cmd ~= ' -p ' ~ input_params('SshPort') if input_params('SshPort');
 
     $ssh_cmd ~= ' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -tt';
   
     $ssh_cmd ~= ' -q' unless input_params('Verbose');
   
-    $ssh_cmd ~= ' -p ' ~ input_params('SshPort') ~ ' ' ~ $ssh_host_term;
-  
     $ssh_cmd ~= ' -i ' ~ input_params('SshPrivateKey') if input_params('SshPrivateKey');
   
+    if input_params('SshUser') {
+      $ssh_cmd ~= ' ' ~ input_params('SshUser') ~ '@' ~ input_params('Host') ~ ' ';
+    } else {
+      $ssh_cmd ~= ' ' ~ input_params('Host') ~ ' ';
+    }
+
     $ssh_cmd ~= ( input_params('NoSudo') ) ?? " \"bash -c '" !! " \"sudo bash -c '"; 
-  
+
     $ssh_cmd ~=  ~ ( join ' ; ', @bash_commands ) ~ "'\"";
   
     $ssh_cmd ~= ' 2>/dev/null' unless input_params('Verbose');
