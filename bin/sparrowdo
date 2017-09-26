@@ -37,7 +37,6 @@ sub MAIN (
   Str  :$sparrow_root = '/opt/sparrow', 
   Str  :$repo,
   Bool :$local_mode = False,
-  Bool :$use_sshpass = True,
   Str  :$password,
   Str  :$docker,
   Str  :$cwd, 
@@ -91,11 +90,8 @@ sub MAIN (
     SparrowRoot => $sparrow_root,
     Repo => $repo_val,
     SparrowhubApi => $conf-ini<sparrowdo><sparrowhub_api>,
-    Password => $password,
-    UseSshpass => $use_sshpass
+    Password => $password
   );
-
-  %*ENV<SSHPASS> = input_params('Password') if input_params('Password');
 
   ssh_shell "rm -rf $sparrow_root/sparrowdo-cache && mkdir -m 777 -p $sparrow_root/sparrowdo-cache";
 
@@ -244,14 +240,28 @@ sub ssh_shell ( $cmd ) {
  
   } else {
   
-    my $ssh_host_term = input_params('Host');
-  
-    $ssh_host_term = input_params('SshUser') ~ '@' ~ $ssh_host_term if input_params('SshUser');
-  
-    $ssh_cmd  =  'ssh -o ConnectionAttempts=1  -o ConnectTimeout=5';
+    my $ssh_host_term;
 
-    $ssh_cmd = 'sshpass -e' ~ ' ' ~ $ssh_cmd if %*ENV<SSHPASS>;
-  
+    if input_params('SshUser') {
+      $ssh_host_term = input_params('SshUser') ~ '@' ~ input_params('Host');
+    } else {
+      $ssh_host_term = input_params('Host');
+    }
+
+
+    if input_params('Password') {
+      $ssh_cmd = 'sshpass -p ' ~ input_params('Password');
+      $ssh_cmd ~= ' ssh -o ConnectionAttempts=1  -o ConnectTimeout=5';
+      $ssh_cmd ~= ' ' ~ $ssh_host_term;
+    } elsif %*ENV<SSHPASS> {
+      $ssh_cmd = 'sshpass -e';
+      $ssh_cmd ~= ' ssh -o ConnectionAttempts=1  -o ConnectTimeout=5';
+      $ssh_cmd ~= ' ' ~ $ssh_host_term;
+    } else {
+      $ssh_cmd =  'ssh -o ConnectionAttempts=1  -o ConnectTimeout=5';
+      $ssh_cmd ~= ' ' ~ $ssh_host_term;
+    }
+
     $ssh_cmd ~= ' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -tt';
   
     $ssh_cmd ~= ' -q' unless input_params('Verbose');
@@ -288,9 +298,13 @@ our sub _copy-local-file ( $file, $dest ) {
 
 our sub _scp ( $file, $dest, $reverse = 0, $recursive = 0 ) {
 
-  my $ssh_host_term = input_params('Host');
+  my $ssh_host_term;
 
-  $ssh_host_term = input_params('SshUser') ~ '@' ~ $ssh_host_term if input_params('SshUser');
+  if input_params('SshUser') {
+    $ssh_host_term = input_params('SshUser') ~ '@' ~ input_params('Host');
+  } else {
+    $ssh_host_term = input_params('Host');
+  }
 
   my $scp_command;
 
@@ -324,10 +338,17 @@ our sub _scp ( $file, $dest, $reverse = 0, $recursive = 0 ) {
 
     $scp_params ~= ' -r ' if $recursive;
   
-    $scp_command = 'scp -o ConnectionAttempts=1 -o ConnectTimeout=5 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ' ~ $scp_params;
 
-    $scp_command = 'sshpass -e' ~ ' ' ~ $scp_command if %*ENV<SSHPASS>;
-  
+    if input_params('Password') {
+      $scp_command = 'sshpass -p ' ~ input_params('Password') ~ ' ';
+      $scp_command ~= 'scp -o ConnectionAttempts=1 -o ConnectTimeout=5 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ' ~ $scp_params;
+    }  elsif %*ENV<SSHPASS> {
+      $scp_command = 'sshpass -e';
+      $scp_command ~= ' scp -o ConnectionAttempts=1 -o ConnectTimeout=5 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ' ~ $scp_params;
+    } else {
+      $scp_command = 'scp -o ConnectionAttempts=1 -o ConnectTimeout=5 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ' ~ $scp_params;
+    }
+
     if $reverse {
       $scp_command ~= ' ' ~ $ssh_host_term ~ ':' ~ $file ~ ' ' ~ $dest ;
     } else {

@@ -170,7 +170,7 @@ An assumption is made that ssh user you run `sparrowdo` with ( see --ssh_user co
 
 ***NOTE!***
 
-You can use password authentication with --password command line parameter or ( more preferred) via shell environment `SSHPASS`. See info for `--password` parameter below.
+You can use password authentication with --password command line parameter or ( more preferred ) via shell environment `SSHPASS`. See info for `--password` parameter below.
    
 
 # Advanced usage
