@@ -156,10 +156,6 @@ Examples:
 
 Sparrowdo provides limited and poorly tested API for Systemd scripts. Here is example how you can  use it:
 
-### Systemd
-
-Sparrowdo provides limited and poorly tested API for Systemd scripts. Here is example how you can  use it:
-
     user "foo";
 
     systemd-service "long-dream", %(
