@@ -29,13 +29,13 @@ install:
   - git clone https://github.com/melezhik/ducky.git .ducky
 
 script:
-  - sparrowdo --docker=centos7 --no_sudo  --bootstrap  --task_run=bash@command=uptime
-  - sparrowdo --docker=ubuntu --no_sudo --bootstrap  --task_run=bash@command=uptime
-  - sparrowdo --docker=archlinux --no_sudo  --bootstrap  --task_run=bash@command=uptime
-  - sparrowdo --docker=fedora --no_sudo --bootstrap  --task_run=bash@command=uptime
-  - sparrowdo --docker=amazon --no_sudo --bootstrap  --task_run=bash@command=uptime
-  - sparrowdo --docker=debian --no_sudo --bootstrap  --task_run=bash@command=uptime
-  - sparrowdo --docker=funtoo --no_sudo --bootstrap  --task_run=bash@command=uptime
-  - sparrowdo --docker=alpine --no_sudo --bootstrap  --task_run=bash@command=uptime
+  - sparrowdo --docker=centos7 --no_sudo  --bootstrap  --task_run=bash@command='ls -l'
+  - sparrowdo --docker=ubuntu --no_sudo --bootstrap  --task_run=bash@command='ls -l'
+  - sparrowdo --docker=archlinux --no_sudo  --bootstrap  --task_run=bash@command='ls -l'
+  - sparrowdo --docker=fedora --no_sudo --bootstrap  --task_run=bash@command='ls -l'
+  - sparrowdo --docker=amazon --no_sudo --bootstrap  --task_run=bash@command='ls -l'
+  - sparrowdo --docker=debian --no_sudo --bootstrap  --task_run=bash@command='ls -l'
+  - sparrowdo --docker=funtoo --no_sudo --bootstrap  --task_run=bash@command='ls -l'
+  - sparrowdo --docker=alpine --no_sudo --bootstrap  --task_run=bash@command='ls -l'
   - ducky.bash centos7 
   
