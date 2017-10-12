@@ -444,6 +444,7 @@ case "$OS" in
   gentoo)
     emerge --sync
     emerge dev-perl/App-cpanminus
+  ;;
   minoca)
     opkg -f /etc/opkg/opkg.conf update
     opkg install curl perl make gcc tar gzip
