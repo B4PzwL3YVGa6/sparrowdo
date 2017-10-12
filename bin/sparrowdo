@@ -413,7 +413,7 @@ printf -- "Bootstrap for %s\n" "$OS"
 case "$OS" in
   alpine)
     apk update --wait 120
-    apk add --wait 120 curl perl git bash build-base gcc perl-dev wget
+    apk add --wait 120 curl perl git bash build-base gcc procps-ng perl-dev wget
   ;;
   amazon|centos)
     yum -y install make curl perl gcc perl-Digest-MD5 perl-Test-Harness perl-Data-Dumper perl-ExtUtils-MakeMaker perl-Hash-Merge
