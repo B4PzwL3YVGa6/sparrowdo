@@ -158,11 +158,15 @@ Sparrowdo provides limited and poorly tested API for Systemd scripts. Here is ex
 
     user "foo";
 
+    # install systemd script for some service and reload systemd daemon
     systemd-service "long-dream", %(
       user => "foo",
       workdir => "/home/foo",
       command => "/bin/bash -c 'sleep 10000'"
     );
+
+    # start service
+    service-start "long-dream";
 
 Basically it's `systemd-service` function with parameters:
 
