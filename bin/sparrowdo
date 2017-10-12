@@ -438,10 +438,12 @@ case "$OS" in
   fedora)
     dnf -y install curl perl gcc perl-open perl-Test perl-Test-Simple perl-Storable perl-Digest-MD5 perl-Test-Harness perl-Data-Dumper perl-ExtUtils-MakeMaker perl-Hash-Merge
   ;;
-  funtoo|gentoo)
+  funtoo)
+    echo
+  ;;
+  gentoo)
     emerge --sync
     emerge dev-perl/App-cpanminus
-  ;;
   minoca)
     opkg -f /etc/opkg/opkg.conf update
     opkg install curl perl make gcc tar gzip
