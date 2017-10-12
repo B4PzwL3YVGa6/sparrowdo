@@ -4,7 +4,6 @@ services:
   - docker
 
 env:
-  - PATH=.ducky/:/opt/rakudo/bin/:~/.perl6/bin:$PATH
   - TEST_TARGET=alpine
   - TEST_TARGET=amazon
   - TEST_TARGET=archlinux
