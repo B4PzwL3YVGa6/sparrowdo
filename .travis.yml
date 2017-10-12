@@ -14,7 +14,6 @@ before_install:
   - docker run -t -d --name debian bitnami/minideb-extras bash
   - docker run -t -d --name fedora fedora bash
   - docker run -t -d --name funtoo mastersrp/funtoo bash
-  - docker run -t -d --name gentoo vguardiola/gentoo bash
   - docker run -t -d --name ubuntu ubuntu bash
   - docker exec -t alpine apk update
   - docker exec -t alpine apk add bash
@@ -37,6 +36,5 @@ script:
   - sparrowdo --docker=debian --no_sudo --bootstrap  --task_run=bash@command='ls -l'
   - sparrowdo --docker=fedora --no_sudo --bootstrap  --task_run=bash@command='ls -l'
   - sparrowdo --docker=funtoo --no_sudo --bootstrap  --task_run=bash@command='ls -l'
-  - sparrowdo --docker=gentoo--no_sudo --bootstrap  --task_run=bash@command='ls -l'
   - sparrowdo --docker=ubuntu --no_sudo --bootstrap  --task_run=bash@command='ls -l'
   - ducky.bash centos7
