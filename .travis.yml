@@ -37,5 +37,5 @@ script:
   - sparrowdo --docker=debian --no_sudo --bootstrap  --task_run=bash@command=uptime
   - sparrowdo --docker=funtoo --no_sudo --bootstrap  --task_run=bash@command=uptime
   - sparrowdo --docker=alpine --no_sudo --bootstrap  --task_run=bash@command=uptime
-  # - ducky.bash centos7 
+  - ducky.bash centos7 
   
