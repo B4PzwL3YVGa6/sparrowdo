@@ -420,7 +420,7 @@ case "$OS" in
   ;;
   arch|archlinux)
     pacman -Syy
-    pacman -S --noconfirm -q procps-ng curl cpanminus guile perl gcc make perl-clone perl-config-tiny perl-yaml perl-test-yaml perl-test-base perl-spiffy perl-algorithm-diff perl-text-diff perl-json perl-try-tiny perl-capture-tiny perl-file-sharedir perl-file-sharedir-install perl-module-build-tiny perl-extutils-installpaths perl-extutils-config perl-extutils-helpers perl-class-inspector
+    pacman -S --needed --noconfirm -q procps-ng curl cpanminus guile perl gcc make perl-clone perl-config-tiny perl-yaml perl-test-yaml perl-test-base perl-spiffy perl-algorithm-diff perl-text-diff perl-json perl-try-tiny perl-capture-tiny perl-file-sharedir perl-file-sharedir-install perl-module-build-tiny perl-extutils-installpaths perl-extutils-config perl-extutils-helpers perl-class-inspector
   ;;
   debian|ubuntu)
     DEBIAN_FRONTEND=noninteractive
