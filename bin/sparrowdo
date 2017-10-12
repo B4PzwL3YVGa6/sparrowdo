@@ -449,7 +449,7 @@ elif [[ "$os" =~ "centos" ]]; then
   fi
 
   if ! which sparrow 2>/dev/null; then
-    yum -y install gcc perl-Digest-MD5 perl-Test-Harness perl-Data-Dumper perl-ExtUtils-MakeMaker perl-Hash-Merge
+    yum -y install make gcc perl-Digest-MD5 perl-Test-Harness perl-Data-Dumper perl-ExtUtils-MakeMaker perl-Hash-Merge
     cpanm -q Outthentic Sparrow || cpanm -q Outthentic Sparrow
   fi
 
