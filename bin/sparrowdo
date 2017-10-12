@@ -439,7 +439,7 @@ esac
 
 # Install cpanm
 if ! which cpanm 2>/dev/null; then
-  printf -- "installing cpanm ...\"
+  printf -- "installing cpanm ...\n"
   curl -s -kL http://cpanmin.us/ -o /bin/cpanm
   chmod a+x /bin/cpanm
 fi
