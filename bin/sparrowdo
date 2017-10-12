@@ -427,7 +427,6 @@ case "$OS" in
     dnf -y install curl perl gcc perl-open perl-Test perl-Test-Simple perl-Storable perl-Digest-MD5 perl-Test-Harness perl-Data-Dumper perl-ExtUtils-MakeMaker perl-Hash-Merge
   ;;
   funtoo|gentoo)
-    # TODO
   ;;
   minoca)
     opkg -f /etc/opkg/opkg.conf update
