@@ -416,7 +416,7 @@ case "$OS" in
     apk add --wait 120 curl perl git bash build-base gcc perl-dev
   ;;
   amazon|centos)
-    yum -y install curl perl gcc perl-Digest-MD5 perl-Test-Harness perl-Data-Dumper perl-ExtUtils-MakeMaker perl-Hash-Merge
+    yum -y install make curl perl gcc perl-Digest-MD5 perl-Test-Harness perl-Data-Dumper perl-ExtUtils-MakeMaker perl-Hash-Merge
   ;;
   archlinux)
     pacman -Syy
