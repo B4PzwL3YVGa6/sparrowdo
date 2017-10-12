@@ -625,3 +625,5 @@ HERE
   ssh_shell "bash $sparrow_root/sparrowdo-cache/bootstrap.sh";
 
 }
+
+# vim: ft=perl6 et sw=2 ts=2
