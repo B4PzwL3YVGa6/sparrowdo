@@ -21,4 +21,4 @@ install:
   - zef install .
 
 script:
-  - ./.travis.d/test.sh "$TEST_TARGET"
+  - sh ./.travis.d/test.sh "$TEST_TARGET"
