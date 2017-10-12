@@ -14,8 +14,6 @@ env:
   - TEST_TARGET=ubuntu
 
 before_install:
-  - docker run --privileged -d --name centos7 --entrypoint  init -v $PWD:/var/ducky -v /sys/fs/cgroup:/sys/fs/cgroup:ro centos
-  - docker run -t -d --name "$TEST_TARGET" "$TEST_TARGET" bash
   - docker images
   - docker ps
 
@@ -28,4 +26,4 @@ install:
   - git clone https://github.com/melezhik/ducky.git .ducky
 
 script:
-  - sparrowdo --docker="$TEST_TARGET" --no_sudo  --bootstrap  --task_run=bash@command=uptime
+  - ./.travis.d/test.sh "$TEST_TARGET"
