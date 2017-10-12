@@ -17,7 +17,8 @@ install:
   - sparrow index update
   - sparrow plg install rakudo-install
   - sparrow plg run rakudo-install --param user_install=on --param sudo=on --param url=https://github.com/nxadm/rakudo-pkg/releases/download/2017.09.1%2B2/perl6-rakudo-moarvm-debian8.7_20170900-01_amd64.deb
-  - ~/.perl6/bin/zef install .
+  - export PATH=$PATH:$HOME/.perl6/bin:/opt/rakudo/bin
+  - zef install .
 
 script:
   - ./.travis.d/test.sh "$TEST_TARGET"
