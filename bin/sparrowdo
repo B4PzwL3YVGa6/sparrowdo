@@ -399,6 +399,9 @@ else
   VER=$(uname -r)
 fi
 
+# Convert OS name to lowercase to remove inconsistencies
+OS=$(printf -- "$OS" | awk '{ print tolower($1) }')
+
 printf -- "Bootstrap for %s\n" "$OS"
 
 # Install native dependencies
