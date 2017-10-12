@@ -18,8 +18,11 @@ before_install:
   - docker images
   - docker ps
 
+install:
+  - echo OK
+
 script:
   - sparrowdo --docker=centos7 --no_sudo  --bootstrap  --task_run=bash@command=uptime
-  # - sparrowdo --docker=archlinux --no_sudo  --bootstrap  --task_run=bash@command=uptime
+  - sparrowdo --docker=archlinux --no_sudo  --bootstrap  --task_run=bash@command=uptime
   # - ducky.bash centos7 
   
