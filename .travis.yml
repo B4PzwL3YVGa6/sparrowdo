@@ -3,7 +3,7 @@ language: "perl"
 services:
   - docker
 env:
-  - PATH=.ducky/:/opt/rakudo/bin/:$PATH
+  - PATH=.ducky/:/opt/rakudo/bin/:~/.perl6/bin:$PATH
 
 before_install:
 
