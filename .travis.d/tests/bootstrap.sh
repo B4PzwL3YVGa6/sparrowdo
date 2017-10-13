@@ -10,7 +10,7 @@ main()
 		amazon)    image=amazonlinux            ;;
 		debian)    image=bitnami/minideb-extras ;;
 		funtoo)    image=mastersrp/funtoo       ;;
-		*)         image=$1
+		*)         image=$target
 	esac
 
 	# Create the docker instance
