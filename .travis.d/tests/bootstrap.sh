@@ -2,7 +2,7 @@
 
 main()
 {
-	readonly target=$(printf "%s" "$1" | awk -F: '{ print $1 }')
+	readonly target=$(printf "%s" "$1" | awk -F: '{ print $2 }')
 
 	# Deduce the image to use
 	case "$target" in
