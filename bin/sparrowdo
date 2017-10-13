@@ -397,7 +397,7 @@ elif [ -s /etc/SuSe-release ]; then
   printf "TODO\n"
 elif [ -s /etc/redhat-release ]; then
   # Older Red Hat, CentOS, etc.
-  printf "TODO\n"
+  OS=$(cat /etc/redhat-release| head -n 1)
 else
   RELEASE_INFO=$(cat /etc/*-release 2>/dev/null | head -n 1)
 
@@ -422,7 +422,7 @@ case "$OS" in
     apk update --wait 120
     apk add --wait 120 curl perl git bash build-base gcc perl-dev wget
   ;;
-  amazon|centos)
+  amazon|centos|red)
     yum -y install make curl perl gcc perl-Digest-MD5 perl-Test-Harness perl-Data-Dumper perl-ExtUtils-MakeMaker perl-Hash-Merge
   ;;
   arch|archlinux)
