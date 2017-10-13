@@ -8,6 +8,7 @@ env:
   - TEST=bootstrap:alpine
   - TEST=bootstrap:amazon
   - TEST=bootstrap:archlinux
+  - TEST=bootstrap:centos
   - TEST=bootstrap:debian
   - TEST=bootstrap:fedora
   - TEST=bootstrap:funtoo
