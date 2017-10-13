@@ -2,10 +2,7 @@
 
 main()
 {
-	readonly target=$1
-
-	# Extend the PATH
-	export PATH=/opt/rakudo/bin/:$HOME/.perl6/bin:$PATH
+	readonly target=$(printf "%s" "$1" | awk -F: '{ print $1 }')
 
 	# Deduce the image to use
 	case "$target" in
@@ -22,5 +19,3 @@ main()
 	# Run bootstrap test
 	sparrowdo --docker="$target" --no_sudo --bootstrap --task_run=bash@command=uname
 }
-
-main "$@"

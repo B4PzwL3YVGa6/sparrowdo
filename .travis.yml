@@ -4,13 +4,14 @@ services:
   - docker
 
 env:
-  - TEST_TARGET=alpine
-  - TEST_TARGET=amazon
-  - TEST_TARGET=archlinux
-  - TEST_TARGET=debian
-  - TEST_TARGET=fedora
-  - TEST_TARGET=funtoo
-  - TEST_TARGET=ubuntu
+  - TEST=prove
+  - TEST=bootstrap:alpine
+  - TEST=bootstrap:amazon
+  - TEST=bootstrap:archlinux
+  - TEST=bootstrap:debian
+  - TEST=bootstrap:fedora
+  - TEST=bootstrap:funtoo
+  - TEST=bootstrap:ubuntu
 
 install:
   - cpanm https://github.com/melezhik/sparrow.git
@@ -21,4 +22,4 @@ install:
   - zef install .
 
 script:
-  - sh ./.travis.d/test.sh "$TEST_TARGET"
+  - sh ./.travis.d/run.sh "$TEST"
