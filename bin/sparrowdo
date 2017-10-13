@@ -479,7 +479,7 @@ HERE
 
   _scp "$sparrowdo-cache/bootstrap.sh",  "$sparrow_root/sparrowdo-cache";
 
-  ssh_shell "bash $sparrow_root/sparrowdo-cache/bootstrap.sh";
+  ssh_shell "sh $sparrow_root/sparrowdo-cache/bootstrap.sh";
 
 }
 
