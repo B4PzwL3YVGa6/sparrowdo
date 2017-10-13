@@ -11,8 +11,11 @@ main()
 
 	# Check what we're going to test
 	case "$TEST" in
-		bootstrap*) sh "./tests/bootstrap.sh" "$TEST" ;;
-		prove)      sh "./tests/prove.sh"             ;;
+		bootstrap:*) sh "./tests/bootstrap.sh" "$TEST" ;;
+		prove)       sh "./tests/prove.sh"             ;;
+		*)
+			printf "%s is not a valid test" "$TEST"
+			exit 3
 	esac
 }
 
