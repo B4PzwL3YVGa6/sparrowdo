@@ -19,3 +19,5 @@ main()
 	# Run bootstrap test
 	sparrowdo --docker="$target" --no_sudo --bootstrap --task_run=bash@command=uname
 }
+
+main "$@"
