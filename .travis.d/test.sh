@@ -20,7 +20,7 @@ main()
 	docker run -t -d --name "$target" "$image" sh
 
 	# Run bootstrap test
-	sparrowdo --docker="$target" --no_sudo --bootstrap --task_run=sh@command=uname
+	sparrowdo --docker="$target" --no_sudo --bootstrap --task_run=bash@command=uname
 }
 
 main "$@"
