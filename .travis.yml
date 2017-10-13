@@ -21,6 +21,7 @@ before_install:
   - docker ps
 
 install:
+  - cpanm https://github.com/melezhik/outthentic.git
   - cpanm https://github.com/melezhik/sparrow.git
   - sparrow index update
   - sparrow plg install rakudo-install
