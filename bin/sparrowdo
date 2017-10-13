@@ -373,8 +373,6 @@ sub bootstrap ( $sparrow_root, $sparrowdo-cache ) {
   my $bootstrap = q:to/HERE/;
 #! /usr/bin/env sh
 
-set -e
-
 # Find out the target OS
 if [ -s /etc/os-release ]; then
   # freedesktop.org and systemd
