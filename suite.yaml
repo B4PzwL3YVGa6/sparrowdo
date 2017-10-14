@@ -30,7 +30,7 @@ case:
     - bash
     - task_run_short
     - ssh
-    #- scp
+    - scp
     - copy-local-file
     - asserts
     - git
