@@ -8,7 +8,7 @@ main()
 
   export flavor_test=travis
 
-  cd ../ && strun --root examples/ --format production
+  cd ../ && strun --root examples/
 
 }
 
