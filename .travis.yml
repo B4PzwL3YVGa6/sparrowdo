@@ -4,16 +4,16 @@ services:
   - docker
 
 env:
-  - TEST=prove
+#  - TEST=prove
   - TEST=api
-  - TEST=bootstrap:alpine
-  - TEST=bootstrap:amazon
-  - TEST=bootstrap:archlinux
-  - TEST=bootstrap:centos
-  - TEST=bootstrap:debian
-  - TEST=bootstrap:fedora
-  - TEST=bootstrap:funtoo
-  - TEST=bootstrap:ubuntu
+#  - TEST=bootstrap:alpine
+#  - TEST=bootstrap:amazon
+#  - TEST=bootstrap:archlinux
+#  - TEST=bootstrap:centos
+#  - TEST=bootstrap:debian
+#  - TEST=bootstrap:fedora
+#  - TEST=bootstrap:funtoo
+#  - TEST=bootstrap:ubuntu
     
 install:
   - cpanm https://github.com/melezhik/outthentic.git
