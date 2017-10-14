@@ -1,6 +1,6 @@
 use List::Util 'shuffle';
 
-my $flavor = $ENV{flavor_test} || 'default';
+my $flavor = config()->{flavor};
 
 my $case = config()->{case};
 
