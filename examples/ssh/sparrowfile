@@ -1,4 +1,5 @@
 package-install "openssh-server";
+package-install "openssh-clients";
 
 if target_os() ~~ m/ubuntu/ {
   service-start "ssh";
