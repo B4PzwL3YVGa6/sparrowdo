@@ -13,7 +13,27 @@ env:
   - TEST=bootstrap:fedora
   - TEST=bootstrap:funtoo
   - TEST=bootstrap:ubuntu
-
+  - TEST=api:asserts
+  - TEST=api:asserts-http-ok
+  - TEST=api:bash
+  - TEST=api:copy-local-file
+  - TEST=api:cpan
+  - TEST=api:directory
+  - TEST=api:files
+  - TEST=api:git
+  - TEST=api:group
+  - TEST=api:hostname
+  - TEST=api:packages
+  - TEST=api:read-config
+  - TEST=api:scp
+  - TEST=api:service
+  - TEST=api:ssh
+  - TEST=api:systemd
+  - TEST=api:task_run_short
+  - TEST=api:templates
+  - TEST=api:user
+  - TEST=api:zef
+    
 install:
   - cpanm https://github.com/melezhik/outthentic.git
   - cpanm https://github.com/melezhik/sparrow.git
