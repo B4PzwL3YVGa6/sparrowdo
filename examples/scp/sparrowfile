@@ -1,5 +1,11 @@
 package-install "openssh-server";
 
+if target_os() ~~ m/centos/ {
+
+  package-install "openssh-clients";
+
+}
+
 if target_os() ~~ m/ubuntu/ {
   service-start "ssh";
 } else {
