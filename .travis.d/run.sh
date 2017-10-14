@@ -13,7 +13,7 @@ main()
 	case "$TEST" in
 		bootstrap:*) sh "./tests/bootstrap.sh" "$TEST" ;;
 		prove)       sh "./tests/prove.sh"             ;;
-		api)         sh "./tests/api.sh"       "$TEST" ;;
+		api)         sh "./tests/api.sh"               ;;
 		*)
 			printf "%s is not a valid test" "$TEST"
 			exit 3
