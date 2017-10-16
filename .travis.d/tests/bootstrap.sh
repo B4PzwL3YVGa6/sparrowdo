@@ -18,7 +18,7 @@ main()
 
 	# Run bootstrap test
 	sparrowdo --docker="$target" --no_sudo --bootstrap --module_run=Sparrow::Update --format=production
-	sparrowdo --docker="$target" --no_sudo --task_run=bash@command=uname --format=production
+	sparrowdo --docker="$target" --no_sudo --task_run=bash@command=uname
 
 }
 
