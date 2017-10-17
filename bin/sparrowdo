@@ -443,7 +443,7 @@ case "$OS" in
   ;;
   minoca)
     opkg -f /etc/opkg/opkg.conf update
-    opkg install curl perl make gcc tar gzip
+    opkg install awk curl perl make gcc tar gzip
   ;;
   ubuntu)
   ;;
