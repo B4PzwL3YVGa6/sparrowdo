@@ -1,3 +1,8 @@
+# 0.0.35 2017-10-16
+
+- Git scm - add user and debug parameters
+- Use mi6 CPAN uploader to upload distro to CPAN
+
 # 0.0.34 2017-10-16
 
 - Sparrowdo bootstrap is compelte rewitten, huge thanks to @Tyil
