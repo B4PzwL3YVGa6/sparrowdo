@@ -12,7 +12,7 @@ env:
   - TEST=bootstrap:centos
   - TEST=bootstrap:debian
   - TEST=bootstrap:fedora
-  - TEST=bootstrap:funtoo
+  #- TEST=bootstrap:funtoo
   - TEST=bootstrap:ubuntu
     
 install:
