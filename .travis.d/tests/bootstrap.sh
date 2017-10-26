@@ -19,7 +19,7 @@ main()
 	# Run bootstrap test
 	sparrowdo --docker="$target" --no_sudo --bootstrap --module_run=Sparrow::Update --format=production && \
 	sparrowdo --docker="$target" --no_sudo --task_run=bash@command=uname && \
-  sparrowdo --docker="$target" --task_run=user@name=foo \
+  sparrowdo --docker="$target" --no_sudo --task_run=user@name=foo \
   --task_run=bash@command='id && cd ~/ && pwd && uptime && ls -l && ps uax|grep system|grep -v grep',user=foo \
   --task_run=df-check@therhold=54 \
   --format=production
