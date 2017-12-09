@@ -112,7 +112,7 @@ sub MAIN (
     } elsif $vagrant == True {
     say $no_color ??
     'exporting vagrant ssh configuration from current directory' !!
-    colored( 'exporting ssh configuration from vagrant current directory machine', 'bold black on_yellow');
+    colored( 'exporting vagrant ssh configuration from current directory', 'bold black on_yellow');
     shell "vagrant ssh-config --host vagrant > /tmp/ssh_config" or die "Some error occur. You can see a error from vagrant above";
   }
 
