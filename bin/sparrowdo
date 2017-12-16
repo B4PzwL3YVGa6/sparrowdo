@@ -109,7 +109,7 @@ sub MAIN (
     colored( "exporting ssh configuration from vagrant machine (id $vagrant_id)", 'bold black on_yellow');
     shell "vagrant ssh-config --host vagrant $vagrant_id > /tmp/ssh_config" or die "Some error occur. You can see a error from vagrant above";
 
-    } elsif $vagrant == True {
+  } elsif $vagrant == True {
     say $no_color ??
     'exporting vagrant ssh configuration from current directory' !!
     colored( 'exporting vagrant ssh configuration from current directory', 'bold black on_yellow');
@@ -282,7 +282,7 @@ sub ssh_shell ( $cmd ) {
   
     $ssh_cmd ~= ' -i ' ~ input_params('SshPrivateKey') if input_params('SshPrivateKey');
 
-  my $ssh_host;
+    my $ssh_host;
 
     if ( input_params('Vagrant') == True or input_params('VagrantId') ) {
       $ssh_host = 'vagrant';
@@ -291,9 +291,9 @@ sub ssh_shell ( $cmd ) {
     }
   
     if input_params('SshUser') {
-      $ssh_cmd ~= ' ' ~ input_params('SshUser') ~ '@' ~ "$ssh_host" ~ ' ';
+      $ssh_cmd ~= ' ' ~ input_params('SshUser') ~ '@' ~ $ssh_host ~ ' ';
     } else {
-      $ssh_cmd ~= ' ' ~ "$ssh_host" ~ ' ';
+      $ssh_cmd ~= ' ' ~ $ssh_host ~ ' ';
     }
 
     $ssh_cmd ~= ( input_params('NoSudo') ) ?? " \"sh -c '" !! " \"sudo sh -c '"; 
@@ -327,16 +327,16 @@ our sub _scp ( $file, $dest, $reverse = 0, $recursive = 0 ) {
   my $ssh_host_term;
   my $ssh_host;
 
-    if ( input_params('Vagrant') == True or input_params('VagrantId') ) {
-      $ssh_host = 'vagrant';
-    } else {
-      $ssh_host = input_params('Host');
-    }
+  if ( input_params('Vagrant') == True or input_params('VagrantId') ) {
+    $ssh_host = 'vagrant';
+  } else {
+    $ssh_host = input_params('Host');
+  }
 
   if input_params('SshUser') {
-    $ssh_host_term = input_params('SshUser') ~ '@' ~ "$ssh_host";
+    $ssh_host_term = input_params('SshUser') ~ '@' ~ $ssh_host;
   } else {
-    $ssh_host_term = "$ssh_host";
+    $ssh_host_term = $ssh_host;
   }
 
   my $scp_command;
