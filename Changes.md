@@ -1,3 +1,7 @@
+# Next
+
+- Git Scm now is able to checkout branch 
+
 # 0.0.36 2017-12-04
 
 - docker exec do not allocate pseudo tty

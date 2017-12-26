@@ -15,13 +15,20 @@ multi sub git-scm ( $source, %args? ) is export {
   %bash-args<user> = %args<user> if %args<user>;
   %bash-args<debug> = 1 if %args<debug>;
 
+  my $git-clone-cmd;
+  if %args<branch> {
+    $git-clone-cmd = "git -b " ~ %args<branch> ~ " clone $source ."
+  } else {
+    $git-clone-cmd = "git clone $source ."
+  }
+
   bash qq:to/HERE/, %bash-args;
     set -e;
     $cd-cmd
     if test -d .git; then
       git pull
     else
-      git clone $source . 
+      $git-clone-cmd
     fi
   HERE
 
