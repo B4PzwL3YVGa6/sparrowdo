@@ -341,7 +341,7 @@ Optional, no default values.
 
 ## --vagrant
 
-Export ssh configuration from vagrant host and sparrowdo against it.
+Export ssh configuration from vagrant host and run sparrowdo against it.
 
 Examples:
 
