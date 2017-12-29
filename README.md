@@ -339,6 +339,19 @@ This option sets the current working directory for the process which executes sp
 
 Optional, no default values.
 
+## --vagrant
+
+Export ssh configuration from vagrant host and sparrowdo against it.
+
+Examples:
+
+    $ sparrowdo --vagrant # assuming we are in a working directory with Vagrantfile
+                          # exporting ssh configuration for "current" vagrant machine
+
+    $ sparrowdo --vagrant --host=black-horse  # exporting ssh configuration 
+                                              # from vagrant machine called `black-horse`
+
+
 # Run sparrowdo in local mode
 
 In case you need to run sparrowdo on localhost add `--local_mode` flag and get things done locally, not remotely:
