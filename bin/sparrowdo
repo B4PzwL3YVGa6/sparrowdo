@@ -28,6 +28,7 @@ sub MAIN (
   Str  :$ssh_private_key, 
   Int  :$ssh_port = 22, 
   Bool :$verbose = False, 
+  Bool :$vagrant = False,
   Bool :$bootstrap = False, 
   Bool :$check_syntax = False, 
   Str  :$module_run,
@@ -40,6 +41,7 @@ sub MAIN (
   Bool :$local_mode = False,
   Str  :$password,
   Str  :$docker,
+  Str  :$vagrant_id,
   Str  :$cwd, 
   Str  :$format, 
 )
@@ -81,6 +83,8 @@ sub MAIN (
     Host => $host, 
     Sparrowfile => $sparrowfile,
     Docker    => $docker,
+    VagrantId => $vagrant_id,
+    Vagrant   => $vagrant,
     LocalMode => $local_mode,
     Cwd => $cwd, 
     HttpProxy => $http_proxy, 
@@ -98,6 +102,19 @@ sub MAIN (
     SparrowhubApi => $conf-ini<sparrowdo><sparrowhub_api>,
     Password => $password
   );
+
+  if $vagrant_id {
+    say $no_color ??
+    "exporting ssh configuration from vagrant machine (id $vagrant_id) " !!
+    colored( "exporting ssh configuration from vagrant machine (id $vagrant_id)", 'bold black on_yellow');
+    shell "vagrant ssh-config --host vagrant $vagrant_id > /tmp/ssh_config" or die "Some error occur. You can see a error from vagrant above";
+
+  } elsif $vagrant == True {
+    say $no_color ??
+    'exporting vagrant ssh configuration from current directory' !!
+    colored( 'exporting vagrant ssh configuration from current directory', 'bold black on_yellow');
+    shell "vagrant ssh-config --host vagrant > /tmp/ssh_config" or die "Some error occur. You can see a error from vagrant above";
+  }
 
   ssh_shell "rm -rf $sparrow_root/sparrowdo-cache && mkdir -m 777 -p $sparrow_root/sparrowdo-cache";
 
@@ -255,18 +272,28 @@ sub ssh_shell ( $cmd ) {
       $ssh_cmd =  'ssh -o ConnectionAttempts=1  -o ConnectTimeout=5';
     }
 
-    $ssh_cmd ~= ' -p ' ~ input_params('SshPort') if input_params('SshPort');
+    $ssh_cmd ~= ' -F ' ~ "/tmp/ssh_config" if ( input_params('Vagrant') == True or input_params('VagrantId') );
+
+    $ssh_cmd ~= ' -p ' ~ input_params('SshPort') unless ( input_params('Vagrant') == True or input_params('VagrantId') );
 
     $ssh_cmd ~= ' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -tt';
   
     $ssh_cmd ~= ' -q' unless input_params('Verbose');
   
     $ssh_cmd ~= ' -i ' ~ input_params('SshPrivateKey') if input_params('SshPrivateKey');
+
+    my $ssh_host;
+
+    if ( input_params('Vagrant') == True or input_params('VagrantId') ) {
+      $ssh_host = 'vagrant';
+    } else {
+      $ssh_host = input_params('Host');
+    }
   
     if input_params('SshUser') {
-      $ssh_cmd ~= ' ' ~ input_params('SshUser') ~ '@' ~ input_params('Host') ~ ' ';
+      $ssh_cmd ~= ' ' ~ input_params('SshUser') ~ '@' ~ $ssh_host ~ ' ';
     } else {
-      $ssh_cmd ~= ' ' ~ input_params('Host') ~ ' ';
+      $ssh_cmd ~= ' ' ~ $ssh_host ~ ' ';
     }
 
     $ssh_cmd ~= ( input_params('NoSudo') ) ?? " \"sh -c '" !! " \"sudo sh -c '"; 
@@ -298,11 +325,18 @@ our sub _copy-local-file ( $file, $dest ) {
 our sub _scp ( $file, $dest, $reverse = 0, $recursive = 0 ) {
 
   my $ssh_host_term;
+  my $ssh_host;
+
+  if ( input_params('Vagrant') == True or input_params('VagrantId') ) {
+    $ssh_host = 'vagrant';
+  } else {
+    $ssh_host = input_params('Host');
+  }
 
   if input_params('SshUser') {
-    $ssh_host_term = input_params('SshUser') ~ '@' ~ input_params('Host');
+    $ssh_host_term = input_params('SshUser') ~ '@' ~ $ssh_host;
   } else {
-    $ssh_host_term = input_params('Host');
+    $ssh_host_term = $ssh_host;
   }
 
   my $scp_command;
@@ -329,8 +363,11 @@ our sub _scp ( $file, $dest, $reverse = 0, $recursive = 0 ) {
 
   } else {
 
-    my $scp_params = ' -P ' ~ input_params('SshPort');
+    my $scp_params = ' -P ' ~ input_params('SshPort') unless ( input_params('Vagrant') == True or input_params('VagrantId') );
+
   
+    $scp_params ~= ' -F ' ~ "/tmp/ssh_config" if ( input_params('Vagrant') == True or input_params('VagrantId') );
+
     $scp_params ~= ' -i ' ~ input_params('SshPrivateKey') if input_params('SshPrivateKey');
   
     $scp_params ~= ' -q'  unless input_params('Verbose');
