@@ -1,6 +1,7 @@
 # Next
 
 - Git Scm now is able to checkout branch 
+- Vagrant support
 
 # 0.0.36 2017-12-04
 
