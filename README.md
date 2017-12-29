@@ -358,8 +358,6 @@ In case you need to run sparrowdo on localhost add `--local_mode` flag and get t
 
     $ sparrowdo --local_mode
 
-Notice that you still need to define the host here.
-
 # Sparrowdo configuration via ini file
 
 You may pass _some_ sparrowdo client options via ini files at ~/sparrowdo.ini.
