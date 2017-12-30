@@ -349,7 +349,7 @@ Examples:
                           # exporting ssh configuration for "current" vagrant machine
 
     $ sparrowdo --vagrant --host=black-horse  # exporting ssh configuration 
-                                              # from vagrant machine called `black-horse`
+                                              # from vagrant machine with ID `black-horse`
 
 
 # Run sparrowdo in local mode
