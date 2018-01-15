@@ -348,8 +348,8 @@ Examples:
     $ sparrowdo --vagrant # assuming we are in a working directory with Vagrantfile
                           # exporting ssh configuration for "current" vagrant machine
 
-    $ sparrowdo --vagrant --host=black-horse  # exporting ssh configuration 
-                                              # from vagrant machine with ID `black-horse`
+    $ sparrowdo --vagrant --vagrant_id=6951606  # exporting ssh configuration 
+                                                # from vagrant machine with ID `6951606`
 
 
 # Run sparrowdo in local mode
