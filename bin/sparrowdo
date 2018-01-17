@@ -107,13 +107,13 @@ sub MAIN (
     say $no_color ??
     "exporting ssh configuration from vagrant machine (id $vagrant_id) " !!
     colored( "exporting ssh configuration from vagrant machine (id $vagrant_id)", 'bold black on_yellow');
-    shell "vagrant ssh-config $vagrant_id > .vagrant_ssh_config";
+    shell "vagrant ssh-config $vagrant_id --host vagrant > .vagrant_ssh_config";
 
   } elsif $vagrant and ! $vagrant_id {
     say $no_color ??
     'exporting vagrant ssh configuration from current directory' !!
     colored( 'exporting vagrant ssh configuration from current directory', 'bold black on_yellow');
-    shell "vagrant ssh-config > .vagrant_ssh_config";
+    shell "vagrant ssh-config --host vagrant > .vagrant_ssh_config";
   }
 
   ssh_shell "rm -rf $sparrow_root/sparrowdo-cache && mkdir -m 777 -p $sparrow_root/sparrowdo-cache";
@@ -282,7 +282,7 @@ sub ssh_shell ( $cmd ) {
   
     $ssh_cmd ~= ' -i ' ~ input_params('SshPrivateKey') if input_params('SshPrivateKey');
 
-    my $ssh_host = ( input_params('Vagrant') or input_params('VagrantId') )  ?? 'default' !! input_params('Host');
+    my $ssh_host = ( input_params('Vagrant') or input_params('VagrantId') )  ?? 'vagrant' !! input_params('Host');
   
     if input_params('SshUser') {
       $ssh_cmd ~= ' ' ~ input_params('SshUser') ~ '@' ~ $ssh_host ~ ' ';
@@ -320,7 +320,7 @@ our sub _scp ( $file, $dest, $reverse = 0, $recursive = 0 ) {
 
   my $ssh_host_term;
 
-  my $ssh_host = ( input_params('Vagrant') or input_params('VagrantId') )   ?? 'default' !! input_params('Host');
+  my $ssh_host = ( input_params('Vagrant') or input_params('VagrantId') )   ?? 'vagrant' !! input_params('Host');
 
   if input_params('SshUser') {
     $ssh_host_term = input_params('SshUser') ~ '@' ~ $ssh_host;
