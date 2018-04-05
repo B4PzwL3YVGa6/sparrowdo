@@ -314,7 +314,7 @@ our sub _copy-local-file ( $file, $dest ) {
   say input_params('NoColor') ??
   "copy local file $file to remote $dest" !!
   colored("copy local file $file to remote $dest", 'bold yellow');
-  _scp($file,$dest);
+  _scp($file,$dest,0,1);
 
 }
 
