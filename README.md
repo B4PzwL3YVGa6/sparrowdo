@@ -284,6 +284,15 @@ Default value is `default`
 
 Optional parameter.
 
+## --purge\_cache
+
+Remove temporary/cache files left by sparrow run. Set this parameter to `True`
+if you want to keep this files, which might be useful when troubleshooting.
+
+Default value is `True` ( remove cache files )
+
+Optional parameter.
+
 ## --module\_run
 
 Runs a sparrowdo module instead of executing scenario from sparrowfile. For example:
@@ -477,7 +486,8 @@ The list of OS names is provided by `target_os()` function:
     alpine
     fedora
     amazon
-
+    funtoo
+    
 * `target_hostname()`
 
 This function returns the remote server hostname.
@@ -508,6 +518,7 @@ This is the list of arguments valid for the input\_params function:
     Verbose
     NoSudo
     NoColor
+    PurgeCache
     NoIndexUpdate
     Cwd
     LocalMode

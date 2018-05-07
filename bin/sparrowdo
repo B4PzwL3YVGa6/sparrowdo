@@ -122,7 +122,15 @@ sub MAIN (
 
   ssh_shell "rm -rf $sparrow_root/sparrowdo-cache && mkdir -m 777 -p $sparrow_root/sparrowdo-cache";
 
-  bootstrap($sparrow_root,$sparrowdo-cache) if $bootstrap;
+  if $bootstrap {
+    bootstrap($sparrow_root,$sparrowdo-cache);
+    if ! 'sparrowfile'.IO.e { 
+      # don't try to run Sparrowfile if in bootstrap mode and 
+      # if file does not exist
+      say "Congratulations!\nYour system is ready to be configured automatically using Sparrowdo!";
+      exit 0;
+    }
+  }
 
   ssh_shell "rm -rf $sparrow_root/sparrow-cache && \\
   mkdir -m 777 -p $sparrow_root/sparrow-cache && \\
