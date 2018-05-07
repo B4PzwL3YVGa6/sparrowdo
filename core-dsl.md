@@ -392,6 +392,9 @@ Examples:
     directory '/tmp/foo';
     git-scm 'https://github.com/melezhik/sparrow.git', %( to => '/tmp/foo' );
 
+    # Specify ssh key for authentification
+    git-scm 'ssh://git@github.com/melezhik/sparrow.git', %( to => '/tmp/foo', ssh-key => '/tmp/my.key' );
+
     # checkout under user
     git-scm 'https://github.com/melezhik/sparrow.git', %( to => '/tmp/foo', user => 'alexey' );
 

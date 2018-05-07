@@ -14,6 +14,7 @@ multi sub git-scm ( $source, %args? ) is export {
   %bash-args<description> = "git checkout $source";
   %bash-args<user> = %args<user> if %args<user>;
   %bash-args<debug> = 1 if %args<debug>;
+  %bash-args<envvars><GIT_SSH_COMMAND> = qq ("ssh -i %args<ssh_key>" ) if %args<ssh_key>;
 
   bash qq:to/HERE/, %bash-args;
     set -e;
