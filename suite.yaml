@@ -53,6 +53,6 @@ case:
 
 sparrowdo:
   options: 
-    travis: "--bootstrap --no_sudo --docker=debian --format=production"
+    travis: "--bootstrap --no_sudo --docker=centos --format=production"
     default: "--no_sudo --local_mode --format=production"
     minoca: "--no_sudo --host=127.0.0.1 --ssh_user=root --ssh_port=2222 --format=production"
