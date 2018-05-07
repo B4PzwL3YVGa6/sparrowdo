@@ -33,6 +33,7 @@ sub MAIN (
   Str  :$module_run,
        :$task_run, 
   Bool :$no_sudo = False,
+  Bool :$purge_cache = True,
   Bool :$no_color = False,
   Bool :$no_index_update = False,
   Str  :$sparrow_root = '/opt/sparrow', 
@@ -96,6 +97,7 @@ sub MAIN (
     Verbose => $verbose_val,
     Format => $format || $format_val,
     NoSudo => $no_sudo,
+    PurgeCache => $purge_cache,
     NoColor => $no_color,
     NoIndexUpdate => $no_index_update_val,
     SparrowRoot => $sparrow_root,
@@ -220,7 +222,11 @@ sub MAIN (
     say input_params('NoColor') ??
     "set up task box file - $sparrowdo-cache/task-box.json - OK" !!
     colored("set up task box file - $sparrowdo-cache/task-box.json - OK", 'bold green on_black');
-    ssh_shell "sparrow box run $sparrow_root/sparrow-cache/task-box.json --mode quiet --purge-cache";
+    if input_params('PurgeCache') {
+      ssh_shell "sparrow box run $sparrow_root/sparrow-cache/task-box.json --mode quiet --purge-cache";
+    } else {
+      ssh_shell "sparrow box run $sparrow_root/sparrow-cache/task-box.json --mode quiet";    
+    }
   }
 
 }
