@@ -7,9 +7,9 @@ env:
   - TEST=prove
   - TEST=api
   - TEST=bootstrap:alpine
-  - TEST=bootstrap:amazon
+  #- TEST=bootstrap:amazon
   - TEST=bootstrap:archlinux
-  - TEST=bootstrap:centos
+  #- TEST=bootstrap:centos
   - TEST=bootstrap:debian
   - TEST=bootstrap:fedora
   #- TEST=bootstrap:funtoo
