@@ -26,4 +26,4 @@ install:
   - zef install Sparrowdo::Sparrow::Update
 
 script:
-  - travis_wait 10 sh ./.travis.d/run.sh "$TEST"
+  - sh ./.travis.d/run.sh "$TEST"
