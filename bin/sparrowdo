@@ -124,9 +124,10 @@ sub MAIN (
 
   if $bootstrap {
     bootstrap($sparrow_root,$sparrowdo-cache);
-    if ! 'sparrowfile'.IO.e { 
-      # don't try to run Sparrowfile if in bootstrap mode and 
-      # if file does not exist
+    my $spf = $sparrowfile || 'sparrowfile';
+    if ! $spf.IO.e and ! $module_run and ! $task_run { 
+      # don't try to run sparrowfile if in bootstrap mode
+      # and if sparrowfile does not exist
       say "Congratulations!\nYour system is ready to be configured automatically using Sparrowdo!";
       exit 0;
     }
