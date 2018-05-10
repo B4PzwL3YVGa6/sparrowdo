@@ -133,7 +133,8 @@ sub MAIN (
     }
   }
 
-  ssh_shell "rm -rf $sparrow_root/sparrow-cache && \\
+  ssh_shell "perl -MSparrow -e 1 2>/dev/null || ( echo Sparrow is not installed. Run sparrowdo --bootstrap to install; exit 1 ) && \\
+  rm -rf $sparrow_root/sparrow-cache && \\
   mkdir -m 777 -p $sparrow_root/sparrow-cache && \\
   mkdir -m 777 -p $sparrow_root/sparrow-cache/plugins && \\
   mkdir -m 777 -p $sparrow_root/sparrow-cache/files && \\
