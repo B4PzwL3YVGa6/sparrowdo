@@ -6,7 +6,7 @@ Sparrlets are Git based Sparrowdo scenarios.
 
 # How it works?
 
-1. Create a sparrow scenario
+1. Create a sparrowdo scenario
 
 ```
     $ nano sparrowfile
@@ -22,14 +22,14 @@ Sparrlets are Git based Sparrowdo scenarios.
     $ git commit -a -m 'my Sparrlet'
 ```
 
-3. Push you code
+3. Push you code to remote repository
 
 ```
     $ git remote add origin https://github.com/melezhik/sparrlet-example.git
     $ git push origin master
 ```
 
-4. Run sparrlet
+4. Run sparrlet with sparrowdo client 
 
 ```
     $ sparrowdo --git=https://github.com/melezhik/sparrlet-example.git
@@ -38,7 +38,9 @@ Sparrlets are Git based Sparrowdo scenarios.
 # Sparrlet configuration
 
   
-Create config.pl6 file in $CWD directory and it will be copied into sparrlet environment during execution
+Create config.pl6 file in $CWD directory and it will be copied into sparrlet environment during execution.
+
+This is how you override default sparrlets settings:
 
 ```
     $ nano config.pl6
