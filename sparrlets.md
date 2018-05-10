@@ -12,14 +12,21 @@ Sparrlets are Git based Sparrowdo scenarios.
     $ nano sparrowfile
       my $name  = config<name>;
       bash "echo Hi $name, I am Sparrlet"
+
+    $ nano config.pl6
+
+      {
+        name => "Stranger"
+      }
+
 ```
     
 2. Commit your code to Git 
 
 ```
     $ git init .
-    $ git add sparrowfile
-    $ git commit -a -m 'my Sparrlet'
+    $ git add sparrowfile config.pl6
+    $ git commit -a -m 'My Sparrlet Scenario'
 ```
 
 3. Push you code to remote repository
