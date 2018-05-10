@@ -10,6 +10,7 @@ Sparrlets are Git based Sparrowdo scenarios.
 
 ```
     $ nano sparrowfile
+
       my $name  = config<name>;
       bash "echo Hi $name, I am Sparrlet"
 
