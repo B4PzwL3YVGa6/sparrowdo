@@ -43,7 +43,7 @@ sub MAIN (
   Str  :$docker,
   Bool :$vagrant = False,
   Str  :$vagrant_id,
-  Str  :$cwd = $*CWD, 
+  Str  :$cwd, 
   Str  :$format, 
   Str  :$git 
 )
@@ -98,7 +98,7 @@ sub MAIN (
     Vagrant   => $vagrant,
     VagrantId   => $vagrant,
     LocalMode => $local_mode,
-    Cwd => $cwd, 
+    Cwd => $cwd || $*CWD, 
     HttpProxy => $http_proxy, 
     HttpsProxy => $https_proxy, 
     SshPort => $ssh_port, 
