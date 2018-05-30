@@ -1,3 +1,10 @@
+Revision history for Sparrowdo
+
+{{$NEXT}}
+
+0.0.38  2018-05-30T19:54:01Z
+    - Next version
+
 # 0.0.38 2018-05-30
 
 * `--cwd parameter` default value is current working directory ( which is good choice for `--local_mode` run )
