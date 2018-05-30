@@ -2,8 +2,8 @@ Revision history for Sparrowdo
 
 {{$NEXT}}
 
-0.0.38  2018-05-30T19:54:01Z
-    - Next version
+    - Fixed sparrowdo travis tests
+    - Hot fix for cwd parameter default value
 
 # 0.0.38 2018-05-30
 
