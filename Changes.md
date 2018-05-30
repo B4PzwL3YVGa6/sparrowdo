@@ -1,3 +1,12 @@
+# 0.0.38 2018-05-30
+
+* `--cwd parameter` default value is current working directory ( which is good choice for `--local_mode` run )
+* README.md refactored and improved, added "Getting started with Sparrowdo" section, thanks to @Tyil - #24
+* git-scm may accept ssh key, thanks to @spigell
+* copy-local-file now may copy directories, thanks to @spigell
+* running sparrowdo on none bootstrapped system now emerges more friendly/understandable message #26
+* don't raise errors when `--boostrap` and sparrowfile does not exist
+
 # 0.0.37 2018-01-20
 
 - Git Scm now is able to checkout branch 
