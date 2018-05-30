@@ -90,7 +90,10 @@ sub MAIN (
 
   $repo_val = $conf-ini<sparrowdo><repo> if $conf-ini<sparrowdo><repo> && ! $repo_val;
   
-  
+  my $real_cwd = $cwd;
+
+  $real_cwd = $*CWD if $local_mode and ! $cwd;
+
   set_input_params %(  
     Host => $host, 
     Sparrowfile => $sparrowfile,
@@ -98,7 +101,7 @@ sub MAIN (
     Vagrant   => $vagrant,
     VagrantId   => $vagrant,
     LocalMode => $local_mode,
-    Cwd => $cwd || $*CWD, 
+    Cwd => $real_cwd, 
     HttpProxy => $http_proxy, 
     HttpsProxy => $https_proxy, 
     SshPort => $ssh_port, 
