@@ -5,16 +5,19 @@ unit module Sparrowdo::Core::DSL::Git;
 use Sparrowdo;
 
 use Sparrowdo::Core::DSL::Bash;
+use Sparrowdo::Core::DSL::Directory;
 
 
 multi sub git-scm ( $source, %args? ) is export {
+
+  directory-create %args<to>;
 
   my $cd-cmd = %args<to> ?? "cd " ~ %args<to> ~ ' && pwd ' !! 'pwd';
   my %bash-args = Hash.new;
   %bash-args<description> = "git checkout $source";
   %bash-args<user> = %args<user> if %args<user>;
   %bash-args<debug> = 1 if %args<debug>;
-  %bash-args<envvars><GIT_SSH_COMMAND> = qq ("ssh -i %args<ssh_key>" ) if %args<ssh_key>;
+  %bash-args<envvars><GIT_SSH_COMMAND> = qq ("ssh -i %args<ssh-key>" ) if %args<ssh-key>;
 
   bash qq:to/HERE/, %bash-args;
     set -e;
