@@ -18,7 +18,7 @@ multi sub git-scm ( $source, %args? ) is export {
 
   bash qq:to/HERE/, %bash-args;
     set -e;
-    $cd-cmd
+    $cd-cmd &&
     if test -d .git; then
       git pull
     else
