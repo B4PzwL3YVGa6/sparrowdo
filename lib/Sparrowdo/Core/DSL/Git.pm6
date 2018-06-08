@@ -5,12 +5,9 @@ unit module Sparrowdo::Core::DSL::Git;
 use Sparrowdo;
 
 use Sparrowdo::Core::DSL::Bash;
-use Sparrowdo::Core::DSL::Directory;
 
 
 multi sub git-scm ( $source, %args? ) is export {
-
-  directory-create %args<to>;
 
   my $cd-cmd = %args<to> ?? "cd " ~ %args<to> ~ ' && pwd ' !! 'pwd';
   my %bash-args = Hash.new;
