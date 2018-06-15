@@ -106,6 +106,20 @@ multi sub task-run($task_desc, $plugin_name, %parameters?) is export {
   task_run $task_desc, $plugin_name, %parameters
 }
 
+sub swat-task-run($task_desc, $plugin_name,%args) is export { 
+
+  my %task_data = %( 
+      task => $task_desc,
+      plugin => $plugin_name,
+      host => %args<host>,
+      data => %(),
+      type => "swat"      
+  );
+
+  push_task %task_data;
+
+}
+
 sub plg-list() is export {
   @plugins;
 }
