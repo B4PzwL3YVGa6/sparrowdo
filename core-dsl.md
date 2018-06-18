@@ -395,6 +395,9 @@ Examples:
     # Specify ssh key for authentification
     git-scm 'ssh://git@github.com/melezhik/sparrow.git', %( to => '/tmp/foo', ssh-key => '/tmp/my.key' );
 
+    # ssh authentification with unknown server key
+    git-scm 'ssh://git@github.com/melezhik/sparrow.git', %( to => '/tmp/foo', ssh-key => '/tmp/my.key', accept-hostkey => True );
+
     # checkout under user
     git-scm 'https://github.com/melezhik/sparrow.git', %( to => '/tmp/foo', user => 'alexey' );
 
