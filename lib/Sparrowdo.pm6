@@ -174,3 +174,22 @@ sub config() is export {
 sub config_set( %data = %()) is export { 
   %config = %data
 }
+
+sub runtime_vars_set ( @vars ) is export {
+  for @vars -> $var {
+    my %hash = $var.split( "=" );
+    for %hash.kv -> $key, $val {;
+      if %config{$key}:exists  {
+
+        say input_params('NoColor') ??
+        ( 'Rewrite predefined variables from var file (config.pl6)! ' ) !!
+        colored('Rewrite predefined variables from var file (config.pl6)!', 'bold yellow');
+
+        %config{$key}:delete
+      }
+
+    %config.push: $key => $val
+
+    }
+  }
+}

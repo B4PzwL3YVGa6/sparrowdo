@@ -45,7 +45,8 @@ sub MAIN (
   Str  :$vagrant_id,
   Str  :$cwd, 
   Str  :$format, 
-  Str  :$git 
+  Str  :$git,
+       :$var
 )
 
 {
@@ -91,6 +92,10 @@ sub MAIN (
   $repo_val = $conf-ini<sparrowdo><repo> if $conf-ini<sparrowdo><repo> && ! $repo_val;
   
   my $real_cwd = $cwd;
+
+  my $runtime_var = $var;
+  my @runtime_vars = $runtime_var.split( " " ) if $var.defined;
+
 
   $real_cwd = $*CWD if $local_mode and ! $cwd;
 
@@ -177,9 +182,13 @@ sub MAIN (
 
   if 'config.pl6'.IO.e {
     say $no_color ??
-    'load configuration from config.pl6 ...' !!
-    colored('load configuration from config.pl6 ...', 'blue on_green');
+    'load variables from config.pl6 ...' !!
+    colored('load variables from config.pl6 ...', 'blue on_green');
     config_set(EVALFILE 'config.pl6'); 
+  }
+
+  if @runtime_vars {
+    runtime_vars_set( @runtime_vars );
   }
 
 

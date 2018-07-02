@@ -1,0 +1,14 @@
+my %default_config = EVALFILE ('config.pl6');
+
+
+my $current_pet = %default_config<pet>;
+bash "echo my old pet is $current_pet";
+
+
+my $new_pet = config<pet>;
+bash "echo my new pet is $new_pet";
+
+
+
+my $test_var=config<test>;
+bash "echo test var is $test_var";
