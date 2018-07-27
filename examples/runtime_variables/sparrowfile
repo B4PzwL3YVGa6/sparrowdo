@@ -9,7 +9,7 @@ my $after = config<after>;
 
 
 bash "echo the day after $after", %(
-  expect_stdout => 'Cristmas');
+  expect_stdout => 'Christmas');
 
 bash "echo a flock of $subject", %(
   expect_stdout => 'flock of sparrows');
