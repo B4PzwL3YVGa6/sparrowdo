@@ -35,7 +35,6 @@ case:
     - asserts
     - git
     - hostname
-    - systemd
   minoca:
     - hostname
     - cpan
