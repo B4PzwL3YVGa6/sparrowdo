@@ -93,9 +93,6 @@ sub MAIN (
   
   my $real_cwd = $cwd;
 
-  my $runtime_var = $var;
-  my @runtime_vars = $runtime_var.split( " " ) if $var.defined;
-
 
   $real_cwd = $*CWD if $local_mode and ! $cwd;
 
@@ -187,8 +184,8 @@ sub MAIN (
     config_set(EVALFILE 'config.pl6'); 
   }
 
-  if @runtime_vars {
-    runtime_vars_set( @runtime_vars );
+  if $var {
+    runtime_vars_set( $var );
   }
 
 

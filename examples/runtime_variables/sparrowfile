@@ -9,6 +9,5 @@ my $new_pet = config<pet>;
 bash "echo my new pet is $new_pet";
 
 
-
 my $test_var=config<test>;
 bash "echo test var is $test_var";
