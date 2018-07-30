@@ -18,6 +18,7 @@ case:
     - git
     - hostname
     - systemd
+    - runtime_variables
   travis: 
     - cpan
     - directory
@@ -53,5 +54,5 @@ case:
 sparrowdo:
   options: 
     travis: "--bootstrap --no_sudo --docker=ubuntu --format=production"
-    default: "--no_sudo --local_mode --format=production"
+    default: "--no_sudo --local_mode --format=production --var='subject=trees' --var='after=Christmas'"
     minoca: "--no_sudo --host=127.0.0.1 --ssh_user=root --ssh_port=2222 --format=production"

@@ -409,6 +409,14 @@ Examples:
     $ sparrowdo --vagrant --vagrant_id=6951606  # exporting ssh configuration 
                                                 # from vagrant machine with ID `6951606`
 
+## --var
+
+Set variables as key=value. One can use it in sparrowfile via `config` (see [Scenarios configuration](#scenarios-configuration)).
+
+If variables already present in variables file ( config.pl6) then their values will be rewrited.
+
+Can be used multiple times.
+
 
 # Run sparrowdo in local mode
 
