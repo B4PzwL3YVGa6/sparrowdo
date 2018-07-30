@@ -2,7 +2,11 @@ Revision history for Sparrowdo
 
 {{$NEXT}}
 
+    - Feature - Sparrowdo variables - https://github.com/melezhik/sparrowdo/pull/31/ , thanks to @spigel
+
     - Bug fix - handle sparrowdo.ini file
+
+    - Bug fix - travis tests are fixed ( used ubuntu as api box intead of centos )
 
 0.0.39  2018-05-30T20:52:47Z
 

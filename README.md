@@ -411,12 +411,15 @@ Examples:
 
 ## --var
 
-Set variables as key=value. One can use it in sparrowfile via `config` (see [Scenarios configuration](#scenarios-configuration)).
+Set sparrowdo variables. 
 
-If variables already present in variables file ( config.pl6) then their values will be rewrited.
+Use `key=value` format to set variables. Variables defined at [configuration file](#scenarios-configuration)
+are overridden by this command line values.
 
-Can be used multiple times.
+You can use multiple `--var` constructs:
 
+    --var='color=red' --var='color=green' --var='color=blue'
+  
 
 # Run sparrowdo in local mode
 
@@ -614,6 +617,8 @@ Later on in the scenario you may access config data via `config` function:
 
     my $user         = config<user>;
     my $install-base = config<install-base>;
+
+See also [variables section](#sparrowdo-client-command-line-parameters-vars).
 
 # Environment variables 
 

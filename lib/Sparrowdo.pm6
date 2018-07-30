@@ -183,9 +183,7 @@ multi sub runtime_vars_set ( @vars ) is export {
   for @vars -> $var {
     my %hash = $var.split( "=" );
     for %hash.kv -> $key, $val {
-
       %config{$key} = $val
-
     }
   }
 }
