@@ -618,7 +618,7 @@ Later on in the scenario you may access config data via `config` function:
     my $user         = config<user>;
     my $install-base = config<install-base>;
 
-See also [variables section](#sparrowdo-client-command-line-parameters-vars).
+See also [variables section](#--var).
 
 # Environment variables 
 
