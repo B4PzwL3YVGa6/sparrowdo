@@ -2,6 +2,8 @@ Revision history for Sparrowdo
 
 {{$NEXT}}
 
+    - Bug fix - handle sparrowdo.ini file
+
 0.0.39  2018-05-30T20:52:47Z
 
     - Fixed sparrowdo travis tests

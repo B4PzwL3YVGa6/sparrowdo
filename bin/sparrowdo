@@ -74,7 +74,8 @@ sub MAIN (
   my $conf-ini = Hash.new;
 
   if $conf-ini-file.IO ~~ :e {
-    Config::Simple.read($conf-ini-file,:f("ini"))
+    $conf-ini = Config::Simple.read($conf-ini-file,:f("ini"));
+    say "found ini file: $conf-ini-file";
   }
   
   my $verbose_val = $verbose;
