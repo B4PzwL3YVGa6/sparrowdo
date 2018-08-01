@@ -8,6 +8,8 @@ Revision history for Sparrowdo
 
     - Bug fix - travis tests are fixed ( used ubuntu as api box intead of centos )
 
+    - Minimal support for Darwin OS ( make sparrowdo runnable on OSx )
+
 0.0.39  2018-05-30T20:52:47Z
 
     - Fixed sparrowdo travis tests

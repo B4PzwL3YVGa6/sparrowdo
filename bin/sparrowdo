@@ -53,7 +53,12 @@ sub MAIN (
 
   # read config if exists
 
-  my $sparrowdo-cache = %*ENV<USER> ?? '/home/' ~ %*ENV<USER> ~ '/.sparrowdo/' ~ $sparrow_root !! '/.sparrowdo';
+  my $sparrowdo-cache;
+  if $*VM.osname eq "darwin" {
+    $sparrowdo-cache = %*ENV<USER> ?? '/Users/' ~ %*ENV<USER> ~ '/.sparrowdo/' ~ $sparrow_root !! '/.sparrowdo';
+  } else {
+    $sparrowdo-cache = %*ENV<USER> ?? '/home/' ~ %*ENV<USER> ~ '/.sparrowdo/' ~ $sparrow_root !! '/.sparrowdo';
+  }
 
   shell "rm -rf $sparrowdo-cache/";
 
