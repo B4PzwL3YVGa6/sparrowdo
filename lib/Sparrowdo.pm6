@@ -175,11 +175,11 @@ sub config_set( %data = %()) is export {
   %config = %data
 }
 
-multi sub runtime_vars_set ( $var ) is export {
-   runtime_vars_set( [ $var ] )
+multi sub runtime-vars-set ( $var ) is export {
+   runtime-vars-set( [ $var ] )
 }
 
-multi sub runtime_vars_set ( @vars ) is export {
+multi sub runtime-vars-set ( @vars ) is export {
   for @vars -> $var {
     my %hash = $var.split( "=" );
     for %hash.kv -> $key, $val {

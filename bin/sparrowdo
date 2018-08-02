@@ -191,7 +191,7 @@ sub MAIN (
   }
 
   if $var {
-    runtime_vars_set( $var );
+    runtime-vars-set( $var );
   }
 
 
