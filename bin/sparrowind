@@ -42,13 +42,11 @@ sub MAIN (
   # read config if exists
 
   my $sparrowdo-cache = %*ENV<USER> ?? 'C:/Users/' ~ %*ENV<USER> ~ '/.sparrowind/' ~ $sparrow-root !! 'C:/.sparrowind';
-  my $sparrowdo-root = %*ENV<USER>  ?? 'C:/Users/' ~ %*ENV<USER> ~ '/.sparrowind-sparrow/' ~ $sparrow-root !! 'C:/.sparrowind-sparrow';
 
   mktree $sparrowdo-cache;
   empty-directory $sparrowdo-cache;
   mktree "$sparrowdo-cache/plugins";
 
-  mktree $sparrow-root;
 
   if ($git) {
     mkdir "$sparrowdo-cache/sparrlet";
@@ -59,7 +57,7 @@ sub MAIN (
     chdir "$sparrowdo-cache/sparrlet";
   }
 
-  my $conf-ini-file = %*ENV<USER> ?? 'C:/Users' ~ %*ENV<USER> ~ '/sparrowdo.ini' !! ( $sparrow-root ~ 'C:/sparrowdo.ini' );
+  my $conf-ini-file = %*ENV<USER> ?? 'C:/Users' ~ %*ENV<USER> ~ '/sparrowdo.ini';
 
   my $conf-ini = Hash.new;
 
@@ -104,43 +102,11 @@ sub MAIN (
     SparrowdoCache => $sparrowdo-cache,
   );
 
-  ssh_shell "rm -rf $sparrow-root/sparrowdo-cache && mkdir -m 777 -p $sparrow-root/sparrowdo-cache";
-
-  if $bootstrap {
-    bootstrap($sparrow-root,$sparrowdo-cache);
-    my $spf = $sparrowfile || 'sparrowfile';
-    if ! $spf.IO.e and ! $module_run and ! $task_run { 
-      # don't try to run sparrowfile if in bootstrap mode
-      # and if sparrowfile does not exist
-      say "Congratulations!\nYour system is ready to be configured automatically using Sparrowdo!";
-      exit 0;
-    }
-  }
-
-  ssh_shell "perl -MSparrow -e 1 2>/dev/null || ( echo Sparrow is not installed. Run sparrowdo --bootstrap to install; exit 1 ) && \\
-  rm -rf $sparrow-root/sparrow-cache && \\
-  mkdir -m 777 -p $sparrow-root/sparrow-cache && \\
-  mkdir -m 777 -p $sparrow-root/sparrow-cache/plugins && \\
-  mkdir -m 777 -p $sparrow-root/sparrow-cache/files && \\
-  echo print os | perl -MOutthentic  > $sparrow-root/sparrow-cache/os.txt && \\
-  uname -n > $sparrow-root/sparrow-cache/hostname.txt";
-
-
   say $no_color ?? 
   'running sparrow tasks on ' ~ $host ~ ' ... ' !!
   colored( 'running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
 
-  if $docker {
-
-    _scp "$sparrow-root/sparrow-cache/os.txt", "$sparrowdo-cache/", 1; # copy back a target host data back to master host 
-    _scp "$sparrow-root/sparrow-cache/hostname.txt", "$sparrowdo-cache/", 1; # copy back a target host data back to master host 
-    
-  } else {
-    _scp "$sparrow-root/sparrow-cache/*.txt", "$sparrowdo-cache/", 1, 1; # copy back a target host data back to master host 
-  }
-
-  set_target_os slurp "$sparrowdo-cache/os.txt";
-  set_target_hostname slurp "$sparrowdo-cache/hostname.txt";
+  set_target_os "windows";
 
   say $no_color ??
   ('target OS is - '~ target_os ) !!
