@@ -188,7 +188,6 @@ sub local-cmd ( $cmd ) {
   my $ssh_cmd;
 
 
-  $ssh_cmd = ( input_params('NoSudo') ) ?? "sh -c '" !! "sudo sh -c '"; 
   $ssh_cmd ~=  ~ ( join ' ; ', @bash_commands ) ~ "'";
 
   say input_params('NoColor') ??
