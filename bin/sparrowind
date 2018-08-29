@@ -31,7 +31,7 @@ sub MAIN (
   Bool :$no_color = False,
   Bool :$no_index_update = False,
   Str  :$repo,
-  Str  :$cwd = $*CWD, 
+  Str  :$cwd, 
   Str  :$format, 
   Str  :$git,
        :$var
@@ -83,7 +83,7 @@ sub MAIN (
   
   set_input_params %(  
     Sparrowfile => $sparrowfile,
-    Cwd => $cwd, 
+    Cwd => $cwd || $*CWD, 
     HttpProxy => $http_proxy, 
     HttpsProxy => $https_proxy, 
     Verbose => $verbose_val,
