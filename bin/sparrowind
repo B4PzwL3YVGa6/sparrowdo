@@ -41,8 +41,8 @@ sub MAIN (
 
   # read config if exists
 
-  my $sparrowind-cache = %*ENV<USER> ?? 'C:\Users\' ~ %*ENV<USER> ~ '\.sparrowind\cache'  !! 'C:\.sparrowind\cache';
-  my $sparrow-root = %*ENV<USER> ?? 'C:\Users\' ~ %*ENV<USER> ~ '\.sparrowind\sparrow' !! 'C:\.sparrowind\sparrow';
+  my $sparrowind-cache = %*ENV<USER> ?? 'C:/Users/' ~ %*ENV<USER> ~ '/.sparrowind/cache'  !! 'C:/.sparrowind/cache';
+  my $sparrow-root = %*ENV<USER> ?? 'C:/Users/' ~ %*ENV<USER> ~ '/.sparrowind/sparrow' !! 'C:/.sparrowind/sparrow';
 
   mktree $sparrowind-cache;
   empty-directory $sparrowind-cache;
