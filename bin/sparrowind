@@ -41,8 +41,8 @@ sub MAIN (
 
   # read config if exists
 
-  my $sparrowind-cache = %*ENV<USER> ?? 'C:/Users/' ~ %*ENV<USER> ~ '/.sparrowind/cache'  !! 'C:/.sparrowind/cache';
-  my $sparrow-root = %*ENV<USER> ?? 'C:/Users/' ~ %*ENV<USER> ~ '/.sparrowind/sparrow' !! 'C:/.sparrowind/sparrow';
+  my $sparrowind-cache = %*ENV<USER> ?? 'C:\Users\' ~ %*ENV<USER> ~ '\.sparrowind\cache'  !! 'C:\.sparrowind\cache';
+  my $sparrow-root = %*ENV<USER> ?? 'C:\Users\' ~ %*ENV<USER> ~ '\.sparrowind\sparrow' !! 'C:\.sparrowind\sparrow';
 
   mktree $sparrowind-cache;
   empty-directory $sparrowind-cache;
@@ -170,7 +170,7 @@ sub local-cmd ( $cmd ) {
   #my @bash_commands = ( 'export LC_ALL=en_US.UTF-8' );
   my @bash_commands = ( 'set LC_ALL=C' );
   my $sparrowind-cache = input_params('SparrowindCache');
-  my $sparrow-root = input_params('SparrowdoRoot');
+  my $sparrow-root = input_params('SparrowRoot');
 
   @bash_commands.push:  'set http_proxy=' ~ input_params('HttpProxy') if input_params('HttpProxy');
   @bash_commands.push:  'set https_proxy=' ~ input_params('HttpsProxy') if input_params('HttpsProxy');
