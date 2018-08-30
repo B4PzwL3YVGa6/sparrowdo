@@ -11,7 +11,7 @@ Configuration management tool based on [sparrow](https://sparrowhub.org) plugins
 ## Getting started
 If you're just looking to get started with Sparrowdo, check out [Tyil's
 tutorial on
-Sparrowdo](https://www.tyil.nl/tutorials/sparrowdo-getting-started/). This
+Sparrowdo](https://www.tyil.nl/post/2018/05/07/sparrowdo-getting-started/). This
 covers the absolute basics, including getting Perl 6 to run on your machine,
 installing Sparrowdo and getting your first scenario up and running.
 
