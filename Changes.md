@@ -2,6 +2,10 @@ Revision history for Sparrowdo
 
 {{$NEXT}}
 
+    - Windows support
+
+0.0.40  2018-08-14T16:52:16-05:00
+
     - Feature - Sparrowdo variables - https://github.com/melezhik/sparrowdo/pull/31/ , thanks to @spigel
 
     - Bug fix - handle sparrowdo.ini file
