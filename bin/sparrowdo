@@ -246,8 +246,10 @@ sub MAIN (
         spurt "$sparrowdo-cache/plugins/@p[0].args", @p[1].join: "\n";
         _scp  "$sparrowdo-cache/plugins/@p[0].args", "$sparrow_root/sparrow-cache/plugins";
         ssh_shell "sparrow plg run " ~ @p[0] ~ ' --args-file ' ~ "$sparrow_root/sparrow-cache/plugins/" ~ "@p[0].args";
+        say "";
       } else {
         ssh_shell "sparrow plg run " ~ @p[0];
+        say "";
       }
     } 
     # task box mode  
