@@ -4,6 +4,7 @@ Revision history for Sparrowdo
 
     - Windows support
     - Workaround for weird bug when `shell` does not raise exeption in case of unsuccessful exit code from run command - need to fix an issue to the Perl6 team
+    - Fixing bugs in integration tests
 
 0.0.40  2018-08-14T16:52:16-05:00
 
