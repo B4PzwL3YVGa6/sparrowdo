@@ -491,23 +491,23 @@ printf "Bootstrap for %s\n" "$OS"
 case "$OS" in
   alpine)
     apk update --wait 120
-    apk add --wait 120 curl perl git bash build-base gcc perl-dev wget
+    apk add --wait 120 curl perl git bash build-base gcc perl-dev wget perl-net-ssleay
   ;;
   amazon|centos|red)
-    yum -q -y install make curl perl gcc perl-Digest-MD5 perl-Test-Harness perl-Data-Dumper perl-ExtUtils-MakeMaker perl-Hash-Merge
+    yum -q -y install make curl perl gcc perl-Digest-MD5 perl-Test-Harness perl-Data-Dumper perl-ExtUtils-MakeMaker perl-Hash-Merge perl-Net-SSLeay 
   ;;
   arch|archlinux)
     pacman -Syy
-    pacman -S --needed --noconfirm -q curl cpanminus guile perl gcc make perl-clone perl-config-tiny perl-yaml perl-test-yaml perl-test-base perl-spiffy perl-algorithm-diff perl-text-diff perl-json perl-try-tiny perl-capture-tiny perl-file-sharedir perl-file-sharedir-install perl-module-build-tiny perl-extutils-installpaths perl-extutils-config perl-extutils-helpers perl-class-inspector
+    pacman -S --needed --noconfirm -q curl cpanminus guile perl gcc make perl-clone perl-config-tiny perl-yaml perl-test-yaml perl-test-base perl-spiffy perl-algorithm-diff perl-text-diff perl-json perl-try-tiny perl-capture-tiny perl-file-sharedir perl-file-sharedir-install perl-module-build-tiny perl-extutils-installpaths perl-extutils-config perl-extutils-helpers perl-class-inspector perl-net-ssleay
   ;;
   debian|ubuntu)
     DEBIAN_FRONTEND=noninteractive
 
     apt-get update
-    apt-get install -y -qq build-essential curl perl
+    apt-get install -y -qq build-essential curl perl libnet-ssleay-perl libcrypt-ssleay-perl
   ;;
   fedora)
-    dnf -y install curl perl gcc perl-open perl-Test perl-Test-Simple perl-Storable perl-Digest-MD5 perl-Test-Harness perl-Data-Dumper perl-ExtUtils-MakeMaker perl-Hash-Merge
+    dnf -y install curl perl gcc perl-open perl-Test perl-Test-Simple perl-Storable perl-Digest-MD5 perl-Test-Harness perl-Data-Dumper perl-ExtUtils-MakeMaker perl-Hash-Merge perl-Net-SSLeay
   ;;
   funtoo)
     echo
