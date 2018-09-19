@@ -145,8 +145,10 @@ sub MAIN (
       if @p[1] {
         spurt "$sparrowind-cache/plugins/@p[0].args", @p[1].join: "\n";
         local-cmd "sparrow plg run " ~ @p[0] ~ ' --args-file ' ~ "$sparrowind-cache/plugins/" ~ "@p[0].args";
+        Nil;
       } else {
         local-cmd "sparrow plg run " ~ @p[0];
+        Nil;
       }
     } 
     # task box mode  

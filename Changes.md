@@ -2,8 +2,9 @@ Revision history for Sparrowdo
 
 {{$NEXT}}
 
+    - Add cwd to `bash` command
     - Windows support
-    - Workaround for weird bug when `shell` does not raise exeption in case of unsuccessful exit code from run command - need to fix an issue to the Perl6 team
+    - Workaround for weird bug when `shell` does not raise exeption in case of unsuccessful exit code from run command - https://github.com/rakudo/rakudo/issues/2292#issuecomment-422848157
     - Fixing bugs in integration tests
 
 0.0.40  2018-08-14T16:52:16-05:00
