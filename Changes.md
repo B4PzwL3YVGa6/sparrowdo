@@ -2,9 +2,16 @@ Revision history for Sparrowdo
 
 {{$NEXT}}
 
+<<<<<<< HEAD
 0.0.41  2018-10-18T20:55:45Z
 
     - Windows support
+=======
+    - Add cwd to `bash` command
+    - Windows support
+    - Workaround for weird bug when `shell` does not raise exeption in case of unsuccessful exit code from run command - https://github.com/rakudo/rakudo/issues/2292#issuecomment-422848157
+    - Fixing bugs in integration tests
+>>>>>>> 1115dcc22bd9bb87a3bcf4fc61a0c2ce6dc307bb
 
 0.0.40  2018-08-14T16:52:16-05:00
 

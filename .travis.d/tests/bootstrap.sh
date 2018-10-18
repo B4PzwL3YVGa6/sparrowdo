@@ -20,9 +20,8 @@ main()
 	sparrowdo --docker="$target" --no_sudo --bootstrap --module_run=Sparrow::Update --format=production && \
 	sparrowdo --docker="$target" --no_sudo --task_run=bash@command=uname && \
   sparrowdo --docker="$target" --no_sudo --task_run=user@name=foo \
-  --task_run=bash@command='id && cd ~/ && pwd && uptime && ls -l && ps a|grep bash|grep -v grep',user=foo \
-  --task_run=df-check@therhold=54 \
-  --format=production
+  --task_run=bash@command='id && cd ~/ && pwd && echo HelloSparrow | grep Sparrow && perl -e "print qq{Hello123}"',user=foo \
+  --task_run=df-check@therhold=54
 
 }
 

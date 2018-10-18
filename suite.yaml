@@ -18,7 +18,6 @@ case:
     - git
     - hostname
     - systemd
-    - runtime-variables
   travis: 
     - cpan
     - directory
@@ -36,7 +35,6 @@ case:
     - asserts
     - git
     - hostname
-    - runtime-variables
   minoca:
     - hostname
     - cpan
@@ -51,7 +49,6 @@ case:
     - copy-local-file
     - asserts
     - git
-    - runtime-variables
 
 sparrowdo:
   options: 
