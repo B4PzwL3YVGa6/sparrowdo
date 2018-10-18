@@ -96,7 +96,6 @@ sub MAIN (
     PurgeCache => $purge_cache,
     NoColor => $no_color,
     NoIndexUpdate => $no_index_update_val,
-    SparrowRoot => $sparrow-root,
     Repo => $repo_val,
     SparrowhubApi => $conf-ini<sparrowdo><sparrowhub_api>,
     SparrowdoCache => $sparrowdo-cache,
@@ -143,18 +142,16 @@ sub MAIN (
     }
 
     spurt "$sparrowdo-cache/sparrow.list", get_spl().join: "\n";
-    _scp "$sparrowdo-cache/sparrow.list", "$sparrow-root/sparrow-cache/";
-    ssh_shell "mkdir -p $sparrow-root && mv $sparrow-root/sparrow-cache/sparrow.list $sparrow-root";
     say input_params('NoColor') ??
-    "copied SPL file as $sparrow-root/sparrow.list - OK" !!
-    colored("copied SPL file as $sparrow-root/sparrow.list - OK", 'bold green on_black');
+
+    "copied SPL file as $sparrowdo-cache/sparrow.list - OK" !!
+    colored("copied SPL file as $sparrowdo-cache/sparrow.list - OK", 'bold green on_black');
 
   } else {
 
-    ssh_shell "mkdir -p $sparrow-root && touch $sparrow-root/sparrow.list";
     say input_params('NoColor') ??
-    "SPL file $sparrow-root/sparrow.list is empty" !!
-    colored("SPL file $sparrow-root/sparrow.list is empty", 'bold green on_black');
+    "SPL file $sparrowdo-cache/sparrow.list does not exist" !!
+    colored("SPL file $sparrowdo-cache/sparrow.list does not exist", 'bold green on_black');
 
   }
 

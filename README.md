@@ -551,6 +551,8 @@ The list of OS names is provided by `target_os()` function:
     fedora
     amazon
     funtoo
+    windows
+    darwin
     
 * `target_hostname()`
 

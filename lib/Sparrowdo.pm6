@@ -1,6 +1,6 @@
 use v6;
 
-unit module Sparrowdo:ver<0.0.40>;
+unit module Sparrowdo:ver<0.0.41>;
 
 use Terminal::ANSIColor;
 use Data::Dump;
