@@ -24,6 +24,7 @@ install:
   - export PATH=$PATH:$HOME/.perl6/bin:/opt/rakudo-pkg/bin
   - zef install .
   - zef install Sparrowdo::Sparrow::Update
+  - zef install Sparrowdo::Cpanm::GitHub
 
 script:
   - sh ./.travis.d/run.sh "$TEST"
