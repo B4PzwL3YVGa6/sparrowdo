@@ -51,7 +51,8 @@ sub MAIN (
 
 {
 
-  # read config if exists
+
+  say "user: {%*ENV<USER>}";
 
   my $sparrowdo-cache;
   if $*VM.osname eq "darwin" {
@@ -73,6 +74,8 @@ sub MAIN (
     }        
     chdir "$sparrowdo-cache/sparrlet";
   }
+
+  # read config if exists
 
   my $conf-ini-file = %*ENV<USER> ?? '/home/' ~ %*ENV<USER> ~ '/sparrowdo.ini' !! ( $sparrow_root ~ '/sparrowdo.ini' );
 
