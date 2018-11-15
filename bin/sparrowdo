@@ -77,7 +77,7 @@ sub MAIN (
 
   # read config if exists
 
-  my $conf-ini-file = %*ENV<USER> ?? ( %*ENV<USER> == 'root' ?? '/root/sparrowdo.ini'  !! '/home/' ~ %*ENV<USER> ~ '/sparrowdo.ini' ) !! ( $sparrow_root ~ '/sparrowdo.ini' );
+  my $conf-ini-file = %*ENV<USER> ?? ( %*ENV<USER> eq 'root' ?? '/root/sparrowdo.ini'  !! '/home/' ~ %*ENV<USER> ~ '/sparrowdo.ini' ) !! ( $sparrow_root ~ '/sparrowdo.ini' );
 
   my $conf-ini = Hash.new;
 
