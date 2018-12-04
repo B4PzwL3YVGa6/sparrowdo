@@ -1,3 +1,5 @@
+#!perl6
+
 use Terminal::ANSIColor;
 use JSON::Tiny;
 use Sparrowdo;
@@ -35,7 +37,7 @@ sub MAIN (
   Bool :$no_sudo = False,
   Bool :$purge_cache = True,
   Bool :$no_color = False,
-  Bool :$no_index_update = False,
+  Bool :$no_index_update,
   Str  :$sparrow_root = '/opt/sparrow', 
   Str  :$repo,
   Bool :$local_mode = False,
@@ -91,10 +93,18 @@ sub MAIN (
   $verbose_val = True if $conf-ini<sparrowdo><verbose> && ! $verbose_val;
 
   my $format_val = $conf-ini<sparrowdo><format> ?? $conf-ini<sparrowdo><format> !! %*ENV<OUTTHENTIC_FORMAT> || 'default';
-    
-  my $no_index_update_val = $no_index_update;
+  
+  my $no_index_update_val;  
 
-  $no_index_update_val = True if $conf-ini<sparrowdo><no_index_update> && ! $no_index_update_val;
+  if defined($no_index_update) {
+    $no_index_update_val = $no_index_update;
+  } elsif (defined $conf-ini<sparrowdo><no_index_update> ) {
+    $no_index_update_val = True if $conf-ini<sparrowdo><no_index_update> eq "1";
+  } else {
+    $no_index_update_val = False
+  }
+
+  say "index update: {! $no_index_update_val }";
 
   my $repo_val = $repo;
 
