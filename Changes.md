@@ -2,6 +2,8 @@ Revision history for Sparrowdo
 
 {{$NEXT}}
 
+0.0.43  2018-12-04T21:56:24Z
+
     - Fix: `no index update` handling subtle bugs
     - Fix: resolve path to sparrowdo.ini configuration file for root user
 
