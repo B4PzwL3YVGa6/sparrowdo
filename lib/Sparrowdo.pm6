@@ -16,20 +16,22 @@ sub push_task (%data){
 
   @tasks.push: %data;
 
-  say input_params('NoColor') ??
-  ( 'push [task] ' ~ %data<task> ~  ' OK' ) !!
-  colored('push [task] ' ~ %data<task> ~  ' OK', 'bold green on_black');
-
+  unless input_params('QuietMode') {
+    say input_params('NoColor') ??
+    ( 'push [task] ' ~ %data<task> ~  ' OK' ) !!
+    colored('push [task] ' ~ %data<task> ~  ' OK', 'bold green on_black');
+  }
 }
 
 sub push_spl ($item){
 
   @spl.push: $item;
 
-  say input_params('NoColor') ??
-  ( 'push ' ~ $item ~ ' into SPL - OK' ) !!  
-  colored('push ' ~ $item ~ ' into SPL - OK', 'bold yellow on_cyan');
-
+  unless input_params('QuietMode') {
+    say input_params('NoColor') ??
+    ( 'push ' ~ $item ~ ' into SPL - OK' ) !!  
+    colored('push ' ~ $item ~ ' into SPL - OK', 'bold yellow on_cyan');
+  }
 }
 
 sub get_tasks () is export {
@@ -135,23 +137,29 @@ multi sub plg-run(@plg-list) is export {
       my $name = $0; my $params = $1;
       my @args = split(/\,/,$params);
       @plugins.push: [ $name,  @args ];
-      say input_params('NoColor') ??
-      ( 'push [plugin] ' ~ $name ~  ~ ' ' ~ @args ~ ' OK' ) !! 
-      colored('push [plugin] ' ~ $name ~  ~ ' ' ~ @args ~ ' OK', 'bold green on_black');
+      unless input_params('QuietMode') {
+        say input_params('NoColor') ??
+        ( 'push [plugin] ' ~ $name ~  ~ ' ' ~ @args ~ ' OK' ) !! 
+        colored('push [plugin] ' ~ $name ~  ~ ' ' ~ @args ~ ' OK', 'bold green on_black');
+      }
     } else {
       @plugins.push: [ $p ];
-      say input_params('NoColor') ??
-      ( 'push [plugin] ' ~ $p ~  ' OK' ) !! 
-      colored('push [plugin] ' ~ $p ~  ' OK', 'bold green on_black');
+      unless input_params('QuietMode') {
+        say input_params('NoColor') ??
+        ( 'push [plugin] ' ~ $p ~  ' OK' ) !! 
+        colored('push [plugin] ' ~ $p ~  ' OK', 'bold green on_black');
+      }
     }
   }
 }
 
 sub module_run($name, %args = %()) is export {
 
-  say input_params('NoColor') ??
-  ( 'enter module <' ~ $name ~ '> ... ' ) !!
-  colored('enter module <' ~ $name ~ '> ... ', 'bold cyan on_black');
+      unless input_params('QuietMode') {
+        say input_params('NoColor') ??
+        ( 'enter module <' ~ $name ~ '> ... ' ) !!
+        colored('enter module <' ~ $name ~ '> ... ', 'bold cyan on_black');
+      }
 
   if ( $name ~~ /(\S+)\@(.*)/ ) {
       my $mod-name = $0; my $params = $1;

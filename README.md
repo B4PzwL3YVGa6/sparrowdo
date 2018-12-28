@@ -377,9 +377,13 @@ For example:
     --task_run=bash@command='id &&  pwd && uptime && ls -l && ps uax|grep nginx|grep -v grep',user=foo \
     --task_run=df-check@threshold=54
 
+## -q
+
+Sets mode with minimal output ( omitting Sparrowdo internal messages )
+
 ## --verbose
 
-Sets a verbose mode ( low level information will be printed at console ).
+Sets verbose mode ( low level information will be printed at console ).
 
 ## --repo
 

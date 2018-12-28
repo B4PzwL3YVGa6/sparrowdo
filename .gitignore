@@ -3,3 +3,4 @@ lib/.precomp/
 *.tar.gz
 Sparrowdo-*
 /.vs
+.cache
