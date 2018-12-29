@@ -195,3 +195,19 @@ multi sub runtime-vars-set ( @vars ) is export {
     }
   }
 }
+
+
+multi sub term-out ($line) is export {
+  term-out($line,True)
+}
+
+multi sub term-out ($line,$no-color-mod,%args?) is export {
+    if $no-color-mod {
+      say $line;
+    } else {
+      say colored($line, %args<colors>);
+    }
+}
+
+
+

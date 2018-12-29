@@ -1,6 +1,5 @@
 #!perl6
 
-use Terminal::ANSIColor;
 use JSON::Tiny;
 use Sparrowdo;
 use Sparrowdo::Core::DSL::User;
@@ -55,7 +54,7 @@ sub MAIN (
 {
 
 
-  say "user: {%*ENV<USER>}" unless $q;
+  term-out("user: {%*ENV<USER>}") unless $q;
 
   my $sparrowdo-cache;
   if $*VM.osname eq "darwin" {
@@ -86,7 +85,7 @@ sub MAIN (
 
   if $conf-ini-file.IO ~~ :e {
     $conf-ini = Config::Simple.read($conf-ini-file,:f("ini"));
-    say "found ini file: $conf-ini-file" unless $q;
+    term-out("found ini file: $conf-ini-file") unless $q;
   }
   
   my $verbose_val = $verbose;
@@ -105,7 +104,7 @@ sub MAIN (
     $no_index_update_val = False
   }
 
-  say "index update: {! $no_index_update_val }" unless $q;
+  term-out("index update: {! $no_index_update_val }") unless $q;
 
   my $repo_val = $repo;
 
@@ -144,15 +143,23 @@ sub MAIN (
   );
 
   if $vagrant and $vagrant_id {
-    say $no_color ??
-    "exporting ssh configuration from vagrant machine (id $vagrant_id) " !!
-    colored( "exporting ssh configuration from vagrant machine (id $vagrant_id)", 'bold black on_yellow');
+
+    term-out(
+      "exporting ssh configuration from vagrant machine (id $vagrant_id)", 
+      $no_color, 
+      %( colors => 'bold black on_yellow' )
+    ) unless $q;
+
     shell "vagrant ssh-config $vagrant_id --host vagrant > $sparrowdo-cache/vagrant/.vagrant_ssh_config";
 
   } elsif $vagrant and ! $vagrant_id {
-    say $no_color ??
-    'exporting vagrant ssh configuration from current directory' !!
-    colored( 'exporting vagrant ssh configuration from current directory', 'bold black on_yellow');
+
+    term-out(
+      "exporting vagrant ssh configuration from current directory",
+      $no_color,
+      %( colors => 'bold black on_yellow' )
+    ) unless $q;
+
     shell "vagrant ssh-config --host vagrant > $sparrowdo-cache/vagrant/.vagrant_ssh_config";
   }
 
@@ -164,7 +171,7 @@ sub MAIN (
     if ! $spf.IO.e and ! $module_run and ! $task_run { 
       # don't try to run sparrowfile if in bootstrap mode
       # and if sparrowfile does not exist
-      say "Congratulations!\nYour system is ready to be configured automatically using Sparrowdo!";
+      term-out("Congratulations!\nYour system is ready to be configured automatically using Sparrowdo!");
       exit 0;
     }
   }
@@ -178,9 +185,7 @@ sub MAIN (
   uname -n > $sparrow_root/sparrow-cache/hostname.txt";
 
   unless $q {
-    say $no_color ?? 
-    'running sparrow tasks on ' ~ $host ~ ' ... ' !!
-    colored( 'running sparrow tasks on ' ~ $host ~ ' ... ', 'bold black on_yellow');
+    term-out('running sparrow tasks on ' ~ $host ~ ' ... ', $no_color, %( colors => 'bold black on_yellow'));
   }
 
   if $docker {
@@ -196,16 +201,12 @@ sub MAIN (
   set_target_hostname slurp "$sparrowdo-cache/hostname.txt";
 
   unless $q {
-    say $no_color ??
-    ('target OS is - '~ target_os ) !!
-    colored('target OS is - '~ target_os, 'black on_white');
+    term-out('target OS is - '~ target_os, $no_color, %( colors => 'black on_white'));
   }
 
   if 'config.pl6'.IO.e {
     unless $q {
-      say $no_color ??
-      'load variables from config.pl6 ...' !!
-      colored('load variables from config.pl6 ...', 'blue on_green');
+      term-out('load variables from config.pl6 ...', $no_color, %( colors => 'blue on_green' ));
     }
     config_set(EVALFILE 'config.pl6'); 
   }
@@ -228,9 +229,7 @@ sub MAIN (
   if get_spl() {
 
     if input_params('Verbose') {
-      say input_params('NoColor') ?? 
-      'populating SPL file' !!
-      colored( 'populating SPL file', 'bold yellow on_cyan' );
+      term-out('populating SPL file', input_params('NoColor'), %( colors => 'bold yellow on_cyan' ));
     }
 
     spurt "$sparrowdo-cache/sparrow.list", get_spl().join: "\n";
@@ -238,18 +237,14 @@ sub MAIN (
     ssh_shell "mkdir -p $sparrow_root && mv $sparrow_root/sparrow-cache/sparrow.list $sparrow_root";
 
     unless $q {
-      say input_params('NoColor') ??
-      "copied SPL file as $sparrow_root/sparrow.list - OK" !!
-      colored("copied SPL file as $sparrow_root/sparrow.list - OK", 'bold green on_black');
+      term-out("copied SPL file as $sparrow_root/sparrow.list - OK", input_params('NoColor'), %( colors => 'bold green on_black' ));
     }
 
   } else {
 
     ssh_shell "mkdir -p $sparrow_root && touch $sparrow_root/sparrow.list";
     unless $q {
-      say input_params('NoColor') ??
-      "SPL file $sparrow_root/sparrow.list is empty" !!
-      colored("SPL file $sparrow_root/sparrow.list is empty", 'bold green on_black');
+      term-out('SPL file $sparrow_root/sparrow.list is empty', input_params('NoColor'), %( colors => 'bold green on_black' ));
     }
 
   }
@@ -257,9 +252,7 @@ sub MAIN (
   if $repo_val {
     ssh_shell "echo repo: $repo_val > $sparrow_root/sparrow-cache/sparrow.yaml";
     unless $q {
-      say input_params('NoColor') ??
-      "set custom repo to $repo_val - OK" !!
-      colored("set custom repo to $repo_val - OK", 'bold green on_black');
+      term-out('set custom repo to $repo_val - OK', input_params('NoColor'), %( colors => 'bold green on_black' ));
     }
   }
 
@@ -285,9 +278,11 @@ sub MAIN (
     _scp "$sparrowdo-cache/task-box.json", "$sparrow_root/sparrow-cache";
 
     unless $q {
-      say input_params('NoColor') ??
-      "set up task box file - $sparrowdo-cache/task-box.json - OK" !!
-      colored("set up task box file - $sparrowdo-cache/task-box.json - OK", 'bold green on_black');
+      term-out(
+        "set up task box file - $sparrowdo-cache/task-box.json - OK", 
+        input_params('NoColor'), 
+        %( colors => 'bold green on_black' )
+      );
     }
 
     if input_params('PurgeCache') {
@@ -375,9 +370,7 @@ sub ssh_shell ( $cmd ) {
   
   }
 
-  say input_params('NoColor') ??
-  $ssh_cmd !!
-  colored($ssh_cmd, 'bold green') if input_params('Verbose');
+  term-out( $ssh_cmd, input_params('NoColor'), %( colors => 'bold green') ) if input_params('Verbose');
 
   shell $ssh_cmd;
 
@@ -385,9 +378,8 @@ sub ssh_shell ( $cmd ) {
 
 our sub _copy-local-file ( $file, $dest ) {
 
-  say input_params('NoColor') ??
-  "copy local file $file to remote $dest" !!
-  colored("copy local file $file to remote $dest", 'bold yellow');
+  term-out("copy local file $file to remote $dest", input_params('NoColor'), %( colors => 'bold yellow' ));
+
   _scp($file,$dest,0,1);
 
 }
@@ -459,9 +451,7 @@ our sub _scp ( $file, $dest, $reverse = 0, $recursive = 0 ) {
     }
   } 
 
-  say ( input_params('NoColor') ??
-  $scp_command !!
-  colored($scp_command, 'bold green') ) if input_params('Verbose');
+  term-out($scp_command, input_params('NoColor'), %( color => 'bold green' )) if input_params('Verbose');
 
   shell $scp_command;
 
@@ -470,9 +460,7 @@ our sub _scp ( $file, $dest, $reverse = 0, $recursive = 0 ) {
 sub bootstrap ( $sparrow_root, $sparrowdo-cache ) {
 
   my $host = input_params('Host');
-  say input_params('NoColor') ?? 
-  'running sparrow bootstrap for host: ' ~ $host ~ ' ... ' !!
-  colored( 'running sparrow bootstrap for host: ' ~ $host ~ ' ... ', 'bold black on_yellow');
+  term-out('running sparrow bootstrap for host: ' ~ $host ~ ' ... ', input_params('NoColor'), %( colors => 'bold black on_yellow' ));
 
   my $bootstrap = q:to/HERE/;
 #! /usr/bin/env sh
