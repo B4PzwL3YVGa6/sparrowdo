@@ -2,7 +2,8 @@ Revision history for Sparrowdo
 
 {{$NEXT}}
 
-    - Introducing -q option for `sparrowdo` cli
+    - Introducing `-q` option for `sparrowdo` cli
+    - Refactoring - replace `say` by dedicated `term-out` function
 
 0.0.43  2018-12-04T21:56:24Z
 
