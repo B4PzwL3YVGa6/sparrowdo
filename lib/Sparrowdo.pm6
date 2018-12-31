@@ -17,9 +17,7 @@ sub push_task (%data){
   @tasks.push: %data;
 
   unless input_params('QuietMode') {
-    say input_params('NoColor') ??
-    ( 'push [task] ' ~ %data<task> ~  ' OK' ) !!
-    colored('push [task] ' ~ %data<task> ~  ' OK', 'bold green on_black');
+    term-out('push [task] ' ~ %data<task> ~  ' OK', input_params('NoColor'), %( colors => 'bold green on_black' ));
   }
 }
 
@@ -28,14 +26,12 @@ sub push_spl ($item){
   @spl.push: $item;
 
   unless input_params('QuietMode') {
-    say input_params('NoColor') ??
-    ( 'push ' ~ $item ~ ' into SPL - OK' ) !!  
-    colored('push ' ~ $item ~ ' into SPL - OK', 'bold yellow on_cyan');
+    term-out('push ' ~ $item ~ ' into SPL - OK', input_params('NoColor'), %( colors => 'bold yellow on_cyan' ));
   }
 }
 
 sub get_tasks () is export {
-    say Dump(@tasks) if %*ENV<SPARROWDO-DEBUG>;
+    term-out(Dump(@tasks)) if %*ENV<SPARROWDO-DEBUG>;
     @tasks;
 }
 
@@ -138,16 +134,12 @@ multi sub plg-run(@plg-list) is export {
       my @args = split(/\,/,$params);
       @plugins.push: [ $name,  @args ];
       unless input_params('QuietMode') {
-        say input_params('NoColor') ??
-        ( 'push [plugin] ' ~ $name ~  ~ ' ' ~ @args ~ ' OK' ) !! 
-        colored('push [plugin] ' ~ $name ~  ~ ' ' ~ @args ~ ' OK', 'bold green on_black');
+        term-out('push [plugin] ' ~ $name ~  ~ ' ' ~ @args ~ ' OK', input_params('NoColor'), %( colors => 'bold green on_black' ));
       }
     } else {
       @plugins.push: [ $p ];
       unless input_params('QuietMode') {
-        say input_params('NoColor') ??
-        ( 'push [plugin] ' ~ $p ~  ' OK' ) !! 
-        colored('push [plugin] ' ~ $p ~  ' OK', 'bold green on_black');
+        term-out('push [plugin] ' ~ $p ~  ' OK', input_params('NoColor'), %( colors => 'bold green on_black' ));
       }
     }
   }
@@ -156,9 +148,7 @@ multi sub plg-run(@plg-list) is export {
 sub module_run($name, %args = %()) is export {
 
       unless input_params('QuietMode') {
-        say input_params('NoColor') ??
-        ( 'enter module <' ~ $name ~ '> ... ' ) !!
-        colored('enter module <' ~ $name ~ '> ... ', 'bold cyan on_black');
+        term-out('enter module <' ~ $name ~ '> ... ', input_params('NoColor'), %( colors => 'bold cyan on_black' ));
       }
 
   if ( $name ~~ /(\S+)\@(.*)/ ) {
