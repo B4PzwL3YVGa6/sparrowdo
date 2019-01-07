@@ -71,6 +71,9 @@ sub MAIN (
 
   my $path-to-config = $conf ?? "$conf".IO.absolute !! "config.pl6".IO.absolute;
 
+  if $conf && ! ( "$path-to-config".IO ~~ :e ) {
+    die "configuration file $path-to-config does not exist";
+  }
 
   if ($git) {
     mkdir "$sparrowdo-cache/sparrlet";
@@ -453,7 +456,7 @@ our sub _scp ( $file, $dest, $reverse = 0, $recursive = 0 ) {
     }
   } 
 
-  term-out($scp_command, input_params('NoColor'), %( color => 'bold green' )) if input_params('Verbose');
+  term-out($scp_command, input_params('NoColor'), %( colors => 'bold green' )) if input_params('Verbose');
 
   shell $scp_command;
 
