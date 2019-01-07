@@ -2,6 +2,8 @@ Revision history for Sparrowdo
 
 {{$NEXT}}
 
+0.0.45  2019-01-07T13:19:02-06:00
+
     - sparrowdo cli - `--conf` option to pass a path to Sparrowdo configuration file
     - fix for `--color` in term-out sub
 
