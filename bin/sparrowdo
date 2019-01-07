@@ -48,6 +48,7 @@ sub MAIN (
   Str  :$cwd, 
   Str  :$format, 
   Str  :$git,
+  Str  :$conf,
        :$var
 )
 
@@ -68,12 +69,12 @@ sub MAIN (
   mkdir "$sparrowdo-cache/plugins";
   mkdir "$sparrowdo-cache/vagrant";
 
+  my $path-to-config = $conf ?? "$conf".IO.absolute !! "config.pl6".IO.absolute;
+
+
   if ($git) {
     mkdir "$sparrowdo-cache/sparrlet";
     shell "cd $sparrowdo-cache/sparrlet && git clone $git .";
-    if "config.pl6".IO ~~ :e {
-      copy "config.pl6".IO, "$sparrowdo-cache/sparrlet/config.pl6";
-    }        
     chdir "$sparrowdo-cache/sparrlet";
   }
 
@@ -118,8 +119,9 @@ sub MAIN (
   set_input_params %(  
     Host => $host, 
     Sparrowfile => $sparrowfile,
-    Docker    => $docker,
-    Vagrant   => $vagrant,
+    Config      => $path-to-config,
+    Docker      => $docker,
+    Vagrant     => $vagrant,
     VagrantId   => $vagrant,
     LocalMode => $local_mode,
     Cwd => $real_cwd, 
@@ -204,11 +206,11 @@ sub MAIN (
     term-out('target OS is - '~ target_os, $no_color, %( colors => 'black on_white'));
   }
 
-  if 'config.pl6'.IO.e {
+  if "$path-to-config".IO.e {
     unless $q {
-      term-out('load variables from config.pl6 ...', $no_color, %( colors => 'blue on_green' ));
+      term-out("load variables from $path-to-config ...", $no_color, %( colors => 'blue on_green' ));
     }
-    config_set(EVALFILE 'config.pl6'); 
+    config_set(EVALFILE $path-to-config); 
   }
 
   if $var {

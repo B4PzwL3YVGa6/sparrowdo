@@ -312,6 +312,14 @@ quite time consuming.
 
 Optional parameter.
 
+## --conf
+
+Path to Sparrowdo configuration file. If not set `config.pl6` in the current working directory
+is considered as a configuration file. 
+
+Optional parameter.
+
+
 ## --no\_color
 
 If set to true - disable color output of sparrowdo client.
@@ -578,6 +586,7 @@ For example:
 
 This is the list of arguments valid for the input\_params function:
 
+    Config
     Host 
     HttpProxy 
     HttpsProxy
