@@ -279,6 +279,9 @@ sub MAIN (
     } 
     # task box mode  
   } else {
+
+    term-out( "task data: {get_tasks.perl}", input_params('NoColor'), %( colors => 'bold green') ) if input_params('Verbose');
+
     spurt "$sparrowdo-cache/task-box.json", (to-json get_tasks());
     _scp "$sparrowdo-cache/task-box.json", "$sparrow_root/sparrow-cache";
 
