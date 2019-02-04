@@ -1,30 +1,21 @@
-language: "perl"
-
-services:
-  - docker
+language: perl
 
 env:
-  - TEST=prove
-  - TEST=api
-  - TEST=bootstrap:alpine
-  #- TEST=bootstrap:amazon
-  - TEST=bootstrap:archlinux
-  #- TEST=bootstrap:centos
-  - TEST=bootstrap:debian
-  - TEST=bootstrap:fedora
-  #- TEST=bootstrap:funtoo
-  - TEST=bootstrap:ubuntu
-    
+  global:
+    - PATH=/usr/local/bin:/opt/rakudo-pkg/bin/:/home/travis/.perl6/bin:$PATH
+    - SP6_REPO=https://sparrowhub.org
+
+before_install:
+  - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 379CE192D401AB61
+  - echo "deb https://dl.bintray.com/nxadm/rakudo-pkg-debs `lsb_release -cs` main" | sudo tee -a /etc/apt/sources.list.d/rakudo-pkg.list 
+  - sudo apt-get update && sudo apt-get install rakudo-pkg
+  - cpanm --test -q Carton
+
 install:
-  - cpanm https://github.com/melezhik/outthentic.git
-  - cpanm https://github.com/melezhik/sparrow.git
-  - sparrow index update
-  - sparrow plg install rakudo-install
-  - sparrow plg run rakudo-install --param user_install=on --param sudo=on
-  - export PATH=$PATH:$HOME/.perl6/bin:/opt/rakudo-pkg/bin
-  - zef install .
-  - zef install Sparrowdo::Sparrow::Update
-  - zef install Sparrowdo::Cpanm::GitHub
+  - cpanm --notest -q JSON Template
+  - zef install --/test .
+  - docker pull jjmerelo/alpine-perl6
 
 script:
-  - sh ./.travis.d/run.sh "$TEST"
+  - docker run -v `pwd`:/app -it  jjmerelo/alpine-perl6 /app/test.sh
+

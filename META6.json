@@ -14,6 +14,7 @@
   "provides" : {
     "Sparrowdo" : "lib/Sparrowdo.pm6",
     "Sparrowdo::Ssh" : "lib/Sparrowdo/Ssh.pm6",
+    "Sparrowdo::Docker" : "lib/Sparrowdo/Docker.pm6",
     "Sparrowdo::Utils" : "lib/Sparrowdo/Utils.pm6"
   },
   "resources" : [ ],
