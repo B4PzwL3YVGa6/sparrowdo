@@ -21,6 +21,7 @@ sub MAIN (
   Str  :$ssh_user, 
   Str  :$ssh_private_key, 
   Int  :$ssh_port = 22, 
+  Bool :$verbose = False,
   Bool :$bootstrap = False, 
   Str  :$module_run,
        :$task_run, 
@@ -41,45 +42,15 @@ sub MAIN (
 {
 
   
-  prepare-ssh-host($host);
-  create-tasks-archive();
-  copy-tasks-ssh-host($host);
+  prepare-ssh-host($host,%( verbose => $verbose ));
 
-    my @unpack-tasks-cmd = (
-      "ssh",
-      "-q",
-      "-o",
-      "ConnectionAttempts=1",
-      "-o",
-      "ConnectTimeout=5",
-      "-o",
-      "UserKnownHostsFile=/dev/null",
-      "-o",
-      "StrictHostKeyChecking=no",
-      "-tt",
-      "$host",
-      "tar -xf ~/.sparrowdo/tasks.tar -C ~/.sparrowdo/"
-    );
+  create-tasks-archive(%( verbose => $verbose ));
 
-    run @unpack-tasks-cmd;
+  copy-tasks-ssh-host($host,%( verbose => $verbose ));
 
-    my @ssh-cmd = (
-      "ssh",
-      "-q",
-      "-o",
-      "ConnectionAttempts=1",
-      "-o",
-      "ConnectTimeout=5",
-      "-o",
-      "UserKnownHostsFile=/dev/null",
-      "-o",
-      "StrictHostKeyChecking=no",
-      "-tt",
-      "$host",
-      "cd  ~/.sparrowdo/ && perl6 -MSparrow6::DSL sparrowfile"
-    );
+  unpack-tasks-ssh-host($host,%( verbose => $verbose ));
 
-    run @ssh-cmd;
-    
+  run-tasks-ssh-host($host,%( verbose => $verbose ));
+
 }
 
