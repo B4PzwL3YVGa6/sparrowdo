@@ -1,6 +1,2 @@
-use v6;
-
-use Sparrowdo;
-
 bash 'pwd';
 
