@@ -25,6 +25,7 @@ sub MAIN (
   Str  :$ssh_private_key, 
   Int  :$ssh_port = 22, 
   Bool :$verbose = False,
+  Bool :$debug   = False,
   Bool :$bootstrap = False, 
   Str  :$module_run,
        :$task_run, 
@@ -57,7 +58,7 @@ sub MAIN (
 
     unpack-tasks-docker-host($docker,%( verbose => $verbose ));
 
-    run-tasks-docker-host($docker,%( verbose => $verbose ));
+    run-tasks-docker-host($docker,%( verbose => $verbose, debug => $debug ));
 
   } else {  
 

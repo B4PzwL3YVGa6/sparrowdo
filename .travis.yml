@@ -13,7 +13,8 @@ before_install:
 install:
   - zef install --/test .
   - docker pull jjmerelo/alpine-perl6
+  - docker run alpine -name -td --entrypoint sh  jjmerelo/alpine-perl6
 
 script:
-  - docker run -v `pwd`:/app -it  jjmerelo/alpine-perl6 /app/test.sh
+  - sparrowdo --docker=alpine --verbose --bootstrap
 

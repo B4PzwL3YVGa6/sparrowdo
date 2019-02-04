@@ -61,7 +61,10 @@ sub run-tasks-docker-host ($host,%args?) is export {
 
   say "[docker] run tasks" if %args<verbose>;
 
-  my $cmd = "docker exec -e SP6_DEBUG=1 -i $host sh -c 'cd  /var/.sparrowdo/ && perl6 -MSparrow6::Repository -e \"Sparrow6::Repository::Api.new.index-update\" && perl6 -MSparrow6::DSL sparrowfile'";
+  my $cmd = "docker exec -e SP6_REPO=http://sparrow6.southcentralus.cloudapp.azure.com";
+  $cmd ~= " -e SP6_DEBUG=1" if %args<debug>;
+  $cmd ~= " -i $host sh -c 'cd  /var/.sparrowdo/ && perl6 -MSparrow6::Repository";
+  $cmd ~= " -e \"Sparrow6::Repository::Api.new.index-update\" && perl6 -MSparrow6::DSL sparrowfile'";
 
   shell $cmd;
 
@@ -80,6 +83,16 @@ sub bootstrap-docker-host ($host, %args?) is export {
     "install",
     "--/test",
     "https://github.com/melezhik/Sparrow6.git"
+  );
+
+  run @cmd;
+
+  @cmd = (
+    "apk",
+    "add",
+    "perl-json",
+    "bash",
+    "curl"
   );
 
   run @cmd;
