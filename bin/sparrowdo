@@ -48,9 +48,9 @@ sub MAIN (
 
   if ($docker) {
 
-    bootstrap-docker-host($docker,%( verbose => $verbose )) if $bootstrap;
-
     prepare-docker-host($docker,%( verbose => $verbose ));
+
+    bootstrap-docker-host($docker,%( verbose => $verbose )) if $bootstrap;
 
     create-tasks-archive(%( verbose => $verbose ));
 
@@ -62,9 +62,9 @@ sub MAIN (
 
   } else {  
 
-    prepare-ssh-host($host,%( verbose => $verbose ));
-
     create-tasks-archive(%( verbose => $verbose ));
+
+    prepare-ssh-host($host,%( verbose => $verbose ));
 
     copy-tasks-ssh-host($host,%( verbose => $verbose ));
 

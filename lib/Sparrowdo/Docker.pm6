@@ -2,6 +2,8 @@ use v6;
 
 unit module Sparrowdo::Docker;
 
+use Sparrowdo::Bootstrap;
+
 sub prepare-docker-host ($host,%args?) is export {
 
   say "[docker] prepare instance: $host" if %args<verbose>;
@@ -17,6 +19,23 @@ sub prepare-docker-host ($host,%args?) is export {
   );
 
   run @prepare-cmd;
+
+  say "[docker] generated bootstrap script: /tmp/bootstrap.sh" if %args<verbose>;
+
+  my $fh = open "/tmp/bootstrap.sh", :w;
+  $fh.say(bootstrap-script());
+  $fh.close;
+
+  say "[docker] copy bootstrap script" if %args<verbose>;
+
+  my @cp-cmd = (
+    "docker",
+    "cp",
+    "/tmp/bootstrap.sh",
+    "$host:/var/.sparrowdo",
+  );
+
+  run @cp-cmd;
 
 }
 
@@ -79,11 +98,8 @@ sub bootstrap-docker-host ($host, %args?) is export {
     "exec",
     "-i",
     "$host",
-    "zef", 
-    "install",
-    "--/test",
-    "--force-install",
-    "https://github.com/melezhik/Sparrow6.git"
+    "sh", 
+    "/var/.sparrowdo/bootstrap.sh"
   );
 
   run @cmd;

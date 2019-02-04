@@ -15,9 +15,12 @@
     "Sparrowdo" : "lib/Sparrowdo.pm6",
     "Sparrowdo::Ssh" : "lib/Sparrowdo/Ssh.pm6",
     "Sparrowdo::Docker" : "lib/Sparrowdo/Docker.pm6",
-    "Sparrowdo::Utils" : "lib/Sparrowdo/Utils.pm6"
+    "Sparrowdo::Utils" : "lib/Sparrowdo/Utils.pm6",
+    "Sparrowdo::Bootstrap" : "lib/Sparrowdo/Bootstrap.pm6"
   },
-  "resources" : [ ],
+  "resources" : [
+    "bootstrap.sh"
+  ],
   "source-type" : "git",
   "source-url" : "https://github.com/melezhik/sparrowdo.git",
   "support" : {
