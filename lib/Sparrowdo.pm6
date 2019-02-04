@@ -2,9 +2,7 @@ use v6;
 
 unit module Sparrowdo:ver<0.1.0>;
 
-use Terminal::ANSIColor;
-
-multi sub plg-run(@plg-list) is export {
+sub plg-run(@plg-list) is export {
 
   for @plg-list -> $p {
     if $p ~~ /(\S+)\@(.*)/ {
@@ -40,6 +38,6 @@ sub module_run($name, %args = %()) is export {
       #::('Sparrowdo::' ~ $name ~ '::&tasks')(%args);
   }
 
-
 }
+
 

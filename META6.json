@@ -4,18 +4,17 @@
   ],
   "build-depends" : [ ],
   "depends" : [
-    "Terminal::ANSIColor",
-    "JSON::Tiny",
     "Config::Simple",
-    "Sparrow6",
-    "Data::Dump"
+    "Sparrow6"
   ],
-  "description" : "Configuration management tool based on sparrow plugins system",
+  "description" : "Configuration management tool",
   "license" : "Artistic-2.0",
   "name" : "Sparrowdo",
   "perl" : "6.*",
   "provides" : {
-    "Sparrowdo" : "lib/Sparrowdo.pm6"
+    "Sparrowdo" : "lib/Sparrowdo.pm6",
+    "Sparrowdo::Ssh" : "lib/Sparrowdo/Ssh.pm6",
+    "Sparrowdo::Utils" : "lib/Sparrowdo/Utils.pm6"
   },
   "resources" : [ ],
   "source-type" : "git",

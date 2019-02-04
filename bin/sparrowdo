@@ -1,8 +1,14 @@
 #!perl6
 
-use JSON::Tiny;
+
 use Sparrowdo;
+
+use Sparrowdo::Ssh;
+
+use Sparrowdo::Utils;
+
 use Sparrow6::DSL;
+
 use Config::Simple;
 
 
@@ -34,49 +40,10 @@ sub MAIN (
 
 {
 
-    my @prepare-host-cmd = (
-      "ssh",
-      "-q",
-      "-o",
-      "ConnectionAttempts=1",
-      "-o",
-      "ConnectTimeout=5",
-      "-o",
-      "UserKnownHostsFile=/dev/null",
-      "-o",
-      "StrictHostKeyChecking=no",
-      "-tt",
-      "$host",
-      "mkdir -p ~/.sparrowdo"
-    );
-
-    run @prepare-host-cmd;
-
-    my @tar-cmd = (
-      'tar',
-      '-cf',
-      "tasks.tar",
-      "sparrowfile"
-    );
-
-    run @tar-cmd;
-
-    my @scp-cmd = (
-      "scp",
-      "-q",
-      "-o",
-      "ConnectionAttempts=1",
-      "-o",
-      "ConnectTimeout=5",
-      "-o",
-      "UserKnownHostsFile=/dev/null",
-      "-o",
-      "StrictHostKeyChecking=no",
-      "tasks.tar",
-      "$host:~/sparrowdo",
-    );
-
-    run @scp-cmd;
+  
+  prepare-ssh-host($host);
+  create-tasks-archive();
+  copy-tasks-ssh-host($host);
 
     my @unpack-tasks-cmd = (
       "ssh",
@@ -109,7 +76,7 @@ sub MAIN (
       "StrictHostKeyChecking=no",
       "-tt",
       "$host",
-      "perl6 -MSparrow6::DSL ~/.sparrowdo/sparrowfile"
+      "cd  ~/.sparrowdo/ && perl6 -MSparrow6::DSL sparrowfile"
     );
 
     run @ssh-cmd;
