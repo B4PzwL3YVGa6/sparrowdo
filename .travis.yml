@@ -1,7 +1,6 @@
 env:
   global:
     - PATH=/usr/local/bin:/opt/rakudo-pkg/bin/:/home/travis/.perl6/bin:$PATH
-    - SP6_REPO=https://sparrowhub.org
 
 before_install:
   - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 379CE192D401AB61
@@ -11,9 +10,16 @@ before_install:
 install:
   - zef install --/test https://github.com/melezhik/Sparrow6.git
   - zef install --/test .
-  - docker pull jjmerelo/alpine-perl6
   - docker run --name alpine -td --entrypoint sh  jjmerelo/alpine-perl6
+  - docker run --name debian -td --entrypoint sh  debian
+  - docker run --name debian -td --entrypoint sh  ubuntu
+  - docker run --name debian -td --entrypoint sh  fedora
+  - docker run --name debian -td --entrypoint sh  centos
 
 script:
   - sparrowdo --docker=alpine --verbose --bootstrap
+  - sparrowdo --docker=debian --verbose --bootstrap
+  - sparrowdo --docker=ubuntu --verbose --bootstrap
+  - sparrowdo --docker=fedora --verbose --bootstrap
+  - sparrowdo --docker=centos --verbose --bootstrap
 
