@@ -12,9 +12,9 @@ install:
   - zef install --/test .
   - docker run --name alpine -td --entrypoint sh  jjmerelo/alpine-perl6
   - docker run --name debian -td --entrypoint sh  debian
-  - docker run --name debian -td --entrypoint sh  ubuntu
-  - docker run --name debian -td --entrypoint sh  fedora
-  - docker run --name debian -td --entrypoint sh  centos
+  - docker run --name ubuntu -td --entrypoint sh  ubuntu
+  - docker run --name fedora -td --entrypoint sh  fedora
+  - docker run --name centos -td --entrypoint sh  centos
 
 script:
   - sparrowdo --docker=alpine --verbose --bootstrap
