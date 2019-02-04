@@ -82,12 +82,17 @@ sub bootstrap-docker-host ($host, %args?) is export {
     "zef", 
     "install",
     "--/test",
+    "--force-install",
     "https://github.com/melezhik/Sparrow6.git"
   );
 
   run @cmd;
 
   @cmd = (
+    "docker",
+    "exec",
+    "-i",
+    "$host",
     "apk",
     "add",
     "perl-json",
