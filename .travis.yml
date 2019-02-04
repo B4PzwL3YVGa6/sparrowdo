@@ -12,7 +12,7 @@ install:
   - zef install --/test https://github.com/melezhik/Sparrow6.git
   - zef install --/test .
   - docker pull jjmerelo/alpine-perl6
-  - docker run -name alpine -td --entrypoint sh  jjmerelo/alpine-perl6
+  - docker run --name alpine -td --entrypoint sh  jjmerelo/alpine-perl6
 
 script:
   - sparrowdo --docker=alpine --verbose --bootstrap
