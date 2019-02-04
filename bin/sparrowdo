@@ -5,9 +5,12 @@ use Sparrowdo;
 
 use Sparrowdo::Ssh;
 
+use Sparrowdo::Docker;
+
 use Sparrowdo::Utils;
 
 use Sparrow6::DSL;
+
 
 use Config::Simple;
 
@@ -41,16 +44,33 @@ sub MAIN (
 
 {
 
-  
-  prepare-ssh-host($host,%( verbose => $verbose ));
 
-  create-tasks-archive(%( verbose => $verbose ));
+  if ($docker) {
 
-  copy-tasks-ssh-host($host,%( verbose => $verbose ));
+    bootstrap-docker-host($docker,%( verbose => $verbose )) if $bootstrap;
 
-  unpack-tasks-ssh-host($host,%( verbose => $verbose ));
+    prepare-docker-host($docker,%( verbose => $verbose ));
 
-  run-tasks-ssh-host($host,%( verbose => $verbose ));
+    create-tasks-archive(%( verbose => $verbose ));
+
+    copy-tasks-docker-host($docker,%( verbose => $verbose ));
+
+    unpack-tasks-docker-host($docker,%( verbose => $verbose ));
+
+    run-tasks-docker-host($docker,%( verbose => $verbose ));
+
+  } else {  
+
+    prepare-ssh-host($host,%( verbose => $verbose ));
+
+    create-tasks-archive(%( verbose => $verbose ));
+
+    copy-tasks-ssh-host($host,%( verbose => $verbose ));
+
+    unpack-tasks-ssh-host($host,%( verbose => $verbose ));
+
+    run-tasks-ssh-host($host,%( verbose => $verbose ));
+  }
 
 }
 

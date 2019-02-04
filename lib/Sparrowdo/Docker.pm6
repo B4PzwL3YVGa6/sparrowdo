@@ -11,7 +11,9 @@ sub prepare-docker-host ($host,%args?) is export {
     "exec",
     "-i",
     "$host",
-    "mkdir -p ~/.sparrowdo"
+    "mkdir", 
+    "-p",
+    "/var/.sparrowdo"
   );
 
   run @prepare-cmd;
@@ -27,7 +29,7 @@ sub copy-tasks-docker-host ($host,%args?) is export {
     "docker",
     "cp",
     "tasks.tar",
-    "$host:~/sparrowdo",
+    "$host:/var/.sparrowdo",
   );
 
   run @cp-cmd;
@@ -44,7 +46,11 @@ sub unpack-tasks-docker-host ($host,%args?) is export {
     "exec",
     "-i",
     "$host",
-    "tar -xf ~/.sparrowdo/tasks.tar -C ~/.sparrowdo/"
+    "tar",
+    "-xf",
+    "/var/.sparrowdo/tasks.tar",
+    "-C", 
+    "/var/.sparrowdo/"
   );
 
   run @unpack-tasks-cmd;
@@ -55,12 +61,25 @@ sub run-tasks-docker-host ($host,%args?) is export {
 
   say "[docker] run tasks" if %args<verbose>;
 
+  my $cmd = "docker exec -e SP6_DEBUG=1 -i $host sh -c 'cd  /var/.sparrowdo/ && perl6 -MSparrow6::Repository -e \"Sparrow6::Repository::Api.new.index-update\" && perl6 -MSparrow6::DSL sparrowfile'";
+
+  shell $cmd;
+
+}
+
+sub bootstrap-docker-host ($host, %args?) is export {
+
+  say "[docker] bootstrap" if %args<verbose>;
+
   my @cmd = (
     "docker",
     "exec",
     "-i",
     "$host",
-    "cd  ~/.sparrowdo/ && perl6 -MSparrow6::DSL sparrowfile"
+    "zef", 
+    "install",
+    "--/test",
+    "https://github.com/melezhik/Sparrow6.git"
   );
 
   run @cmd;
