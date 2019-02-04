@@ -9,6 +9,7 @@ before_install:
   - sudo apt-get update && sudo apt-get install rakudo-pkg
 
 install:
+  - zef install --/test https://github.com/melezhik/Sparrow6.git
   - zef install --/test .
   - docker pull jjmerelo/alpine-perl6
   - docker run alpine -name -td --entrypoint sh  jjmerelo/alpine-perl6
