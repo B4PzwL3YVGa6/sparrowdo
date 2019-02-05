@@ -1,3 +1,4 @@
 #!perl6
 
-bash "git pull origin master";
+task-run "git pull", "git-pull";
+
