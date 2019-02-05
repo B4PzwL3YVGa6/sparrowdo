@@ -7,14 +7,14 @@ case "$OS" in
     apk add --wait 120 curl perl-json bash git
   ;;
   amazon|centos|red)
-    yum -q -y install make curl perl-JSON bash redhat-lsb-core git
+    yum -q -y install make curl perl bash redhat-lsb-core git
     rm -rf /etc/yum.repos.d/rakudo-pkg.repo
     echo -e "[rakudo-pkg]\nname=rakudo-pkg\nbaseurl=https://dl.bintray.com/nxadm/rakudo-pkg-rpms/`lsb_release -is`/`lsb_release -rs| cut -d. -f1`/x86_64\ngpgcheck=0\nenabled=1" | tee -a /etc/yum.repos.d/rakudo-pkg.repo
     yum -q -y install rakudo-pkg
   ;;
   arch|archlinux)
     pacman -Syy
-    pacman -S --needed --noconfirm -q curl perl-json bash git
+    pacman -S --needed --noconfirm -q curl perl bash git
     pacman -S --needed --noconfirm -q rakudo
   ;;
   debian|ubuntu)
@@ -27,7 +27,7 @@ case "$OS" in
     apt-get update -qq && apt-get install -q -y -o Dpkg::Use-Pty=0 rakudo-pkg
   ;;
   fedora)
-    dnf -yq install curl perl-JSON bash redhat-lsb-core git
+    dnf -yq install curl perl bash redhat-lsb-core git
     rm -rf /etc/yum.repos.d/rakudo-pkg.repo
     echo -e "[rakudo-pkg]\nname=rakudo-pkg\nbaseurl=https://dl.bintray.com/nxadm/rakudo-pkg-rpms/`lsb_release -is`/`lsb_release -rs| cut -d. -f1`/x86_64\ngpgcheck=0\nenabled=1" | tee -a /etc/yum.repos.d/rakudo-pkg.repo
     dnf -yq install rakudo-pkg
