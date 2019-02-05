@@ -38,7 +38,7 @@ sub MAIN (
   Str  :$docker,
   Bool :$vagrant = False,
   Str  :$vagrant_id,
-  Str  :$cwd, 
+  Str  :$cwd,
   Str  :$conf,
        :$var
 )
@@ -46,11 +46,21 @@ sub MAIN (
 {
 
 
+  my $spf = $sparrowfile || 'sparrowfile'; # Sparrowfile to run
+
   if ($docker) {
 
     prepare-docker-host($docker,%( verbose => $verbose ));
 
-    bootstrap-docker-host($docker,%( verbose => $verbose )) if $bootstrap;
+    if $bootstrap {
+      bootstrap-docker-host($docker,%( verbose => $verbose ));
+      if ! $spf.IO.e and ! $module_run and ! $task_run { 
+        # don't try to run sparrowfile if in bootstrap mode
+        # and if sparrowfile does not exist
+        say "Congratulations!\nYour system is ready to be configured automatically using Sparrowdo!";
+        exit 0;
+      }
+    }
 
     create-tasks-archive(%( verbose => $verbose ));
 

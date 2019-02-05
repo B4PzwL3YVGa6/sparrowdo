@@ -11,5 +11,9 @@ case "$distro" in
 esac
 
 docker run --name $distro -td --entrypoint sh  $image
-sparrowdo --docker=$distro --verbose --bootstrap
+mv sparrowfile sparrowfile.off
+time sparrowdo --docker=$distro --verbose --bootstrap
+mv sparrowfile.off sparrowfile
+time sparrowdo --docker=$distro --verbose
+time sparrowdo --docker=$distro --verbose
 

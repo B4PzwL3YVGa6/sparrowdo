@@ -7,7 +7,7 @@ env:
   - distro=ubuntu
   - distro=fedora
   - distro=centos
-  - distro=archlinux
+  #- distro=archlinux
 
 
 before_install:
