@@ -14,7 +14,9 @@ install:
   - docker run --name debian -td --entrypoint sh  debian
   - docker run --name ubuntu -td --entrypoint sh  ubuntu
   - docker run --name fedora -td --entrypoint sh  fedora
-  - docker run --name centos -td --entrypoint sh  archlinux
+  - docker run --name centos -td --entrypoint sh  centos  
+  - docker run --name arch   -td --entrypoint sh  base/archlinux
+
 
 script:
   - sparrowdo --docker=alpine --verbose --bootstrap
@@ -22,5 +24,5 @@ script:
   - sparrowdo --docker=ubuntu --verbose --bootstrap
   - sparrowdo --docker=fedora --verbose --bootstrap
   - sparrowdo --docker=centos --verbose --bootstrap
-  - sparrowdo --docker=archlinux --verbose --bootstrap
+  - sparrowdo --docker=arch   --verbose --bootstrap
 
