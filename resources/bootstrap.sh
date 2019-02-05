@@ -12,6 +12,7 @@ case "$OS" in
   arch|archlinux)
     pacman -Syy
     pacman -S --needed --noconfirm -q curl perl-json bash git
+    pacman -S --needed --noconfirm -q rakudo
   ;;
   debian|ubuntu)
     DEBIAN_FRONTEND=noninteractive
