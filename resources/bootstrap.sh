@@ -1,3 +1,5 @@
+export PATH=/opt/rakudo-pkg/bin:$PATH
+
 case "$OS" in
   alpine)
     apk update --wait 120

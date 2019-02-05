@@ -82,7 +82,8 @@ sub run-tasks-docker-host ($host,%args?) is export {
 
   my $cmd = "docker exec -e SP6_REPO=http://sparrow6.southcentralus.cloudapp.azure.com";
   $cmd ~= " -e SP6_DEBUG=1" if %args<debug>;
-  $cmd ~= " -i $host sh -c 'cd  /var/.sparrowdo/ && perl6 -MSparrow6::Repository";
+  $cmd ~= " -i $host sh -c 'PATH=/opt/rakudo-pkg/bin:\$PATH";
+  $cmd ~= " cd  /var/.sparrowdo/ && perl6 -MSparrow6::Repository";
   $cmd ~= " -e \"Sparrow6::Repository::Api.new.index-update\" && perl6 -MSparrow6::DSL sparrowfile'";
 
   shell $cmd;
