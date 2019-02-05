@@ -20,5 +20,7 @@ install:
   - PATH=/usr/local/bin:/opt/rakudo-pkg/bin/:/home/travis/.perl6/bin:$PATH && zef install --/test .
 
 script:
+  - sh ./.travis.d/docker-run.sh "$distro"
+  - sh ./.travis.d/bootstrap.sh "$distro"
   - sh ./.travis.d/run.sh "$distro"
 
