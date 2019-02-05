@@ -2,10 +2,6 @@ services:
   - docker
 
 env:
-
-  global:
-    - PATH=/usr/local/bin:/opt/rakudo-pkg/bin/:/home/travis/.perl6/bin:$PATH
-
   - distro=alpine
   - distro=debian
   - distro=ubuntu
@@ -20,8 +16,8 @@ before_install:
   - sudo apt-get update && sudo apt-get install rakudo-pkg
 
 install:
-  - zef install --/test https://github.com/melezhik/Sparrow6.git
-  - zef install --/test .
+  - PATH=/usr/local/bin:/opt/rakudo-pkg/bin/:/home/travis/.perl6/bin:$PATH && zef install --/test https://github.com/melezhik/Sparrow6.git
+  - PATH=/usr/local/bin:/opt/rakudo-pkg/bin/:/home/travis/.perl6/bin:$PATH && zef install --/test .
 
 script:
   - sh ./.travis.d/run.sh "$distro"
