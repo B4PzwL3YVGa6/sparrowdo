@@ -4,7 +4,7 @@ set -e
 case "$OS" in
   alpine)
     apk update --wait 120
-    apk add --wait 120 curl perl-json bash git
+    apk add --wait 120 curl perl bash git
   ;;
   amazon|centos|red)
     yum -q -y install make curl perl bash redhat-lsb-core git
