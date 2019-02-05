@@ -16,7 +16,7 @@ case "$OS" in
   ;;
   debian|ubuntu)
     DEBIAN_FRONTEND=noninteractive
-    apt-get update
+    apt-get update -qq
     apt-get install -y -qq build-essential curl libjson-perl bash git lsb-release
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 379CE192D401AB61
     rm -rf /etc/apt/sources.list.d/rakudo-pkg.list
