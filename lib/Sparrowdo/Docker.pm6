@@ -20,7 +20,7 @@ sub prepare-docker-host ($host,%args?) is export {
 
   run @prepare-cmd;
 
-  my $path = generate-bootstrap-script();
+  my $path = generate-bootstrap-script(%args);
 
   say "[docker] copy bootstrap script" if %args<verbose>;
 

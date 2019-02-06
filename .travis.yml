@@ -22,5 +22,6 @@ install:
 script:
   - sh ./.travis.d/docker-run.sh "$distro"
   - sh ./.travis.d/bootstrap.sh "$distro"
+  - sh ./.travis.d/post-configure.sh "$distro"
   - sh ./.travis.d/run.sh "$distro"
 
