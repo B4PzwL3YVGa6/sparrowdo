@@ -6,9 +6,11 @@ bash(q:to/HERE/);
   echo three
 HERE
 
+
 bash('echo hello world');
 
 user 'foo';
+
 
 bash('pwd', 'foo');
 

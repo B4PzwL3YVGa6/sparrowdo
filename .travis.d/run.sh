@@ -9,6 +9,7 @@ if test $distro =  "ubuntu"; then
     sparrowdo --docker=$distro --verbose --sparrowfile=examples/hello-world.pl6
     sparrowdo --docker=$distro --verbose --sparrowfile=examples/asserts/sparrowfile
     sparrowdo --docker=$distro --verbose --sparrowfile=examples/asserts-http-ok/sparrowfile
+    sparrowdo --docker=$distro --verbose --sparrowfile=examples/bash/sparrowfile
 
 else
 
