@@ -1,6 +1,6 @@
 # ensure existence by PID taken from /var/run/nginx.pid
 
-if target_os() ~~ m/centos/ {
+if os() ~~ m/centos/ {
   package-install ('epel-release', 'nginx');
 } else {
   package-install ('nginx');
