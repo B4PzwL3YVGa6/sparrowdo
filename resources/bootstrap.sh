@@ -20,7 +20,7 @@ case "$OS" in
   debian|ubuntu)
     DEBIAN_FRONTEND=noninteractive
     apt-get update -q -o Dpkg::Use-Pty=0
-    apt-get install -q -y -o Dpkg::Use-Pty=0 build-essential curl libjson-perl bash git lsb-release apt-transport-https ca-certificates 
+    apt-get install -q -y -o Dpkg::Use-Pty=0 build-essential curl perl bash git lsb-release apt-transport-https ca-certificates 
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 379CE192D401AB61
     rm -rf /etc/apt/sources.list.d/rakudo-pkg.list
     echo "deb https://dl.bintray.com/nxadm/rakudo-pkg-debs `lsb_release -cs` main" | tee -a /etc/apt/sources.list.d/rakudo-pkg.list
