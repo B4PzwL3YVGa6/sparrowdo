@@ -4,7 +4,7 @@ unit module Sparrowdo::Utils;
 
 use Sparrowdo::Bootstrap;
 
-sub create-tasks-archive (%args?) is export {
+sub create-tasks-archive ($sparrowfile,%args?) is export {
 
   say "[utils] create task archive" if %args<verbose>;
 
@@ -12,10 +12,12 @@ sub create-tasks-archive (%args?) is export {
     'tar',
     '-cf',
     "tasks.tar",
-    "sparrowfile"
+    $sparrowfile
   );
 
   run @tar-cmd;
+
+  say "[utils] add $sparrowfile to archive OK" if %args<verbose>;
 
 }
 

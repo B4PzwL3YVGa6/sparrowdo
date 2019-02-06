@@ -72,15 +72,15 @@ sub unpack-tasks-docker-host ($host,%args?) is export {
 
 }
 
-sub run-tasks-docker-host ($host,%args?) is export {
+sub run-tasks-docker-host ($host,$sparrowfile,%args?) is export {
 
-  say "[docker] run tasks" if %args<verbose>;
+  say "[docker] run tasks from $sparrowfile on instance $host" if %args<verbose>;
 
   my $cmd = "docker exec -e SP6_REPO=http://sparrow6.southcentralus.cloudapp.azure.com";
   $cmd ~= " -e SP6_DEBUG=1" if %args<debug>;
   $cmd ~= " -i $host sh -c '";
   $cmd ~= " cd  /var/.sparrowdo/ && export PATH=/opt/rakudo-pkg/bin:\$PATH && perl6 -MSparrow6::Repository";
-  $cmd ~= " -e \"Sparrow6::Repository::Api.new.index-update\" && perl6 -MSparrow6::DSL sparrowfile'";
+  $cmd ~= " -e \"Sparrow6::Repository::Api.new.index-update\" && perl6 -MSparrow6::DSL $sparrowfile'";
 
   shell $cmd;
 

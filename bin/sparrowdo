@@ -48,6 +48,7 @@ sub MAIN (
 
   my $spf = $sparrowfile || 'sparrowfile'; # Sparrowfile to run
 
+
   if ($docker) {
 
     prepare-docker-host($docker,%( verbose => $verbose ));
@@ -62,17 +63,21 @@ sub MAIN (
       }
     }
 
-    create-tasks-archive(%( verbose => $verbose ));
+    die "sparrowfile $spf does not exit" unless $spf.IO ~~ :e;
+
+    create-tasks-archive($spf, %( verbose => $verbose ));
 
     copy-tasks-docker-host($docker,%( verbose => $verbose ));
 
     unpack-tasks-docker-host($docker,%( verbose => $verbose ));
 
-    run-tasks-docker-host($docker,%( verbose => $verbose, debug => $debug ));
+    run-tasks-docker-host($docker,$spf,%( verbose => $verbose, debug => $debug ));
 
   } else {  
 
-    create-tasks-archive(%( verbose => $verbose ));
+    die "sparrowfile $spf does not exit" unless $spf.IO ~~ :e;
+
+    create-tasks-archive($spf, %( verbose => $verbose ));
 
     prepare-ssh-host($host,%( verbose => $verbose ));
 
@@ -80,7 +85,7 @@ sub MAIN (
 
     unpack-tasks-ssh-host($host,%( verbose => $verbose ));
 
-    run-tasks-ssh-host($host,%( verbose => $verbose ));
+    run-tasks-ssh-host($host,$spf,%( verbose => $verbose ));
   }
 
 }

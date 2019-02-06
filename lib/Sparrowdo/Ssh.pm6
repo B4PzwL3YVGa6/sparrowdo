@@ -75,9 +75,9 @@ sub unpack-tasks-ssh-host ($host,%args?) is export {
 
 }
 
-sub run-tasks-ssh-host ($host,%args?) is export {
+sub run-tasks-ssh-host ($host,$sparrowfile,%args?) is export {
 
-  say "[ssh] run tasks" if %args<verbose>;
+  say "[ssh] run tasks from $sparrowfile on host $host" if %args<verbose>;
 
   my @ssh-cmd = (
     "ssh",
@@ -92,7 +92,7 @@ sub run-tasks-ssh-host ($host,%args?) is export {
     "StrictHostKeyChecking=no",
     "-tt",
     "$host",
-    "cd  ~/.sparrowdo/ && perl6 -MSparrow6::DSL sparrowfile"
+    "cd  ~/.sparrowdo/ && perl6 -MSparrow6::DSL $sparrowfile"
   );
 
   run @ssh-cmd;

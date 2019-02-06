@@ -1,5 +1,0 @@
-bash 'pwd';
-
-http-ok "https://sparrowhub.org";
-
-#bash "ls -l /root/sparrow6/plugins/bash/";
