@@ -8,16 +8,25 @@ sub create-tasks-archive ($sparrowfile,%args?) is export {
 
   say "[utils] create task archive" if %args<verbose>;
 
+  my @paths = ( $sparrowfile, "data", "files", "templates", "conf" ); 
+
   my @tar-cmd = (
     'tar',
     '-cf',
-    "tasks.tar",
-    $sparrowfile
+    "tasks.tar"
   );
+
+  for @paths -> $p {
+    next unless $p.IO ~~ :e;
+    @tar-cmd.push($p);
+    say "[utils] add $p to archive" if %args<verbose>;
+  }
+
+  say @tar-cmd;
 
   run @tar-cmd;
 
-  say "[utils] add $sparrowfile to archive OK" if %args<verbose>;
+  say "[utils] task archive created" if %args<verbose>;
 
 }
 
