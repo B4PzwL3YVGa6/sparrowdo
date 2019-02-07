@@ -12,7 +12,7 @@ if os() ~~ /debian || alpine / {
 }
 
 
-unless os() ~~ / centos || ubuntu || debian / {
+unless os() ~~ / ubuntu || debian / {
   say "services do not work properly on docker for this os:" ~ os();
   exit;
 }

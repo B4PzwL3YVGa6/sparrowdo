@@ -1,8 +1,13 @@
-service-start 'nginx';
+if os() ~~ / ubuntu || debian / {
 
-http-ok;
+  service-start 'nginx';
 
-http-ok %( no-proxy => True , path => '/' , port => 80 );
+  http-ok;
+
+  http-ok %( no-proxy => True , path => '/' , port => 80 );
+
+}
+
 
 http-ok 'http://sparrowhub.org', %( stdout => 'SparrowHub' );
 
