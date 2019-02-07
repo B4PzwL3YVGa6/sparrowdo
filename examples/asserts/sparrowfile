@@ -2,6 +2,7 @@
 
 if os() ~~ /centos/ {
   package-install ('epel-release', 'nginx');
+  package-install ('initscripts');
 } else {
   package-install ('nginx');
 }
@@ -11,16 +12,15 @@ if os() ~~ /debian || alpine / {
 }
 
 
+unless os() ~~ / centos || ubuntu || debian / {
+  say "services do not work properly on docker for this os:" ~ os();
+}
+
 service-start('nginx');
  
 proc-exists 'nginx';
 
-# ensure existence by footprint
-if target_os() ~~ m/minoca/ {
-  proc-exists-by-footprint 'nginx', 'nginx';
-} else {
-  proc-exists-by-footprint 'nginx', 'nginx.*master';
-}
+proc-exists-by-footprint 'nginx', 'nginx.*master';
 
 # ensure existence by footprint
 proc-exists-by-pid 'nginx', '/var/run/nginx.pid';
