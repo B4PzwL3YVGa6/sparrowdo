@@ -1,9 +1,13 @@
 # ensure existence by PID taken from /var/run/nginx.pid
 
-if os() ~~ m/centos/ {
+if os() ~~ /centos/ {
   package-install ('epel-release', 'nginx');
 } else {
   package-install ('nginx');
+}
+
+if os() ~~ /debian || alpine / {
+  package-install ('procps');
 }
 
 
