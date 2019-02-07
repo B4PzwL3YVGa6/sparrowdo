@@ -14,6 +14,7 @@ if os() ~~ /debian || alpine / {
 
 unless os() ~~ / centos || ubuntu || debian / {
   say "services do not work properly on docker for this os:" ~ os();
+  exit;
 }
 
 service-start('nginx');
