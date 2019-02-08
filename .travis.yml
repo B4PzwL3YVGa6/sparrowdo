@@ -28,3 +28,4 @@ script:
   - sh ./.travis.d/run.sh "$distro" examples/asserts-http-ok/sparrowfile
   - sh ./.travis.d/run.sh "$distro" examples/bash/sparrowfile
   - sh .travis.d/run.sh "$distro" examples/copy-local-file/sparrowfile
+  - sh .travis.d/run.sh "$distro" examples/cpan/sparrowfile

@@ -82,6 +82,8 @@ sub run-tasks-docker-host ($host,$sparrowfile,%args?) is export {
   $cmd ~= " cd  /var/.sparrowdo/ && export PATH=/opt/rakudo-pkg/bin:\$PATH && perl6 -MSparrow6::Repository";
   $cmd ~= " -e \"Sparrow6::Repository::Api.new.index-update\" && perl6 -MSparrow6::DSL $sparrowfile'";
 
+  say "[cmd] $cmd" if %args<debug>;
+
   shell $cmd;
 
 }

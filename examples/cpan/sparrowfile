@@ -1,9 +1,11 @@
-unless os() ~~ "ubuntu" {
+unless os() ~~ / ubuntu || debian || centos /  {
   say "we run cpan packages tests only in ubuntu";
   exit;
 }
 
-package-install "cpanminus";
+
+package-install "cpanminus" if  os() ~~ / ubuntu || debian /;
+package-install "perl-App-cpanminus" if  os() ~~ / centos /;
 
 #user-delete 'travis';
 
@@ -36,7 +38,7 @@ cpan-package ('Class::Tiny','Config::Tiny'), %(
     install-base => '/home/travis/cpan-test',
 );
 
-bash 'perl -MConfig::Tiny -e "print OK"', %(
+bash 'perl -MConfig::Tiny -e "print qq{OKOKOK}"', %(
   user => 'travis',
   debug => True,
   envvars => %(

@@ -22,8 +22,6 @@ sub create-tasks-archive ($sparrowfile,%args?) is export {
     say "[utils] add $p to archive" if %args<verbose>;
   }
 
-  say @tar-cmd;
-
   run @tar-cmd;
 
   say "[utils] task archive created" if %args<verbose>;
