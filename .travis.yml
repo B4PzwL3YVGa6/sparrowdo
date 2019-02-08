@@ -30,3 +30,4 @@ script:
   - sh .travis.d/run.sh "$distro" examples/copy-local-file/sparrowfile
   - sh .travis.d/run.sh "$distro" examples/cpan/sparrowfile
   - sh .travis.d/run.sh "$distro" examples/directory/sparrowfile
+  - sh .travis.d/run.sh "$distro" examples/files/sparrowfile
