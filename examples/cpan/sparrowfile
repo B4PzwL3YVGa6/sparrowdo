@@ -1,16 +1,18 @@
-unless os() ~~ / ubuntu || debian || centos || fedora /  {
+say "run on os: {os}";
+
+unless os() ~~ / ubuntu | debian | centos | fedora /  {
   say "we don't run cpan package test for this os:" ~ os();
   exit;
 }
 
 
-if  os() ~~ / ubuntu || debian / {
+if  os() ~~ / ubuntu | debian | fedora / {
 
   # package-install "cpanminus" takes awhile in ubuntu/debian
   # so this is just quick and dirty workaround
   # to install cpanm  
 
-  bash "curl -L https://cpanmin.us/ -o /bin/cpanm";
+  bash "curl -sL https://cpanmin.us/ -o /bin/cpanm";
   bash "chmod a+x /bin/cpanm";
 
 }
