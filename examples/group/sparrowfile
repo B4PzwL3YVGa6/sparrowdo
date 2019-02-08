@@ -1,4 +1,4 @@
-group-create 'sparrows';
-group-delete 'sparrows';
-group 'sparrows';
-group 'sparrows' , %( action => 'delete' );
+group-create 'birds';
+group-delete 'birds';
+group 'birds';
+group 'birds' , %( action => 'delete' );

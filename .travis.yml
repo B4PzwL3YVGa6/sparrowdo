@@ -32,3 +32,4 @@ script:
   - sh .travis.d/run.sh "$distro" examples/directory/sparrowfile
   - sh .travis.d/run.sh "$distro" examples/files/sparrowfile
   - sh .travis.d/run.sh "$distro" examples/git/sparrowfile
+  - sh .travis.d/run.sh "$distro" examples/group/sparrowfile
