@@ -1,3 +1,10 @@
+unless os() ~~ "ubuntu" {
+  say "we run cpan packages tests only in ubuntu";
+  exit;
+}
+
+package-install "cpanminus";
+
 #user-delete 'travis';
 
 user-create 'travis';
@@ -29,3 +36,10 @@ cpan-package ('Class::Tiny','Config::Tiny'), %(
     install-base => '/home/travis/cpan-test',
 );
 
+bash 'perl -MConfig::Tiny -e "print OK"', %(
+  user => 'travis',
+  debug => True,
+  envvars => %(
+    PERL5LIB => "/home/travis/cpan-test/lib/perl5"
+  )
+)
