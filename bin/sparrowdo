@@ -48,6 +48,12 @@ sub MAIN (
 
   my $spf = $sparrowfile || 'sparrowfile'; # Sparrowfile to run
 
+  my $path-to-config = $conf || "config.pl6";
+
+  if $conf && ! ( $path-to-config.IO ~~ :e ) {
+    die "configuration file $path-to-config does not exist";
+  }
+
 
   if ($docker) {
 
@@ -71,7 +77,7 @@ sub MAIN (
 
     unpack-tasks-docker-host($docker,%( verbose => $verbose ));
 
-    run-tasks-docker-host($docker,$spf,%( verbose => $verbose, debug => $debug ));
+    run-tasks-docker-host($docker,$spf,%( config => $path-to-config, verbose => $verbose, debug => $debug ));
 
   } else {  
 

@@ -1,7 +1,8 @@
 use v6;
 
 unit module Sparrowdo::Bootstrap;
-use Sparrow6::Common::Helpers;
+
+use Sparrow6::Common::Config;
 
 sub bootstrap-script () is export {
 

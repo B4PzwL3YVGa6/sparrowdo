@@ -8,7 +8,7 @@ sub create-tasks-archive ($sparrowfile,%args?) is export {
 
   say "[utils] create task archive" if %args<verbose>;
 
-  my @paths = ( $sparrowfile, "data", "files", "templates", "conf" ); 
+  my @paths = ( $sparrowfile, "config.pl6", "data", "files", "templates", "conf" ); 
 
   my @tar-cmd = (
     'tar',
