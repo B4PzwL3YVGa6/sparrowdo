@@ -77,10 +77,11 @@ sub run-tasks-docker-host ($host,$sparrowfile,%args?) is export {
   say "[docker] run tasks from $sparrowfile on instance $host" if %args<verbose>;
   say "[docker] configuration file: {%args<config>||'not set'}" if %args<verbose>;
 
-  my $cmd = "docker exec -e SP6_REPO=http://sparrow6.southcentralus.cloudapp.azure.com";
+  my $cmd = "docker exec";
 
   $cmd ~= " -e SP6_CONFIG={%args<config>}" if %args<config>;
-  $cmd ~= " -e SP6_DEBUG=1" if %args<debug>;
+  $cmd ~= " -e SP6_DEBUG=1" if %args<debug> or %*ENV<SP6_DEBUG>;
+  $cmd ~= " -e SP6_REPO={%*ENV<SP6_REPO>}" if %*ENV<SP6_REPO>;
   $cmd ~= " -i $host sh -c '";
   $cmd ~= " cd  /var/.sparrowdo/ && export PATH=/opt/rakudo-pkg/bin:\$PATH";
   $cmd ~= " && perl6 -MSparrow6::Repository";

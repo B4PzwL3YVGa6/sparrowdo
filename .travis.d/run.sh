@@ -1,5 +1,7 @@
 set -e
 
+export SP6_REPO=http://sparrow6.southcentralus.cloudapp.azure.com
+
 distro=$1
 
 sparrowfile=$2
